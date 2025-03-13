@@ -1,8 +1,8 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { isPlatformServer } from '@angular/common';
-import { Observable, of } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { tap, map, catchError, switchMap } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 
@@ -13,28 +13,39 @@ export class AuthGuard implements CanActivate {
   private platformId = inject(PLATFORM_ID);
   private userService = inject(UserService);
   private router = inject(Router);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
 
-  public canActivate(): boolean | Observable<boolean> {
-    if (isPlatformServer(this.platformId)) return true;
+  public canActivate(): Observable<boolean> {
+    if (isPlatformServer(this.platformId)) return of(false);
     const user = this.userService.getCurrentData();
-    if (user) return true;
+
+    if (user) return of(true);
     return this.connectUser();
   }
 
-  private connectUser(): boolean | Observable<boolean> {
-    if (!localStorage) return true;
+  private connectUser(): Observable<boolean> {
+    if (!localStorage) return of(true);
+
     const token = localStorage.getItem('token');
-    if (!token) {
-      this.router.navigate(['access']);
-      return of(true);
-    }
+    if (!token) return of(!this.router.navigate(['access']));
+
+    this.loadingSubject.next(true);
+
     return this.userService.decodeToken(token).pipe(
       tap((user: User) => this.userService.updateData(user)),
-      map(() => true),
+      map(() => {
+        this.loadingSubject.next(false);
+        return true;
+      }),
       catchError(() => {
+        this.loadingSubject.next(false);
         this.router.navigate(['access']);
-        return of(true);
+        return of(false);
       })
     );
+  }
+
+  public get loading$(): Observable<boolean> {
+    return this.loadingSubject.asObservable();
   }
 }
