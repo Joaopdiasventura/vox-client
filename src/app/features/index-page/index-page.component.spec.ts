@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FindGroupComponent } from './find-group.component';
+import { IndexPageComponent } from './index-page.component';
 
-describe('FindGroupComponent', () => {
-  let component: FindGroupComponent;
-  let fixture: ComponentFixture<FindGroupComponent>;
+describe('IndexPageComponent', () => {
+  let component: IndexPageComponent;
+  let fixture: ComponentFixture<IndexPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FindGroupComponent]
+      imports: [IndexPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FindGroupComponent);
+    fixture = TestBed.createComponent(IndexPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

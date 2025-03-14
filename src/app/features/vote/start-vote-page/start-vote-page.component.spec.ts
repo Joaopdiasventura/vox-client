@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StartVoteComponent } from './start-vote.component';
+import { StartVotePageComponent } from './start-vote-page.component';
 
-describe('StartVoteComponent', () => {
-  let component: StartVoteComponent;
-  let fixture: ComponentFixture<StartVoteComponent>;
+describe('StartVotePageComponent', () => {
+  let component: StartVotePageComponent;
+  let fixture: ComponentFixture<StartVotePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StartVoteComponent]
+      imports: [StartVotePageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StartVoteComponent);
+    fixture = TestBed.createComponent(StartVotePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

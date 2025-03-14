@@ -13,7 +13,7 @@ import { UserService } from '../../../core/services/user.service';
 import { WebSocketService } from '../../../core/services/websocket.service';
 
 @Component({
-  selector: 'app-follow-vote',
+  selector: 'app-follow-vote-page',
   imports: [
     LoadingComponent,
     HeaderComponent,
@@ -21,10 +21,10 @@ import { WebSocketService } from '../../../core/services/websocket.service';
     ButtonComponent,
     FormsModule,
   ],
-  templateUrl: './follow-vote.component.html',
-  styleUrl: './follow-vote.component.scss',
+  templateUrl: './follow-vote-page.component.html',
+  styleUrl: './follow-vote-page.component.scss',
 })
-export class FollowVoteComponent implements OnInit, OnDestroy {
+export class FollowVotePageComponent implements OnInit, OnDestroy {
   public isLoading: boolean = true;
   public currentUser: User | null = null;
   public currentGroups: Group[] = [];

@@ -12,12 +12,12 @@ import { ParticipantService } from '../../../core/services/participant.service';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
-  selector: 'app-find-group',
+  selector: 'app-find-group-page',
   imports: [HeaderComponent, ListComponent, LoadingComponent],
-  templateUrl: './find-group.component.html',
-  styleUrls: ['./find-group.component.scss'],
+  templateUrl: './find-group-page.component.html',
+  styleUrl: './find-group-page.component.scss',
 })
-export class FindGroupComponent implements OnInit {
+export class FindGroupPageComponent implements OnInit {
   public id: string = '';
   public type: string = '';
 

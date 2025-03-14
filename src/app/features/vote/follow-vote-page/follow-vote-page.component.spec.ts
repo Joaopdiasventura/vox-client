@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddParticipantComponent } from './add-participant.component';
+import { FollowVotePageComponent } from './follow-vote-page.component';
 
-describe('AddParticipantComponent', () => {
-  let component: AddParticipantComponent;
-  let fixture: ComponentFixture<AddParticipantComponent>;
+describe('FollowVotePageComponent', () => {
+  let component: FollowVotePageComponent;
+  let fixture: ComponentFixture<FollowVotePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddParticipantComponent]
+      imports: [FollowVotePageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddParticipantComponent);
+    fixture = TestBed.createComponent(FollowVotePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -11,7 +11,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
-  selector: 'app-access',
+  selector: 'app-access-page',
   imports: [
     LoadingComponent,
     ModalComponent,
@@ -19,10 +19,10 @@ import { UserService } from '../../../core/services/user.service';
     ButtonComponent,
     FormsModule,
   ],
-  templateUrl: './access.component.html',
-  styleUrl: './access.component.scss',
+  templateUrl: './access-page.component.html',
+  styleUrl: './access-page.component.scss',
 })
-export class AccessComponent {
+export class AccessPageComponent {
   public isInLogin: boolean = true;
   public isLoading: boolean = false;
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FollowVoteComponent } from './follow-vote.component';
+import { AccessPageComponent } from './access-page.component';
 
-describe('FollowVoteComponent', () => {
-  let component: FollowVoteComponent;
-  let fixture: ComponentFixture<FollowVoteComponent>;
+describe('AccessPageComponent', () => {
+  let component: AccessPageComponent;
+  let fixture: ComponentFixture<AccessPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FollowVoteComponent]
+      imports: [AccessPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FollowVoteComponent);
+    fixture = TestBed.createComponent(AccessPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

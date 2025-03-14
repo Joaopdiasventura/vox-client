@@ -25,7 +25,7 @@ import { VoteService } from '../../../core/services/vote.service';
 import { WebSocketService } from '../../../core/services/websocket.service';
 
 @Component({
-  selector: 'app-start-vote',
+  selector: 'app-start-vote-page',
   imports: [
     LoadingComponent,
     HeaderComponent,
@@ -34,10 +34,10 @@ import { WebSocketService } from '../../../core/services/websocket.service';
     ButtonComponent,
     FormsModule,
   ],
-  templateUrl: './start-vote.component.html',
-  styleUrl: './start-vote.component.scss',
+  templateUrl: './start-vote-page.component.html',
+  styleUrl: './start-vote-page.component.scss',
 })
-export class StartVoteComponent implements OnInit, OnDestroy {
+export class StartVotePageComponent implements OnInit, OnDestroy {
   public isLoading: boolean = true;
   public currentUser: User | null = null;
   public currentGroups: Group[] = [];

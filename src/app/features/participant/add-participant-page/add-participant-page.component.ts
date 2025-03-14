@@ -1,18 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AccessInputComponent } from '../../../shared/components/inputs/access-input/access-input.component';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 import { ModalComponent } from '../../../shared/components/modals/modal/modal.component';
 import { FormsModule } from '@angular/forms';
-import { CreateGroupDto } from '../../../shared/dto/group/create-group.dto';
 import { User } from '../../../core/models/user';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { Group } from '../../../core/models/group';
+import { CreateParticipantDto } from '../../../shared/dto/participant/create-participant.dto';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { GroupService } from '../../../core/services/group.service';
+import { ParticipantService } from '../../../core/services/participant.service';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
-  selector: 'app-add-group',
+  selector: 'app-add-participant-page',
   imports: [
     LoadingComponent,
     ModalComponent,
@@ -21,17 +22,17 @@ import { UserService } from '../../../core/services/user.service';
     ButtonComponent,
     FormsModule,
   ],
-  templateUrl: './add-group.component.html',
-  styleUrl: './add-group.component.scss',
+  templateUrl: './add-participant-page.component.html',
+  styleUrl: './add-participant-page.component.scss',
 })
-export class AddGroupComponent {
-  public isLoading: boolean = false;
+export class AddParticipantPageComponent implements OnInit {
+  public isLoading: boolean = true;
   public currentUser: User | null = null;
   public currentGroups: Group[] = [];
 
-  public createGroupDto: CreateGroupDto = {
+  public createParticipant: CreateParticipantDto = {
     name: '',
-    user: '',
+    group: '',
   };
 
   public modalConfig = {
@@ -43,6 +44,7 @@ export class AddGroupComponent {
 
   private userService = inject(UserService);
   private groupService = inject(GroupService);
+  private participantService = inject(ParticipantService);
 
   public ngOnInit(): void {
     const user = this.userService.getCurrentData();
@@ -50,26 +52,36 @@ export class AddGroupComponent {
   }
 
   public create() {
-    if (this.createGroupDto.name.length == 0)
-      return document.getElementById('create-name-input')?.focus();
+    if (this.createParticipant.name.length == 0) {
+      document.getElementById('create-name-input')?.focus();
+      return;
+    }
 
-    if (this.createGroupDto.group == 'null') delete this.createGroupDto.group;
+    if (this.createParticipant.group == 'null') {
+      this.modalConfig = {
+        title: 'ERRO',
+        children: 'Escolha um grupo para esse participante',
+        onClose: () => (this.modalConfig.isVisible = false),
+        isVisible: true,
+      };
+      return;
+    }
 
     this.isLoading = true;
-    this.groupService.create(this.createGroupDto).subscribe({
+    this.participantService.create(this.createParticipant).subscribe({
       next: (result) => {
         this.modalConfig = {
           isVisible: true,
           title: 'SUCESSO',
           children: result.message,
           onClose: () => {
-            this.createGroupDto.name = '';
-            this.createGroupDto.group = 'null';
-            this.createGroupDto.user = this.currentUser?._id || '';
+            this.createParticipant = {
+              name: '',
+              group: '',
+            };
             this.modalConfig.isVisible = false;
           },
         };
-        this.findGroups(this.currentUser?._id || '');
       },
       error: (error) => {
         this.modalConfig = {
@@ -85,7 +97,7 @@ export class AddGroupComponent {
 
   public changeSelect(e: Event) {
     const selectElement = e.target as HTMLSelectElement;
-    this.createGroupDto.group = selectElement.value;
+    this.createParticipant.group = selectElement.value;
   }
 
   private handleUserChange(user: User | null) {
@@ -96,7 +108,7 @@ export class AddGroupComponent {
 
   private findGroups(user: string) {
     this.isLoading = true;
-    this.groupService.findAllWithoutParticipants(user).subscribe({
+    this.groupService.findAllWithoutSubGroups(user).subscribe({
       next: (result) => (this.currentGroups = result),
       complete: () => (this.isLoading = false),
     });

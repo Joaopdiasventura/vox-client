@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccessComponent } from './access.component';
+import { AddGroupPageComponent } from './add-group-page.component';
 
-describe('AccessComponent', () => {
-  let component: AccessComponent;
-  let fixture: ComponentFixture<AccessComponent>;
+describe('AddGroupPageComponent', () => {
+  let component: AddGroupPageComponent;
+  let fixture: ComponentFixture<AddGroupPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccessComponent]
+      imports: [AddGroupPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AccessComponent);
+    fixture = TestBed.createComponent(AddGroupPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
