@@ -32,7 +32,7 @@ export class AddParticipantPageComponent implements OnInit {
 
   public createParticipant: CreateParticipantDto = {
     name: '',
-    group: '',
+    group: 'null',
   };
 
   public modalConfig = {

@@ -91,6 +91,7 @@ export class AddGroupPageComponent implements OnInit {
   private handleUserChange(user: User | null) {
     this.currentUser = user;
     if (!user) return;
+    this.createGroupDto.user = user._id;
     this.findGroups(user._id);
   }
 
