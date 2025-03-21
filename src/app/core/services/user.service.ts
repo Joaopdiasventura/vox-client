@@ -13,16 +13,6 @@ export class UserService {
   private http = inject(HttpClient);
   private readonly apiUrl = API_URL + '/user';
 
-  private userDataSource = new BehaviorSubject<User | null>(null);
-
-  public getCurrentData(): User | null {
-    return this.userDataSource.value;
-  }
-
-  public updateData(data: User | null) {
-    this.userDataSource.next(data);
-  }
-
   public create(createUserDto: CreateUserDto) {
     return this.http.post<AuthMessage>(this.apiUrl, createUserDto);
   }

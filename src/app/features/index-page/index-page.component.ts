@@ -7,7 +7,7 @@ import { ListComponent } from '../../shared/components/list/list.component';
 import { forkJoin, Observable } from 'rxjs';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { GroupService } from '../../core/services/group.service';
-import { UserService } from '../../core/services/user.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-index-page',
@@ -23,13 +23,14 @@ export class IndexPageComponent implements OnInit {
   public isLoading: boolean = false;
   public isMenuOpen: boolean = false;
 
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
   private groupService = inject(GroupService);
   private router = inject(Router);
 
   public ngOnInit(): void {
-    const user = this.userService.getCurrentData();
-    this.handleUserChange(user);
+    this.authService
+      .connectUser()
+      .subscribe((result) => this.handleUserConnection(result));
   }
 
   public findNextGroups(page: number): Observable<Group[]> {
@@ -49,12 +50,11 @@ export class IndexPageComponent implements OnInit {
   }
 
   public logOut() {
-    localStorage.removeItem('token');
-    this.userService.updateData(null);
+    this.authService.disconnectUser();
     this.router.navigate(['access']);
   }
 
-  private handleUserChange(user: User | null) {
+  private handleUserConnection(user: User | null) {
     this.currentUser = user;
     if (!user) return;
     this.findFirstsGroups(user._id);

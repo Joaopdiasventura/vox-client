@@ -10,7 +10,7 @@ import { CreateParticipantDto } from '../../../shared/dto/participant/create-par
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { GroupService } from '../../../core/services/group.service';
 import { ParticipantService } from '../../../core/services/participant.service';
-import { UserService } from '../../../core/services/user.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-add-participant-page',
@@ -42,13 +42,14 @@ export class AddParticipantPageComponent implements OnInit {
     onClose: () => {},
   };
 
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
   private groupService = inject(GroupService);
   private participantService = inject(ParticipantService);
 
   public ngOnInit(): void {
-    const user = this.userService.getCurrentData();
-    this.handleUserChange(user);
+    this.authService
+      .connectUser()
+      .subscribe((result) => this.handleUserConnection(result));
   }
 
   public create() {
@@ -100,7 +101,7 @@ export class AddParticipantPageComponent implements OnInit {
     this.createParticipant.group = selectElement.value;
   }
 
-  private handleUserChange(user: User | null) {
+  private handleUserConnection(user: User | null) {
     this.currentUser = user;
     if (!user) return;
     this.findGroups(user._id);

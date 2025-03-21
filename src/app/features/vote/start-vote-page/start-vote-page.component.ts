@@ -23,6 +23,7 @@ import { ParticipantService } from '../../../core/services/participant.service';
 import { UserService } from '../../../core/services/user.service';
 import { VoteService } from '../../../core/services/vote.service';
 import { WebSocketService } from '../../../core/services/websocket.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-start-vote-page',
@@ -60,6 +61,7 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
 
   private socket!: Socket;
 
+  private authService = inject(AuthService);
   private webSocketService = inject(WebSocketService);
   private userService = inject(UserService);
   private voteService = inject(VoteService);
@@ -74,8 +76,9 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    const user = this.userService.getCurrentData();
-    this.handleUserChange(user);
+    this.authService
+      .connectUser()
+      .subscribe((result) => this.handleUserConnection(result));
   }
 
   public ngOnDestroy(): void {
@@ -124,12 +127,11 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
   }
 
   public logOut() {
-    localStorage.removeItem('token');
-    this.userService.updateData(null);
+    this.authService.disconnectUser()
     this.router.navigate(['access']);
   }
 
-  private handleUserChange(user: User | null) {
+  private handleUserConnection(user: User | null) {
     this.currentUser = user;
     if (!user) return;
     this.connectToWebSocket();

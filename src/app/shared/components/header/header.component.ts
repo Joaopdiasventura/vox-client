@@ -1,3 +1,4 @@
+import { AuthService } from './../../../core/services/auth.service';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
@@ -10,8 +11,6 @@ import { UserService } from '../../../core/services/user.service';
 })
 export class HeaderComponent {
   public isMenuOpen: boolean = false;
-
-  private userService = inject(UserService);
   private router = inject(Router);
 
   public navigate(path: string[]) {
@@ -19,8 +18,6 @@ export class HeaderComponent {
   }
 
   public logOut() {
-    localStorage.removeItem('token');
-    this.userService.updateData(null);
     this.router.navigate(['access']);
   }
 

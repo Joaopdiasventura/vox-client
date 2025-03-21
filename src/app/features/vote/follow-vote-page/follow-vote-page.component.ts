@@ -9,8 +9,8 @@ import { VoteResult } from '../../../shared/interfaces/vote-result';
 import { AccessInputComponent } from '../../../shared/components/inputs/access-input/access-input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { GroupService } from '../../../core/services/group.service';
-import { UserService } from '../../../core/services/user.service';
 import { WebSocketService } from '../../../core/services/websocket.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-follow-vote-page',
@@ -37,16 +37,17 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
 
   private socket!: Socket;
 
-  private webSocketService = inject(WebSocketService);
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
   private groupService = inject(GroupService);
+  private webSocketService = inject(WebSocketService);
 
   public ngOnInit(): void {
-    const user = this.userService.getCurrentData();
-    this.handleUserChange(user);
+    this.authService
+      .connectUser()
+      .subscribe((result) => this.handleUserConnection(result));
   }
 
-  private handleUserChange(user: User | null) {
+  private handleUserConnection(user: User | null) {
     this.currentUser = user;
     if (!user) return;
     this.connectToWebSocket();
@@ -57,18 +58,18 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
     if (this.socket) this.socket.disconnect();
   }
 
-  connectToWebSocket() {
+  private connectToWebSocket() {
     this.socket = this.webSocketService.connect();
   }
 
-  findGroups(user: string) {
+  private findGroups(user: string) {
     this.groupService.findAllWithParticipants(user).subscribe({
       next: (result) => (this.currentGroups = result),
       complete: () => (this.isLoading = false),
     });
   }
 
-  changeSelect(e: Event) {
+  public changeSelect(e: Event) {
     const selectElement = e.target as HTMLSelectElement;
     const group = this.currentGroups.find((g) => g._id == selectElement.value);
     if (!group) return;
@@ -81,7 +82,7 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
     });
   }
 
-  changeTable(participant: string) {
+  public changeTable(participant: string) {
     const index = this.voteResult.participants.findIndex(
       (p) => p._id == participant
     );
@@ -89,7 +90,7 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
     this.voteResult.participants.sort((a, b) => b.votes - a.votes);
   }
 
-  allowVote() {
+  public allowVote() {
     this.socket.emit('allow-vote', this.urn);
   }
 }

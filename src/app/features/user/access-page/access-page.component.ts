@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { AuthService } from './../../../core/services/auth.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { AccessInputComponent } from '../../../shared/components/inputs/access-input/access-input.component';
 import { CreateUserDto } from '../../../shared/dto/user/create-user.dto';
 import { LoginUserDto } from '../../../shared/dto/user/login-user.dto';
@@ -22,7 +23,7 @@ import { UserService } from '../../../core/services/user.service';
   templateUrl: './access-page.component.html',
   styleUrl: './access-page.component.scss',
 })
-export class AccessPageComponent {
+export class AccessPageComponent implements OnInit {
   public isInLogin: boolean = true;
   public isLoading: boolean = false;
 
@@ -44,8 +45,13 @@ export class AccessPageComponent {
     onClose: () => {},
   };
 
+  private authService = inject(AuthService);
   private userService = inject(UserService);
   private router = inject(Router);
+
+  ngOnInit(): void {
+    this.authService.disconnectUser();
+  }
 
   public changeMethod() {
     this.isInLogin = !this.isInLogin;
@@ -67,7 +73,7 @@ export class AccessPageComponent {
           onClose: () => this.router.navigate(['../']),
         };
         localStorage.setItem('token', result.token);
-        this.userService.updateData(result.user);
+        this.authService.updateUserData(result.user);
         this.isLoading = false;
       },
       error: (error: HttpErrorResponse) => {
@@ -104,7 +110,7 @@ export class AccessPageComponent {
           onClose: () => this.router.navigate(['../']),
         };
         localStorage.setItem('token', result.token);
-        this.userService.updateData(result.user);
+        this.authService.updateUserData(result.user);
         this.isLoading = false;
       },
       error: (error: HttpErrorResponse) => {

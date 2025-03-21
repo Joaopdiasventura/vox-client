@@ -1,6 +1,6 @@
+import { AuthService } from './core/services/auth.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @Component({
@@ -12,11 +12,11 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
 export class AppComponent implements OnInit {
   public isLoading: boolean = false;
 
-  private authGuard = inject(AuthGuard);
+  private authService = inject(AuthService);
 
   public ngOnInit(): void {
-    this.authGuard.loading$.subscribe({
-      next: (loading: boolean) => (this.isLoading = loading),
-    });
+    this.authService.loading$.subscribe((loading: boolean) =>
+      setTimeout(() => (this.isLoading = loading), 0)
+    );
   }
 }

@@ -9,7 +9,7 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
 import { Group } from '../../../core/models/group';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { GroupService } from '../../../core/services/group.service';
-import { UserService } from '../../../core/services/user.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-add-group-page',
@@ -41,12 +41,13 @@ export class AddGroupPageComponent implements OnInit {
     onClose: () => {},
   };
 
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
   private groupService = inject(GroupService);
 
   public ngOnInit(): void {
-    const user = this.userService.getCurrentData();
-    this.handleUserChange(user);
+    this.authService
+      .connectUser()
+      .subscribe((result) => this.handleUserConnection(result));
   }
 
   public create() {
@@ -88,7 +89,7 @@ export class AddGroupPageComponent implements OnInit {
     this.createGroupDto.group = selectElement.value;
   }
 
-  private handleUserChange(user: User | null) {
+  private handleUserConnection(user: User | null) {
     this.currentUser = user;
     if (!user) return;
     this.createGroupDto.user = user._id;

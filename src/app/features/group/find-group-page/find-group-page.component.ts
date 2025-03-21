@@ -9,7 +9,7 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
 import { ListComponent } from '../../../shared/components/list/list.component';
 import { GroupService } from '../../../core/services/group.service';
 import { ParticipantService } from '../../../core/services/participant.service';
-import { UserService } from '../../../core/services/user.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-find-group-page',
@@ -32,15 +32,16 @@ export class FindGroupPageComponent implements OnInit {
 
   public isLoading: boolean = false;
 
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
   private groupService = inject(GroupService);
   private participantService = inject(ParticipantService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
   public ngOnInit(): void {
-    const user = this.userService.getCurrentData();
-    this.handleUserChange(user);
+    this.authService
+      .connectUser()
+      .subscribe((result) => this.handleUserConnection(result));
   }
 
   public findNextSubGroups(page: number) {
@@ -66,7 +67,7 @@ export class FindGroupPageComponent implements OnInit {
     this.participantService.delete(id).subscribe();
   }
 
-  private handleUserChange(user: User | null) {
+  private handleUserConnection(user: User | null) {
     this.currentUser = user;
     this.id = this.route.snapshot.paramMap.get('id') as string;
     this.findAllData();
@@ -78,7 +79,6 @@ export class FindGroupPageComponent implements OnInit {
   }
 
   private findGroup() {
-    this.isLoading = true;
     this.groupService.findById(this.id).subscribe({
       next: (result) => (this.currentGroup = result),
       complete: () => (this.isLoading = false),
