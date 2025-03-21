@@ -1,28 +1,36 @@
-@use "../../../../styles.scss" as styles;
-
-.loading-spinner {
+.spinner-container {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 100vw;
   height: 100vh;
+  overflow: hidden;
 
-  .spinner {
-    border-radius: 50%;
+  .spinn-root {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: conic-gradient(styles.$background-color, styles.$primary-color);
-    background-clip: content-box;
-    animation: spin 1s linear infinite;
+    animation: circular-rotate 1.4s ease-in-out infinite;
 
-    .mid {
-      border-radius: 50%;
-      background-color: styles.$background-color;
+    .spinn-svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 10vh;
+      height: 10vh;
+
+      .spinn-circle {
+        transition: stroke-dashoffset 0.35s;
+        transform-origin: center;
+        stroke-dasharray: 80px, 200px;
+        stroke-dashoffset: 0;
+        animation: circular-dash 1.4s ease-in-out infinite;
+      }
     }
   }
 }
 
-@keyframes spin {
+@keyframes circular-rotate {
   0% {
     transform: rotate(0deg);
   }
@@ -31,34 +39,24 @@
   }
 }
 
-@media (min-width: 1024px) {
-  .loading-spinner {
-    .spinner {
-      width: 4vw;
-      height: 4vw;
-      box-shadow: 0 0 0.3vw styles.$primary-color;
-
-      .mid {
-        width: 2vw;
-        height: 2vw;
-        box-shadow: 0 0 0.3vw styles.$primary-color;
-      }
-    }
+@keyframes circular-dash {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+  100% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: -133px;
   }
 }
 
-@media (max-width: 1024px) {
-  .loading-spinner {
-    .spinner {
-      width: 4vh;
-      height: 4vh;
-      box-shadow: 0 0 0.3vh styles.$primary-color;
-
-      .mid {
-        width: 2vh;
-        height: 2vh;
-        box-shadow: 0 0 0.3vh styles.$primary-color;
-      }
-    }
+@media (min-width: 768px) {
+  .spinn-svg {
+    width: 5vw;
+    height: 5vw;
   }
 }
