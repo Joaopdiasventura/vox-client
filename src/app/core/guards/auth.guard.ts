@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
   private router = inject(Router);
 
   public canActivate(): Observable<boolean> {
-    if (isPlatformServer(this.platformId)) return of(true);
+    if (isPlatformServer(this.platformId)) return of(false);
     return this.authService
       .connectUser()
       .pipe(

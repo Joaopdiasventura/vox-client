@@ -1,7 +1,6 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
-import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { UserService } from './user.service';
 
@@ -31,8 +30,8 @@ export class AuthService {
     this.loadingSubject.next(true);
 
     return this.userService.decodeToken(token).pipe(
-      tap((result) => this.updateUserData(result)),
       map((result) => {
+        this.updateUserData(result);
         this.loadingSubject.next(false);
         return result;
       }),

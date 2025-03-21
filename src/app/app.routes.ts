@@ -9,7 +9,7 @@ import { StartVotePageComponent } from './features/vote/start-vote-page/start-vo
 import { FollowVotePageComponent } from './features/vote/follow-vote-page/follow-vote-page.component';
 
 export const routes: Routes = [
-  { path: '', component: IndexPageComponent },
+  { path: '', component: IndexPageComponent, canActivate: [AuthGuard] },
   { path: 'access', component: AccessPageComponent },
   {
     path: 'group/add',
@@ -19,6 +19,7 @@ export const routes: Routes = [
   {
     path: 'group/:id',
     component: FindGroupPageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'participant/add',
