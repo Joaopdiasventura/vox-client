@@ -40,13 +40,13 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
   public currentUser: User | null = null;
   public currentGroups: Group[] = [];
 
-  public selectedGroups: Group[] = [];
+  public selectedGroup: Group | null = null;
   public selectedParticipants: Participant[] = [];
 
   public simpleId: string = '';
   public status: VoteStatus = 'selecting';
 
-  public votes: CreateVoteDto[] = [];
+  public currentVote!: CreateVoteDto;
 
   public modalConfig = {
     isVisible: false,
@@ -80,16 +80,16 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
     if (this.socket) this.socket.disconnect();
   }
 
-  public changeSelect(e: Event, position: 0 | 1) {
+  public changeSelect(e: Event) {
     const selectElement = e.target as HTMLSelectElement;
     const group = this.currentGroups.find((g) => g._id == selectElement.value);
     if (!group) return;
-    this.selectedGroups[position] = group;
-    this.findParticipants(this.selectedGroups[position]._id);
+    this.selectedGroup = group;
+    this.findParticipants(this.selectedGroup._id);
   }
 
   public startVote() {
-    if (!this.selectedGroups[0] && !this.selectedGroups[1]) {
+    if (!this.selectedGroup && !this.selectedGroup) {
       this.modalConfig.children = 'SELECIONE PELO MENOS UM GRUPO';
       this.modalConfig.onClose = () => (this.modalConfig.isVisible = false);
       this.modalConfig.isVisible = true;
@@ -98,19 +98,20 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
     this.status = 'occurring';
   }
 
-  public addVote(position: 0 | 1, participant: string) {
-    this.votes[position] = { participant };
+  public addVote(participant: string) {
+    this.currentVote = { participant };
   }
 
   public vote() {
-    for (let i = 0; i < this.votes.length; i++) {
-      this.socket.emit(`send-vote`, {
-        ...this.votes[i],
-        group: this.selectedGroups[i]._id,
-      });
-      if (this.votes[i].participant != 'null')
-        this.voteService.create(this.votes[i]).subscribe();
-    }
+    if (!this.selectedGroup) return;
+    this.socket.emit(`send-vote`, {
+      ...this.currentVote,
+      group: this.selectedGroup._id,
+    });
+
+    if (this.currentVote.participant != 'null')
+      this.voteService.create(this.currentVote).subscribe();
+
     this.status = 'blocked';
   }
 
