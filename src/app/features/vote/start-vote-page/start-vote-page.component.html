@@ -18,8 +18,8 @@
         <select
           name="group"
           id="group"
-          [value]="selectedGroups[0] ? selectedGroups[0]._id : 'null'"
-          (change)="changeSelect($event, 0)"
+          [value]="selectedGroup ? selectedGroup._id : 'null'"
+          (change)="changeSelect($event)"
         >
           <option value="null">NENHUM</option>
           @for (group of currentGroups; track $index) {
@@ -36,9 +36,9 @@
 } @else if(status == "occurring") {
 <div class="screen">
   <div class="vote-container">
-    @if(selectedGroups[0]){
+    @if(selectedGroup){
     <div class="group-container">
-      <h3>{{ selectedGroups[0].name }}</h3>
+      <h3>{{ selectedGroup.name }}</h3>
       @for (participant of selectedParticipants; track $index) {
       <div>
         <label [for]="participant._id">{{ participant.name }}</label>
@@ -46,7 +46,7 @@
           type="radio"
           name="group-container-1"
           [id]="participant._id"
-          (change)="addVote(0, participant._id)"
+          (change)="addVote(participant._id)"
         />
       </div>
       }
@@ -56,7 +56,7 @@
           type="radio"
           name="group-container-1"
           id="null-1"
-          (change)="addVote(0, 'null')"
+          (change)="addVote('null')"
         />
       </div>
     </div>
