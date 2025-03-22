@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateVoteDto } from '../../shared/dto/vote/create-vote.dto';
-import { Message } from '../../shared/interfaces/message';
+import { CreateVoteDto } from '../../../shared/dto/vote/create-vote.dto';
+import { Message } from '../../../shared/interfaces/message';
 
 declare const API_URL: string;
 

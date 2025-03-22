@@ -8,8 +8,8 @@ import { User } from '../../../core/models/user';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { Group } from '../../../core/models/group';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { GroupService } from '../../../core/services/group.service';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../core/services/user/auth/auth.service';
+import { GroupService } from '../../../core/services/group/group.service';
 
 @Component({
   selector: 'app-add-group-page',

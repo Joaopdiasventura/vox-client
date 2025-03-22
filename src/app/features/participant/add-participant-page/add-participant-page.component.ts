@@ -8,9 +8,9 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
 import { Group } from '../../../core/models/group';
 import { CreateParticipantDto } from '../../../shared/dto/participant/create-participant.dto';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { GroupService } from '../../../core/services/group.service';
-import { ParticipantService } from '../../../core/services/participant.service';
-import { AuthService } from '../../../core/services/auth.service';
+import { GroupService } from '../../../core/services/group/group.service';
+import { ParticipantService } from '../../../core/services/participant/participant.service';
+import { AuthService } from '../../../core/services/user/auth/auth.service';
 
 @Component({
   selector: 'app-add-participant-page',
@@ -26,7 +26,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './add-participant-page.component.scss',
 })
 export class AddParticipantPageComponent implements OnInit {
-  public isLoading: boolean = true;
+  public isLoading: boolean = false;
   public currentUser: User | null = null;
   public currentGroups: Group[] = [];
 

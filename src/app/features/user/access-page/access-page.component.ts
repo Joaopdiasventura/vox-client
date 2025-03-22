@@ -1,4 +1,4 @@
-import { AuthService } from './../../../core/services/auth.service';
+import { AuthService } from '../../../core/services/user/auth/auth.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { AccessInputComponent } from '../../../shared/components/inputs/access-input/access-input.component';
 import { CreateUserDto } from '../../../shared/dto/user/create-user.dto';
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { UserService } from '../../../core/services/user.service';
+import { UserService } from '../../../core/services/user/user.service';
 
 @Component({
   selector: 'app-access-page',

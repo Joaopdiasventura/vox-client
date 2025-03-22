@@ -6,8 +6,8 @@ import { Group } from '../../core/models/group';
 import { ListComponent } from '../../shared/components/list/list.component';
 import { forkJoin, Observable } from 'rxjs';
 import { HeaderComponent } from '../../shared/components/header/header.component';
-import { GroupService } from '../../core/services/group.service';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../core/services/user/auth/auth.service';
+import { GroupService } from '../../core/services/group/group.service';
 
 @Component({
   selector: 'app-index-page',
