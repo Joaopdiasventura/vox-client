@@ -22,12 +22,16 @@ export class AuthService {
 
   public connectUser(user?: User | null): Observable<User | null> {
     if (user) this.updateUserData(user);
+
     if (this.currentUserData) return of(this.currentUserData);
 
     if (isPlatformServer(this.platformId)) return of(null);
 
     const token = localStorage.getItem('token');
-    if (!token) return of(null);
+    if (!token) {
+      this.router.navigate(['access']);
+      return of(null);
+    }
 
     this.loadingSubject.next(true);
 
