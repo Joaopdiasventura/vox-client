@@ -8,4 +8,5 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'participant/add', renderMode: RenderMode.Prerender },
   { path: 'votes/start', renderMode: RenderMode.Prerender },
   { path: 'votes/follow', renderMode: RenderMode.Prerender },
+  { path: 'votes/allow', renderMode: RenderMode.Prerender },
 ];

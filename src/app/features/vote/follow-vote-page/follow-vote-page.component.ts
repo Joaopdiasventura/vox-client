@@ -6,21 +6,13 @@ import { User } from '../../../core/models/user';
 import { Socket } from 'socket.io-client';
 import { Group } from '../../../core/models/group';
 import { VoteResult } from '../../../shared/interfaces/vote-result';
-import { AccessInputComponent } from '../../../shared/components/inputs/access-input/access-input.component';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { GroupService } from '../../../core/services/group/group.service';
 import { AuthService } from '../../../core/services/user/auth/auth.service';
 import { WebSocketService } from '../../../core/services/web-socket/web-socket.service';
 
 @Component({
   selector: 'app-follow-vote-page',
-  imports: [
-    LoadingComponent,
-    HeaderComponent,
-    AccessInputComponent,
-    ButtonComponent,
-    FormsModule,
-  ],
+  imports: [LoadingComponent, HeaderComponent, FormsModule],
   templateUrl: './follow-vote-page.component.html',
   styleUrl: './follow-vote-page.component.scss',
 })
@@ -28,12 +20,8 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
   public isLoading: boolean = false;
   public currentUser: User | null = null;
   public currentGroups: Group[] = [];
-  public selectedGroup!: Group;
+  public selectedGroup: Group | null = null;
   public voteResult!: VoteResult;
-
-  public voteId: string = '';
-
-  public urn: string = '';
 
   private socket!: Socket;
 
@@ -47,15 +35,15 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
       .subscribe((result) => this.handleUserConnection(result));
   }
 
+  public ngOnDestroy(): void {
+    if (this.socket) this.socket.disconnect();
+  }
+
   private handleUserConnection(user: User | null) {
     this.currentUser = user;
     if (!user) return;
     this.connectToWebSocket();
     this.findGroups(user._id);
-  }
-
-  public ngOnDestroy(): void {
-    if (this.socket) this.socket.disconnect();
   }
 
   private connectToWebSocket() {
@@ -73,10 +61,10 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
     const selectElement = e.target as HTMLSelectElement;
     const group = this.currentGroups.find((g) => g._id == selectElement.value);
     if (!group) return;
+    this.selectedGroup = group;
     this.socket.on(`vote-${group._id}`, (payload) =>
       this.changeTable(payload.participant)
     );
-    this.selectedGroup = group;
     this.groupService.getResult(group._id).subscribe({
       next: (result) => (this.voteResult = result),
     });
@@ -88,9 +76,5 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
     );
     if (index >= 0) this.voteResult.participants[index].votes += 1;
     this.voteResult.participants.sort((a, b) => b.votes - a.votes);
-  }
-
-  public allowVote() {
-    this.socket.emit('allow-vote', this.urn);
   }
 }

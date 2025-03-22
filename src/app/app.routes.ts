@@ -6,6 +6,7 @@ import { FindGroupPageComponent } from './features/group/find-group-page/find-gr
 import { AddParticipantPageComponent } from './features/participant/add-participant-page/add-participant-page.component';
 import { StartVotePageComponent } from './features/vote/start-vote-page/start-vote-page.component';
 import { FollowVotePageComponent } from './features/vote/follow-vote-page/follow-vote-page.component';
+import { AllowVotePageComponent } from './features/vote/allow-vote-page/allow-vote-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -29,5 +30,9 @@ export const routes: Routes = [
   {
     path: 'votes/follow',
     component: FollowVotePageComponent,
+  },
+  {
+    path: 'votes/allow',
+    component: AllowVotePageComponent,
   },
 ];

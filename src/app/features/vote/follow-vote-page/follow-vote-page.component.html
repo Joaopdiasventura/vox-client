@@ -5,12 +5,12 @@
   <app-header />
   <main class="main">
     <select
-      name="1group"
-      id="1group"
+      name="group"
+      id="group"
       [value]="selectedGroup ? selectedGroup._id : 'null'"
       (change)="changeSelect($event)"
     >
-      <option value="null">NENHUM</option>
+      <option [value]="null">NENHUM</option>
       @for (group of currentGroups; track $index) {
       <option [value]="group._id">
         {{ group.group ? group.group + "/" : "" }}{{ group.name }}
@@ -35,10 +35,6 @@
         }
       </tbody>
     </table>
-    <div class="allow-container">
-      <access-input label="ID da Urna:" id="urn" name="urn" [(ngModel)]="urn" />
-      <app-button [onClick]="allowVote.bind(this)" content="Autorizar" />
-    </div>
     }
   </main>
   }
