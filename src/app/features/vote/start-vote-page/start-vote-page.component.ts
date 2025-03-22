@@ -15,14 +15,12 @@ import { HeaderComponent } from '../../../shared/components/header/header.compon
 import { Socket } from 'socket.io-client';
 import { FormsModule } from '@angular/forms';
 import { CreateVoteDto } from '../../../shared/dto/vote/create-vote.dto';
-import { AccessInputComponent } from '../../../shared/components/inputs/access-input/access-input.component';
 import { ModalComponent } from '../../../shared/components/modals/modal/modal.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { AuthService } from '../../../core/services/user/auth/auth.service';
 import { WebSocketService } from '../../../core/services/web-socket/web-socket.service';
 import { GroupService } from '../../../core/services/group/group.service';
 import { ParticipantService } from '../../../core/services/participant/participant.service';
-import { UserService } from '../../../core/services/user/user.service';
 import { VoteService } from '../../../core/services/vote/vote.service';
 
 @Component({
@@ -30,7 +28,6 @@ import { VoteService } from '../../../core/services/vote/vote.service';
   imports: [
     LoadingComponent,
     HeaderComponent,
-    AccessInputComponent,
     ModalComponent,
     ButtonComponent,
     FormsModule,
@@ -44,11 +41,10 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
   public currentGroups: Group[] = [];
 
   public selectedGroups: Group[] = [];
-  public selectedParticipants: Participant[][] = [];
+  public selectedParticipants: Participant[] = [];
 
   public simpleId: string = '';
   public status: VoteStatus = 'selecting';
-  public quantity: number = 0;
 
   public votes: CreateVoteDto[] = [];
 
@@ -63,7 +59,6 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
 
   private authService = inject(AuthService);
   private webSocketService = inject(WebSocketService);
-  private userService = inject(UserService);
   private voteService = inject(VoteService);
   private groupService = inject(GroupService);
   private participantService = inject(ParticipantService);
@@ -90,18 +85,12 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
     const group = this.currentGroups.find((g) => g._id == selectElement.value);
     if (!group) return;
     this.selectedGroups[position] = group;
-    this.findParticipants(position, this.selectedGroups[position]._id);
+    this.findParticipants(this.selectedGroups[position]._id);
   }
 
   public startVote() {
     if (!this.selectedGroups[0] && !this.selectedGroups[1]) {
       this.modalConfig.children = 'SELECIONE PELO MENOS UM GRUPO';
-      this.modalConfig.onClose = () => (this.modalConfig.isVisible = false);
-      this.modalConfig.isVisible = true;
-      return;
-    }
-    if (this.quantity <= 0) {
-      this.modalConfig.children = 'QUANTIDADE DE VOTOS INVÁLIDA';
       this.modalConfig.onClose = () => (this.modalConfig.isVisible = false);
       this.modalConfig.isVisible = true;
       return;
@@ -122,8 +111,7 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
       if (this.votes[i].participant != 'null')
         this.voteService.create(this.votes[i]).subscribe();
     }
-    this.quantity -= 1;
-    this.status = this.quantity > 0 ? 'blocked' : 'ended';
+    this.status = 'blocked';
   }
 
   public logOut() {
@@ -153,9 +141,9 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
     });
   }
 
-  private findParticipants(position: 0 | 1, group: string) {
+  private findParticipants(group: string) {
     this.participantService.findAllByGroup(group).subscribe({
-      next: (result) => (this.selectedParticipants[position] = result),
+      next: (result) => (this.selectedParticipants = result),
     });
   }
 }

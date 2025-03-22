@@ -1,1 +1,1 @@
-export type VoteStatus = 'selecting' | 'occurring' | 'ended' | 'blocked';
+export type VoteStatus = 'selecting' | 'occurring' | 'blocked';
