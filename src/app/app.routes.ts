@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { IndexPageComponent } from './features/index-page/index-page.component';
+import { HomePageComponent } from './features/home-page/home-page.component';
 import { AccessPageComponent } from './features/user/access-page/access-page.component';
 import { AddGroupPageComponent } from './features/group/add-group-page/add-group-page.component';
 import { FindGroupPageComponent } from './features/group/find-group-page/find-group-page.component';
@@ -8,7 +8,7 @@ import { StartVotePageComponent } from './features/vote/start-vote-page/start-vo
 import { FollowVotePageComponent } from './features/vote/follow-vote-page/follow-vote-page.component';
 
 export const routes: Routes = [
-  { path: '', component: IndexPageComponent },
+  { path: '', component: HomePageComponent },
   { path: 'access', component: AccessPageComponent },
   {
     path: 'group/add',

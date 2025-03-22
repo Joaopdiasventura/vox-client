@@ -10,12 +10,12 @@ import { AuthService } from '../../core/services/user/auth/auth.service';
 import { GroupService } from '../../core/services/group/group.service';
 
 @Component({
-  selector: 'app-index-page',
+  selector: 'app-home-page',
   imports: [LoadingComponent, HeaderComponent, ListComponent],
-  templateUrl: './index-page.component.html',
-  styleUrl: './index-page.component.scss',
+  templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.scss',
 })
-export class IndexPageComponent implements OnInit {
+export class HomePageComponent implements OnInit {
   public currentUser: User | null = null;
 
   public allGroups: Group[][] = [];
