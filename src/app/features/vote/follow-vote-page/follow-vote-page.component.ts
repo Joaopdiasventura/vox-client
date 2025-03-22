@@ -8,9 +8,9 @@ import { Group } from '../../../core/models/group';
 import { VoteResult } from '../../../shared/interfaces/vote-result';
 import { AccessInputComponent } from '../../../shared/components/inputs/access-input/access-input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { GroupService } from '../../../core/services/group.service';
-import { WebSocketService } from '../../../core/services/websocket.service';
-import { AuthService } from '../../../core/services/auth.service';
+import { GroupService } from '../../../core/services/group/group.service';
+import { AuthService } from '../../../core/services/user/auth/auth.service';
+import { WebSocketService } from '../../../core/services/web-socket/web-socket.service';
 
 @Component({
   selector: 'app-follow-vote-page',
@@ -25,7 +25,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './follow-vote-page.component.scss',
 })
 export class FollowVotePageComponent implements OnInit, OnDestroy {
-  public isLoading: boolean = true;
+  public isLoading: boolean = false;
   public currentUser: User | null = null;
   public currentGroups: Group[] = [];
   public selectedGroup!: Group;

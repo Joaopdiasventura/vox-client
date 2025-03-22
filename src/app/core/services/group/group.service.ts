@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateGroupDto } from '../../shared/dto/group/create-group.dto';
-import { Message } from '../../shared/interfaces/message';
-import { VoteResult } from '../../shared/interfaces/vote-result';
-import { Group } from '../models/group';
+import { CreateGroupDto } from '../../../shared/dto/group/create-group.dto';
+import { Message } from '../../../shared/interfaces/message';
+import { VoteResult } from '../../../shared/interfaces/vote-result';
+import { Group } from '../../models/group';
 
 declare const API_URL: string;
 

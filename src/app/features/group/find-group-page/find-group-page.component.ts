@@ -7,9 +7,9 @@ import { Participant } from '../../../core/models/participant';
 import { Observable, forkJoin } from 'rxjs';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { ListComponent } from '../../../shared/components/list/list.component';
-import { GroupService } from '../../../core/services/group.service';
-import { ParticipantService } from '../../../core/services/participant.service';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../core/services/user/auth/auth.service';
+import { GroupService } from '../../../core/services/group/group.service';
+import { ParticipantService } from '../../../core/services/participant/participant.service';
 
 @Component({
   selector: 'app-find-group-page',

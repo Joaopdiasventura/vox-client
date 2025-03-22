@@ -1,7 +1,5 @@
 @use "../../../../styles.scss" as styles;
 
-
-
 @media (min-width: 1024px) {
   .head {
     height: 7.5vh;
@@ -10,6 +8,7 @@
     box-shadow: 0 0 0.3vw #000;
     z-index: 2;
     position: relative;
+    overflow-x: hidden;
 
     .nav {
       width: 100%;

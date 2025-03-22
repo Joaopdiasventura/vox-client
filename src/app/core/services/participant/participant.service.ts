@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateParticipantDto } from '../../shared/dto/participant/create-participant.dto';
-import { Message } from '../../shared/interfaces/message';
-import { Participant } from '../models/participant';
+import { CreateParticipantDto } from '../../../shared/dto/participant/create-participant.dto';
+import { Message } from '../../../shared/interfaces/message';
+import { Participant } from '../../models/participant';
 
 declare const API_URL: string;
 

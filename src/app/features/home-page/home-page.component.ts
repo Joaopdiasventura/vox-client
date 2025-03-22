@@ -6,16 +6,16 @@ import { Group } from '../../core/models/group';
 import { ListComponent } from '../../shared/components/list/list.component';
 import { forkJoin, Observable } from 'rxjs';
 import { HeaderComponent } from '../../shared/components/header/header.component';
-import { GroupService } from '../../core/services/group.service';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../core/services/user/auth/auth.service';
+import { GroupService } from '../../core/services/group/group.service';
 
 @Component({
-  selector: 'app-index-page',
+  selector: 'app-home-page',
   imports: [LoadingComponent, HeaderComponent, ListComponent],
-  templateUrl: './index-page.component.html',
-  styleUrl: './index-page.component.scss',
+  templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.scss',
 })
-export class IndexPageComponent implements OnInit {
+export class HomePageComponent implements OnInit {
   public currentUser: User | null = null;
 
   public allGroups: Group[][] = [];

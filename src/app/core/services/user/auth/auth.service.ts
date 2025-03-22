@@ -1,8 +1,9 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
-import { User } from '../models/user';
-import { UserService } from './user.service';
+import { User } from '../../../models/user';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { UserService } from './user.service';
 export class AuthService {
   private platformId = inject(PLATFORM_ID);
   private userService = inject(UserService);
+  private router = inject(Router);
 
   private userDataSource = new BehaviorSubject<User | null>(null);
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -20,12 +22,16 @@ export class AuthService {
 
   public connectUser(user?: User | null): Observable<User | null> {
     if (user) this.updateUserData(user);
+
     if (this.currentUserData) return of(this.currentUserData);
 
     if (isPlatformServer(this.platformId)) return of(null);
 
     const token = localStorage.getItem('token');
-    if (!token) return of(null);
+    if (!token) {
+      this.router.navigate(['access']);
+      return of(null);
+    }
 
     this.loadingSubject.next(true);
 
@@ -36,6 +42,7 @@ export class AuthService {
         return result;
       }),
       catchError(() => {
+        this.router.navigate(['access']);
         this.loadingSubject.next(false);
         return of(null);
       })

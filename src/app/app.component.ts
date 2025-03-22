@@ -1,4 +1,4 @@
-import { AuthService } from './core/services/auth.service';
+import { AuthService } from './core/services/user/auth/auth.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoadingComponent } from './shared/components/loading/loading.component';

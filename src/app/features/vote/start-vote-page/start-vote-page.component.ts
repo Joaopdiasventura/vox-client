@@ -18,12 +18,12 @@ import { CreateVoteDto } from '../../../shared/dto/vote/create-vote.dto';
 import { AccessInputComponent } from '../../../shared/components/inputs/access-input/access-input.component';
 import { ModalComponent } from '../../../shared/components/modals/modal/modal.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { GroupService } from '../../../core/services/group.service';
-import { ParticipantService } from '../../../core/services/participant.service';
-import { UserService } from '../../../core/services/user.service';
-import { VoteService } from '../../../core/services/vote.service';
-import { WebSocketService } from '../../../core/services/websocket.service';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../core/services/user/auth/auth.service';
+import { WebSocketService } from '../../../core/services/web-socket/web-socket.service';
+import { GroupService } from '../../../core/services/group/group.service';
+import { ParticipantService } from '../../../core/services/participant/participant.service';
+import { UserService } from '../../../core/services/user/user.service';
+import { VoteService } from '../../../core/services/vote/vote.service';
 
 @Component({
   selector: 'app-start-vote-page',
@@ -39,7 +39,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './start-vote-page.component.scss',
 })
 export class StartVotePageComponent implements OnInit, OnDestroy {
-  public isLoading: boolean = true;
+  public isLoading: boolean = false;
   public currentUser: User | null = null;
   public currentGroups: Group[] = [];
 
@@ -127,7 +127,7 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
   }
 
   public logOut() {
-    this.authService.disconnectUser()
+    this.authService.disconnectUser();
     this.router.navigate(['access']);
   }
 
