@@ -19,6 +19,6 @@ body {
 }
 
 ::selection {
-  background-color: inherit;
-  color: inherit;
+  background-color: $primary-color;
+  color: $text-color;
 }
