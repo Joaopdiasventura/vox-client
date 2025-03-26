@@ -9,7 +9,6 @@ import { VoteResult } from '../../../shared/interfaces/vote-result';
 import { GroupService } from '../../../core/services/group/group.service';
 import { AuthService } from '../../../core/services/user/auth/auth.service';
 import { WebSocketService } from '../../../core/services/web-socket/web-socket.service';
-
 @Component({
   selector: 'app-follow-vote-page',
   imports: [LoadingComponent, HeaderComponent, FormsModule],
@@ -42,6 +41,7 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
   private handleUserConnection(user: User | null) {
     this.currentUser = user;
     if (!user) return;
+    this.isLoading = true;
     this.connectToWebSocket();
     this.findGroups(user._id);
   }
@@ -61,12 +61,14 @@ export class FollowVotePageComponent implements OnInit, OnDestroy {
     const selectElement = e.target as HTMLSelectElement;
     const group = this.currentGroups.find((g) => g._id == selectElement.value);
     if (!group) return;
+    this.isLoading = true;
     this.selectedGroup = group;
     this.socket.on(`vote-${group._id}`, (payload) =>
       this.changeTable(payload.participant)
     );
     this.groupService.getResult(group._id).subscribe({
       next: (result) => (this.voteResult = result),
+      complete: () => (this.isLoading = false),
     });
   }
 
