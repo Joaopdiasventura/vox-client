@@ -61,10 +61,15 @@ export class AllowVotePageComponent implements OnInit, OnDestroy {
     const group = this.currentGroups.find((g) => g._id == selectElement.value);
     if (!group) return;
     this.socket.on(`vote-${group._id}`, () => this.alertVote());
+    this.selectedGroup = group;
   }
 
   public allowVote() {
     this.socket.emit('allow-vote', this.urnId);
+  }
+
+  public exitVote() {
+    this.socket.emit('exit-vote', this.selectedGroup._id);
   }
 
   private handleUserconnection(user: User | null) {

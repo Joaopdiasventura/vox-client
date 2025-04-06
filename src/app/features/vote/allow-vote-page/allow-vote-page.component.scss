@@ -62,7 +62,8 @@
         }
       }
 
-      .allow-container {
+      .allow-container,
+      .exit-container {
         padding: 0 25vw;
         display: flex;
         flex-direction: column;
@@ -135,7 +136,8 @@
         }
       }
 
-      .allow-container {
+      .allow-container,
+      .exit-container {
         padding: 0 10vw;
         display: flex;
         flex-direction: column;
