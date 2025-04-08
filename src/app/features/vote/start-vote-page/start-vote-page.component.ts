@@ -45,6 +45,7 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
 
   public simpleId: string = '';
   public status: VoteStatus = 'selecting';
+  public nullVote: boolean = true;
 
   public currentVote!: CreateVoteDto;
 
@@ -86,6 +87,13 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
     if (!group) return;
     this.selectedGroup = group;
     this.findParticipants(this.selectedGroup._id);
+    this.socket.on('exit-' + this.selectedGroup._id, () =>
+      this.router.navigate(['access'])
+    );
+  }
+
+  public changeNullVote(e: Event) {
+    this.nullVote = !this.nullVote;
   }
 
   public startVote() {
@@ -113,11 +121,6 @@ export class StartVotePageComponent implements OnInit, OnDestroy {
       this.voteService.create(this.currentVote).subscribe();
 
     this.status = 'blocked';
-  }
-
-  public logOut() {
-    this.authService.disconnectUser();
-    this.router.navigate(['access']);
   }
 
   private handleUserConnection(user: User | null) {
