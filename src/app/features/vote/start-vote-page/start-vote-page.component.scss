@@ -20,6 +20,7 @@
       display: flex;
       flex-wrap: wrap;
       width: 100%;
+      gap: 2vh;
       justify-content: space-around;
 
       .select-container {
@@ -49,6 +50,43 @@
 
           option {
             background-color: styles.$background-secondary-color;
+          }
+        }
+      }
+
+      .null-vote {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+        gap: 1vh;
+
+        input[type="checkbox"] {
+          appearance: none;
+          -webkit-appearance: none;
+          background-color: styles.$background-secondary-color;
+          border: 1px solid styles.$text-color;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+          position: relative;
+          transition: background-color 0.2s, border-color 0.2s;
+
+          &:checked {
+            background-color: styles.$primary-color;
+            border: 1px solid styles.$text-color;
+
+            &::before {
+              content: "";
+              position: absolute;
+              top: 2px;
+              left: 6px;
+              width: 4px;
+              height: 10px;
+              border: solid #fff; /* Cor do tick */
+              border-width: 0 2px 2px 0;
+              transform: rotate(45deg);
+            }
           }
         }
       }
