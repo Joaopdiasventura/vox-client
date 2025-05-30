@@ -45,7 +45,7 @@
           "configurations": {
             "production": {
               "define": {
-                "API_URL": "'https://67wujp2wjb.execute-api.us-east-1.amazonaws.com'"
+                "API_URL": "'https://88rszc8f2h.execute-api.us-east-1.amazonaws.com'"
               },
               "budgets": [
                 {
