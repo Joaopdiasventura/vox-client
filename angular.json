@@ -44,7 +44,7 @@
           "configurations": {
             "production": {
               "define": {
-                "API_URL": "'https://t4vx6vip57.execute-api.sa-east-1.amazonaws.com'",
+                "API_URL": "'https://v-o-x.onrender.com'",
                 "ENVIRONMENT": "'prod'"
               },
               "budgets": [
