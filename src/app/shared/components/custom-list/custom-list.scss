@@ -1,0 +1,84 @@
+@use "../../../../styles/colors.scss" as colors;
+
+:host {
+  height: 70%;
+  width: 70%;
+}
+
+.elements-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  button {
+    font-size: 0.75vw;
+    border: none;
+    background-color: colors.$background-secondary-color;
+    color: colors.$second-color;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    transition: color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      color: colors.$primary-color;
+    }
+
+    &.disable {
+      cursor: not-allowed;
+      color: colors.$text-color;
+      background-color: colors.$background-color;
+    }
+  }
+
+  .elements-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2vw;
+    width: 90%;
+    height: 70%;
+    padding: 2vw;
+    cursor: default;
+
+    .elements-card {
+      width: 20%;
+      height: 40%;
+      background-color: colors.$background-secondary-color;
+      color: colors.$primary-color;
+      padding: 1vw;
+      border-radius: 0.5vw;
+      box-shadow: 0 0 0.3vw rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      h3 {
+        cursor: pointer;
+        font-size: 1.25vw;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 90%;
+      }
+
+      button {
+        position: absolute;
+        font-size: 1.25vw;
+        right: 5%;
+        top: 10%;
+        color: colors.$primary-color;
+      }
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+    }
+  }
+}

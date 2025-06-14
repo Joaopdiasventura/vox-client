@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "../../../../../styles/colors.scss" as styles;
+
+main {
+  height: 92.5vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 5vh;
+  justify-content: space-around;
+  align-items: center;
+
+  .button {
+    z-index: 0;
+    background-color: styles.$background-secondary-color;
+    color: styles.$primary-color;
+    transition: transform 0.2s;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+
+    width: 30%;
+    height: 5%;
+    padding: 1rem;
+    border-radius: 0.5vh;
+    box-shadow: 0 0 0.3vh rgba(255, 255, 255, 0.1);
+    font-size: 1.5vh;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  h1 {
+    font-size: 3vh;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.75vh;
+  }
+
+  app-list {
+    width: 100vw;
+    height: 65vh;
+  }
+}

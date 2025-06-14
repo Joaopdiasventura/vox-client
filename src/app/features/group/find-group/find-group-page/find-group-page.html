@@ -1,0 +1,20 @@
+<custom-header />
+<main class="main">
+  @if (isLoading) {<loading />}@else if (currentGroup){
+  <h1>GRUPO: {{ currentGroup.name }}</h1>
+  @if (type != ""){ } @if (allElements[0] && allElements[0].length > 0) {
+  <h2>{{ type }}s:</h2>
+  <custom-list
+    [allElements]="allElements"
+    [findNext]="findNext"
+    [navigate]="navigate.bind(this)"
+    [delete]="delete.bind(this)"
+    [type]="type"
+  />} @else {
+  <h3>GRUPO VAZIO</h3>
+  } @if (currentGroup.group) {
+  <button class="button" (click)="navigateToGroup('' + currentGroup.group)">
+    Voltar
+  </button>
+  } }
+</main>
