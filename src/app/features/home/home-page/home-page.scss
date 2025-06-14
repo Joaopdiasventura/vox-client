@@ -1,0 +1,15 @@
+main {
+  height: 92.5vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1vh;
+  justify-content: space-around;
+  align-items: center;
+
+  h1 {
+    width: 100%;
+    text-align: center;
+  }
+}

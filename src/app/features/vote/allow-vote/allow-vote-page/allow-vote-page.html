@@ -1,0 +1,36 @@
+<custom-header />
+<main>
+  @if (isLoading) {
+  <loading />
+  } @else if (modalConfig && modalConfig.isVisible) {
+  <modal
+    [isVisible]="modalConfig.isVisible"
+    [title]="modalConfig.title"
+    [children]="modalConfig.children"
+    [onClose]="modalConfig.onClose"
+  />
+  } @else {
+  <div>
+    <label for="group-select"
+      >Selecione um grupo para acompanhar os votos</label
+    >
+    <select id="group-select" (change)="changeSelect($event)">
+      <option value="null">NENHUM</option>
+      @for (group of currentGroups; track group._id) {
+      <option [value]="group._id">
+        {{ group.group ? group.group + "/" : "" }}{{ group.name }}
+      </option>
+      }
+    </select>
+  </div>
+  <div class="allow-container">
+    <form [formGroup]="form" (ngSubmit)="allowVote()">
+      <custom-input formControlName="urn" label="ID da Urna:" id="urn" />
+      <custom-button type="submit" content="Autorizar" />
+    </form>
+  </div>
+  <div class="exit-container">
+    <custom-button [onClick]="exitVote.bind(this)" content="Sair" />
+  </div>
+  }
+</main>

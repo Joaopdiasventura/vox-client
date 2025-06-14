@@ -1,0 +1,100 @@
+<div class="screen">
+  @if (isLoading) {
+  <loading />
+  } @else if (modalConfig && modalConfig.isVisible) {
+  <modal
+    [isVisible]="modalConfig.isVisible"
+    [title]="modalConfig.title"
+    [children]="modalConfig.children"
+    [onClose]="modalConfig.onClose"
+  />
+  } @else {
+  <div [class]="isInLogin ? 'container' : 'container active'">
+    <div class="form-box form-login">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
+        <custom-input
+          formControlName="email"
+          type="email"
+          id="login-email"
+          label="Email"
+          [required]="true"
+        />
+        <custom-input
+          formControlName="password"
+          type="password"
+          id="login-password"
+          label="Senha"
+          [required]="true"
+        />
+        <custom-button content="Entrar" />
+        <div class="regi-link">
+          Não tem uma conta?
+          <a class="SignUpLink" (click)="changeMethod()"> Crie uma </a>
+        </div>
+      </form>
+    </div>
+
+    <div class="form-box form-create">
+      <h2>Criar Conta</h2>
+      <form [formGroup]="createForm" autocomplete="off" (ngSubmit)="create()">
+        <custom-input
+          formControlName="email"
+          type="email"
+          id="create-email"
+          label="Email"
+          [required]="true"
+        />
+        <custom-input
+          formControlName="name"
+          type="text"
+          id="create-name"
+          label="Nome"
+          [required]="true"
+        />
+        <custom-input
+          formControlName="password"
+          type="password"
+          id="create-password"
+          label="Senha"
+          [required]="true"
+        />
+        <custom-button content="Criar" />
+        <div class="regi-link">
+          Possui uma conta?
+          <a
+            class="SignUpLink"
+            href="#"
+            tabindex="0"
+            (click)="changeMethod()"
+            (keyup.enter)="changeMethod()"
+          >
+            Entre nela
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <div [class]="isInLogin ? 'curved-shape' : 'curved-shape active'"></div>
+
+    <div
+      [class]="
+          isInLogin
+            ? 'info-content info-login'
+            : 'info-content info-login active'
+        "
+    >
+      <h2>BEM VINDO NOVAMENTE</h2>
+    </div>
+    <div
+      [class]="
+          isInLogin
+            ? 'info-content info-create'
+            : 'info-content info-create active'
+        "
+    >
+      <h2>BEM VINDO</h2>
+    </div>
+  </div>
+  }
+</div>

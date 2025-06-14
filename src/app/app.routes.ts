@@ -1,38 +1,38 @@
-import { Routes } from '@angular/router';
-import { HomePageComponent } from './features/home-page/home-page.component';
-import { AccessPageComponent } from './features/user/access-page/access-page.component';
-import { AddGroupPageComponent } from './features/group/add-group-page/add-group-page.component';
-import { FindGroupPageComponent } from './features/group/find-group-page/find-group-page.component';
-import { AddParticipantPageComponent } from './features/participant/add-participant-page/add-participant-page.component';
-import { StartVotePageComponent } from './features/vote/start-vote-page/start-vote-page.component';
-import { FollowVotePageComponent } from './features/vote/follow-vote-page/follow-vote-page.component';
-import { AllowVotePageComponent } from './features/vote/allow-vote-page/allow-vote-page.component';
+import { Routes } from "@angular/router";
+import { AccessPage } from "./features/auth/access/access-page/access-page";
+import { AddGroupPage } from "./features/group/add-group/add-group-page/add-group-page";
+import { FindGroupPage } from "./features/group/find-group/find-group-page/find-group-page";
+import { HomePage } from "./features/home/home-page/home-page";
+import { AddParticipantPage } from "./features/participant/add-participant/add-participant-page/add-participant-page";
+import { VotePage } from "./features/vote/vote-page/vote-page";
+import { AllowVotePage } from "./features/vote/allow-vote/allow-vote-page/allow-vote-page";
+import { FollowVotePage } from "./features/vote/follow-vote/follow-vote-page/follow-vote-page";
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent },
-  { path: 'access', component: AccessPageComponent },
+  { path: "", component: HomePage },
+  { path: "access", component: AccessPage },
   {
-    path: 'group/add',
-    component: AddGroupPageComponent,
+    path: "group/add",
+    component: AddGroupPage,
   },
   {
-    path: 'group/:id',
-    component: FindGroupPageComponent,
+    path: "group/:id",
+    component: FindGroupPage,
   },
   {
-    path: 'participant/add',
-    component: AddParticipantPageComponent,
+    path: "participant/add",
+    component: AddParticipantPage,
   },
   {
-    path: 'votes/start',
-    component: StartVotePageComponent,
+    path: "vote",
+    component: VotePage,
   },
   {
-    path: 'votes/follow',
-    component: FollowVotePageComponent,
+    path: "votes/follow",
+    component: FollowVotePage,
   },
   {
-    path: 'votes/allow',
-    component: AllowVotePageComponent,
+    path: "votes/allow",
+    component: AllowVotePage,
   },
 ];
