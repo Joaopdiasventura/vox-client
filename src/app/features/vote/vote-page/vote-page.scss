@@ -10,7 +10,7 @@ main {
   h1 {
     width: 100%;
     text-align: center;
-    color: colors.$text-color;
+    color: colors.$black-darkest;
     font-weight: 600;
   }
 
@@ -28,7 +28,7 @@ main {
       margin-bottom: 1.5vw;
 
       label {
-        color: colors.$text-color;
+        color: colors.$black-darkest;
         margin-bottom: 0.5vw;
       }
 
@@ -40,14 +40,14 @@ main {
         background: transparent;
         border-radius: 0.5vh;
         font-size: 1.5vh;
-        color: colors.$text-color;
+        color: colors.$black-darkest;
         font-weight: 600;
-        border: 0.01vh solid colors.$primary-color;
+        border: 0.01vh solid colors.$red-primary;
         cursor: pointer;
         padding: 0 1rem;
 
         option {
-          background-color: colors.$background-secondary-color;
+          background-color: colors.$gray-medium;
         }
       }
     }
@@ -62,8 +62,8 @@ main {
       input[type="checkbox"] {
         appearance: none;
         -webkit-appearance: none;
-        background-color: colors.$background-secondary-color;
-        border: 1px solid colors.$text-color;
+        background-color: colors.$gray-medium;
+        border: 1px solid colors.$black-darkest;
         width: 20px;
         height: 20px;
         cursor: pointer;
@@ -73,8 +73,8 @@ main {
           border-color 0.2s;
 
         &:checked {
-          background-color: colors.$primary-color;
-          border: 1px solid colors.$text-color;
+          background-color: colors.$red-primary;
+          border: 1px solid colors.$black-darkest;
 
           &::before {
             content: "";
@@ -106,22 +106,22 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: colors.$background-secondary-color;
+    background-color: colors.$gray-medium;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
     h3 {
-      color: colors.$primary-color;
+      color: colors.$red-primary;
     }
 
     label {
       cursor: pointer;
-      color: colors.$text-color;
+      color: colors.$black-darkest;
     }
 
     input {
       cursor: pointer;
-      background-color: colors.$second-color;
-      accent-color: colors.$primary-color;
+      background-color: colors.$red-secondary;
+      accent-color: colors.$red-primary;
     }
   }
 }

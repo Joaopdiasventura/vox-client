@@ -6,7 +6,6 @@
   <modal
     [isVisible]="modalConfig.isVisible"
     [title]="modalConfig.title"
-    [children]="modalConfig.children"
     [onClose]="modalConfig.onClose"
   />
   } @else {
@@ -30,7 +29,7 @@
     </form>
   </div>
   <div class="exit-container">
-    <custom-button [onClick]="exitVote.bind(this)" content="Sair" />
+    <custom-button (click)="exitVote.bind(this)" content="Sair" />
   </div>
   }
 </main>

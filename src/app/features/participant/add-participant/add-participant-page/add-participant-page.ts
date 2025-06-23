@@ -3,15 +3,14 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { GroupService } from "../../../../core/services/group/group.service";
 import { ParticipantService } from "../../../../core/services/participant/participant.service";
-import { CustomHeader } from "../../../../shared/components/custom-header/custom-header";
-import { CustomInput } from "../../../../shared/components/custom-input/custom-input";
+import { CustomHeader } from "../../../../shared/components/headers/custom-header/custom-header";
+import { CustomInput } from "../../../../shared/components/inputs/custom-input/custom-input";
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../../shared/components/modals/modal/modal";
-import { CustomButton } from "../../../../shared/components/custom-button/custom-button";
+import { CustomButton } from "../../../../shared/components/buttons/custom-button/custom-button";
 import { ReactiveFormsModule } from "@angular/forms";
 import { Group } from "../../../../core/models/group";
 import { ModalConfig } from "../../../../shared/interfaces/config/modal";
-import { of } from "rxjs";
 import { User } from "../../../../core/models/user";
 
 @Component({
@@ -46,8 +45,9 @@ export class AddParticipantPage implements OnInit {
       name: ["", Validators.required],
       group: ["", Validators.required],
     });
+
     const init$ = this.authService.currentUserData
-      ? of(this.authService.currentUserData)
+      ? this.authService.currentUserData$
       : this.authService.connectUser();
 
     init$.subscribe((user) => this.handleUserConnection(user));
@@ -60,6 +60,7 @@ export class AddParticipantPage implements OnInit {
     if (this.createForm.get("group")!.value == "") {
       this.modalConfig = {
         isVisible: true,
+        icon: "",
         title: "ERRO",
         children: "Escolha um grupo para esse participante",
         onClose: (): void => {
@@ -73,6 +74,7 @@ export class AddParticipantPage implements OnInit {
       next: (result) => {
         this.modalConfig = {
           isVisible: true,
+          icon: "",
           title: "SUCESSO",
           children: result.message,
           onClose: (): void => {
@@ -84,6 +86,7 @@ export class AddParticipantPage implements OnInit {
       error: (error) => {
         this.modalConfig = {
           isVisible: true,
+          icon: "",
           title: "ERRO",
           children: error.message,
           onClose: (): void => {

@@ -1,15 +1,15 @@
 import { Component, inject, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { of, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { Group } from "../../../../core/models/group";
 import { User } from "../../../../core/models/user";
 import { AuthService } from "../../../../core/services/auth/auth.service";
 import { GroupService } from "../../../../core/services/group/group.service";
 import { WebSocketService } from "../../../../core/services/web-socket/web-socket.service";
-import { CustomButton } from "../../../../shared/components/custom-button/custom-button";
-import { CustomHeader } from "../../../../shared/components/custom-header/custom-header";
-import { CustomInput } from "../../../../shared/components/custom-input/custom-input";
+import { CustomButton } from "../../../../shared/components/buttons/custom-button/custom-button";
+import { CustomHeader } from "../../../../shared/components/headers/custom-header/custom-header";
+import { CustomInput } from "../../../../shared/components/inputs/custom-input/custom-input";
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../../shared/components/modals/modal/modal";
 import { ModalConfig } from "../../../../shared/interfaces/config/modal";
@@ -46,8 +46,9 @@ export class AllowVotePage implements OnInit, OnDestroy {
     this.form = this.fb.group({
       urn: [""],
     });
+
     const init$ = this.authService.currentUserData
-      ? of(this.authService.currentUserData)
+      ? this.authService.currentUserData$
       : this.authService.connectUser();
     this.sub = init$.subscribe((user) => this.handleUserConnection(user));
   }
@@ -96,6 +97,7 @@ export class AllowVotePage implements OnInit, OnDestroy {
   private alertVote(): void {
     this.modalConfig = {
       isVisible: true,
+      icon: "",
       title: "VOTO REALIZADO",
       children: "Urna bloqueada até receber uma autorização",
       onClose: (): void => {

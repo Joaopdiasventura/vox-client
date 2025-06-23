@@ -1,8 +1,8 @@
 import { Component, Input } from "@angular/core";
 import { Observable } from "rxjs";
-import { Group } from "../../../core/models/group";
-import { Participant } from "../../../core/models/participant";
-import { ModalQuestion } from "../modals/modal-question/modal-question";
+import { Group } from "../../../../core/models/group";
+import { Participant } from "../../../../core/models/participant";
+import { ModalQuestion } from "../../modals/modal-question/modal-question";
 
 @Component({
   selector: "custom-list",

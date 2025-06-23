@@ -16,12 +16,11 @@ import { WebSocketService } from "../../../core/services/web-socket/web-socket.s
 import { CreateVoteDto } from "../../../shared/dto/vote/create-vote.dto";
 import { VoteStatus } from "../../../shared/types/vote-status";
 import { ModalConfig } from "../../../shared/interfaces/config/modal";
-import { CustomHeader } from "../../../shared/components/custom-header/custom-header";
-import { CustomButton } from "../../../shared/components/custom-button/custom-button";
+import { CustomHeader } from "../../../shared/components/headers/custom-header/custom-header";
+import { CustomButton } from "../../../shared/components/buttons/custom-button/custom-button";
 import { Loading } from "../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../shared/components/modals/modal/modal";
 import { Router } from "@angular/router";
-import { of } from "rxjs";
 
 @Component({
   selector: "app-vote-page",
@@ -61,7 +60,7 @@ export class VotePage implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const init$ = this.authService.currentUserData
-      ? of(this.authService.currentUserData)
+      ? this.authService.currentUserData$
       : this.authService.connectUser();
 
     init$.subscribe((user) => this.handleUserConnection(user));

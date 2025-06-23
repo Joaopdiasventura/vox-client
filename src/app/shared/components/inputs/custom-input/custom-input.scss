@@ -1,4 +1,4 @@
-@use "../../../../styles/colors.scss" as colors;
+@use "../../../../../styles/colors.scss" as colors;
 
 .input-box {
   position: relative;
@@ -12,30 +12,29 @@
     background: transparent;
     border: none;
     outline: none;
-    color: colors.$text-color;
-    border-bottom: 0.01vw solid colors.$text-color;
+    color: colors.$black-darkest;
+    border-bottom: 0.01vw solid colors.$black-darkest;
     font-size: 1vw;
     padding: 0.5vw;
     transition: 0.5s;
 
     &:-webkit-autofill {
       background: transparent !important;
-      box-shadow: 0 0 0px 1000px colors.$background-color inset !important;
-      color: colors.$text-color !important;
+      box-shadow: 0 0 0px 1000px colors.$gray-medium inset !important;
+      color: colors.$black-darkest !important;
       transition: 0.5s;
     }
 
     &:focus ~ label,
     &:valid ~ label {
       top: 0.02vh;
-      color: colors.$second-color;
+      color: colors.$red-secondary;
     }
 
     &:focus,
     &:valid {
       top: 0.02vh;
-      border-bottom: 0.01vw solid colors.$second-color;
-      border-bottom: 0.01vw solid colors.$second-color;
+      border-bottom: 0.01vw solid colors.$red-secondary;
     }
 
     &:hover::-webkit-inner-spin-button,

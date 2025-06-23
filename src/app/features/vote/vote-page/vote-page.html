@@ -6,7 +6,6 @@
   <modal
     [isVisible]="modalConfig.isVisible"
     [title]="modalConfig.title"
-    [children]="modalConfig.children"
     [onClose]="modalConfig.onClose"
   />
   } @else { @if (status == "selecting") {
@@ -37,7 +36,7 @@
         (change)="changeNullVote()"
       />
     </div>
-    <custom-button [onClick]="startVote.bind(this)" content="Iniciar Votação" />
+    <custom-button (click)="startVote.bind(this)" content="Iniciar Votação" />
   </div>
   }@else if (status == "occurring") {
   <div class="vote-container">
@@ -68,7 +67,7 @@
     </div>
     }
     <div class="button-container">
-      <custom-button [onClick]="vote.bind(this)" content="Votar" />
+      <custom-button (click)="vote.bind(this)" content="Votar" />
     </div>
   </div>
   } @else {

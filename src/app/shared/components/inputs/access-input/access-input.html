@@ -1,0 +1,12 @@
+<label [for]="id"><img [src]="icon" alt="" /></label>
+<input
+  [type]="type"
+  [id]="id"
+  [name]="name"
+  [required]="required"
+  [disabled]="disabled"
+  [placeholder]="placeholder"
+  [value]="value"
+  (input)="handleInput($event)"
+  (blur)="handleBlur()"
+/>

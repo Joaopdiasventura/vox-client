@@ -1,0 +1,127 @@
+@use "../../../../../../styles/colors.scss" as colors;
+
+@media (max-width: 767px) {
+  @mixin form-selection-base {
+    margin: 2vh;
+    position: relative;
+    display: flex;
+    height: 5%;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    border-radius: 0.75vh;
+    background: rgba(255, 255, 255, 0.027);
+    overflow: hidden;
+    backdrop-filter: blur(0.5vh);
+    -webkit-backdrop-filter: blur(0.5vh);
+
+    button {
+      flex: 1;
+      z-index: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.75vh;
+      cursor: pointer;
+      &.active {
+        color: #000;
+      }
+    }
+
+    .switch-bg {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 45%;
+      height: 70%;
+      background: #fff;
+      border-radius: 0.75vh;
+      transition: transform 500ms ease-in-out;
+      transform: translateY(-50%);
+    }
+  }
+
+  :host {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+
+    main {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("/svg/access-background.svg");
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.05);
+        z-index: 0;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(180deg, #2d000000, #410000b4);
+        transform: scale(1.05);
+        z-index: 1;
+      }
+      > * {
+        position: relative;
+        z-index: 2;
+      }
+
+      img {
+        width: 40%;
+        margin: 2vh;
+      }
+
+      .form-selection {
+        @include form-selection-base;
+      }
+
+      .forms-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+      }
+
+      .forms-wrapper {
+        display: flex;
+        width: 200%;
+        transition: transform 500ms ease-in-out;
+        form {
+          width: 50%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          gap: 2.5vh;
+
+          .btn-container {
+            width: 60%;
+            height: 5vh;
+          }
+        }
+      }
+    }
+  }
+
+  :host(.login-mode) .forms-wrapper {
+    transform: translateX(0);
+  }
+
+  :host(.register-mode) .forms-wrapper {
+    transform: translateX(-50%);
+  }
+}

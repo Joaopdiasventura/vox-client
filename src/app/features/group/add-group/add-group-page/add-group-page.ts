@@ -5,12 +5,11 @@ import { GroupService } from "../../../../core/services/group/group.service";
 import { CreateGroupDto } from "../../../../shared/dto/group/create-group.dto";
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../../shared/components/modals/modal/modal";
-import { CustomInput } from "../../../../shared/components/custom-input/custom-input";
-import { CustomHeader } from "../../../../shared/components/custom-header/custom-header";
-import { CustomButton } from "../../../../shared/components/custom-button/custom-button";
+import { CustomInput } from "../../../../shared/components/inputs/custom-input/custom-input";
+import { CustomHeader } from "../../../../shared/components/headers/custom-header/custom-header";
+import { CustomButton } from "../../../../shared/components/buttons/custom-button/custom-button";
 import { ReactiveFormsModule } from "@angular/forms";
 import { Group } from "../../../../core/models/group";
-import { of } from "rxjs";
 import { User } from "../../../../core/models/user";
 import { ModalConfig } from "../../../../shared/interfaces/config/modal";
 
@@ -46,8 +45,9 @@ export class AddGroupPage implements OnInit {
       name: ["", Validators.required],
       group: ["null"],
     });
+
     const init$ = this.authService.currentUserData
-      ? of(this.authService.currentUserData)
+      ? this.authService.currentUserData$
       : this.authService.connectUser();
 
     init$.subscribe((user) => this.handleUserConnection(user));
@@ -78,6 +78,7 @@ export class AddGroupPage implements OnInit {
       next: (result) => {
         this.modalConfig = {
           isVisible: true,
+          icon: "",
           title: "SUCESSO",
           children: result.message,
           onClose: (): void => {
@@ -90,6 +91,7 @@ export class AddGroupPage implements OnInit {
       error: (err) => {
         this.modalConfig = {
           isVisible: true,
+          icon: "",
           title: "ERRO",
           children: err.message,
           onClose: (): void => {

@@ -1,5 +1,5 @@
 import { Component, HostListener, Input } from "@angular/core";
-import { CustomButton } from "../../custom-button/custom-button";
+import { CustomButton } from "../../buttons/custom-button/custom-button";
 
 @Component({
   selector: "modal",
@@ -8,9 +8,10 @@ import { CustomButton } from "../../custom-button/custom-button";
   styleUrl: "./modal.scss",
 })
 export class Modal {
-  @Input() public isVisible = false;
-  @Input() public title: string | null = null;
-  @Input() public children: string | null = null;
+  @Input() public isVisible!: boolean;
+  @Input() public showButton = true;
+  @Input() public icon!: string | null;
+  @Input() public title!: string | null;
 
   @Input() public onClose: () => void = () => {
     return;

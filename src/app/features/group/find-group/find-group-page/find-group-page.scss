@@ -1,4 +1,3 @@
-@use "sass:map";
 @use "../../../../../styles/colors.scss" as styles;
 
 main {
@@ -13,8 +12,8 @@ main {
 
   .button {
     z-index: 0;
-    background-color: styles.$background-secondary-color;
-    color: styles.$primary-color;
+    background-color: styles.$gray-medium;
+    color: styles.$red-primary;
     transition: transform 0.2s;
     cursor: pointer;
     display: flex;

@@ -1,29 +1,10 @@
-<div
-  class="backdrop"
-  [class]="{
-    'opacity-100': isVisible,
-    'opacity-0': !isVisible
-  }"
->
-  <div
-    class="modal-content"
-    [class]="{
-      'scale-100': isVisible,
-      'scale-90': !isVisible
-    }"
-  >
-    @if (title){
-    <div class="modal-title">
-      <h2>{{ title }}</h2>
-    </div>
+<div>
+  <div><img [src]="icon" alt="" /></div>
+  <div>
+    <h2>{{title}}</h2>
+    <div><ng-content></ng-content></div>
+    @if (showButton) {
+    <custom-button (click)="onClose()"> Entendido </custom-button>
     }
-
-    <div class="modal-body">
-      <div class="children-content">{{ children }}</div>
-    </div>
-
-    <div class="modal-footer">
-      <custom-button [onClick]="onClose.bind(this)" content="FECHAR" />
-    </div>
   </div>
 </div>

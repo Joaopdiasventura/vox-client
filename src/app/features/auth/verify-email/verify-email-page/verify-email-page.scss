@@ -1,0 +1,85 @@
+@use "../../../../../styles/colors.scss" as colors;
+
+.verify-page {
+  position: fixed;
+  inset: 0;
+  background: rgba(colors.$gray-light, 0.6);
+  backdrop-filter: blur(1vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/svg/access-background.svg");
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.05);
+    z-index: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(180deg, #2d000000, #410000b4);
+    transform: scale(1.05);
+    z-index: 1;
+  }
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .card {
+    background: colors.$white-primary;
+    border-radius: 1.5vw;
+    width: 90%;
+    max-width: 36vw;
+    box-shadow: 0 1vh 2vh rgba(colors.$black-darkest, 0.4);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .card-header {
+      background: colors.$black-primary;
+      padding: 2vh 0;
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 4vh;
+        height: 4vh;
+      }
+    }
+
+    .card-body {
+      padding: 3vh 3vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2vh;
+
+      h1 {
+        font-family: "Azonix", sans-serif;
+        color: colors.$red-primary;
+        font-size: 4vh;
+        margin: 0;
+        text-align: center;
+      }
+
+      p {
+        font-family: "JetBrains Mono", monospace;
+        color: colors.$black-primary;
+        font-size: 2vh;
+        text-align: center;
+        margin: 0;
+        strong {
+          color: colors.$red-secondary;
+        }
+      }
+    }
+  }
+}

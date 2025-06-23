@@ -1,4 +1,4 @@
-@use "../../../../styles/colors.scss" as colors;
+@use "../../../../../styles/colors.scss" as colors;
 
 :host {
   height: 70%;
@@ -15,8 +15,8 @@
   button {
     font-size: 0.75vw;
     border: none;
-    background-color: colors.$background-secondary-color;
-    color: colors.$second-color;
+    background-color: colors.$gray-medium;
+    color: colors.$red-secondary;
     padding: 0.5vw;
     border-radius: 0.5vw;
     cursor: pointer;
@@ -24,13 +24,13 @@
     cursor: pointer;
 
     &:hover {
-      color: colors.$primary-color;
+      color: colors.$red-primary;
     }
 
     &.disable {
       cursor: not-allowed;
-      color: colors.$text-color;
-      background-color: colors.$background-color;
+      color: colors.$black-darkest;
+      background-color: colors.$white-primary;
     }
   }
 
@@ -48,8 +48,8 @@
     .elements-card {
       width: 20%;
       height: 40%;
-      background-color: colors.$background-secondary-color;
-      color: colors.$primary-color;
+      background-color: colors.$gray-medium;
+      color: colors.$red-primary;
       padding: 1vw;
       border-radius: 0.5vw;
       box-shadow: 0 0 0.3vw rgba(255, 255, 255, 0.1);
@@ -73,7 +73,7 @@
         font-size: 1.25vw;
         right: 5%;
         top: 10%;
-        color: colors.$primary-color;
+        color: colors.$red-primary;
       }
 
       &:hover {

@@ -14,9 +14,9 @@ main {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    border: 0.1vh solid colors.$primary-color;
-    box-shadow: 0 0 1.2vh colors.$primary-color;
-    background-color: colors.$background-secondary-color;
+    border: 0.1vh solid colors.$red-primary;
+    box-shadow: 0 0 1.2vh colors.$red-primary;
+    background-color: colors.$gray-medium;
     border-radius: 1vh;
     overflow: hidden;
 
@@ -48,14 +48,14 @@ main {
       border-radius: 0.5vh;
       cursor: pointer;
       font-size: 1.5vh;
-      color: colors.$text-color;
+      color: colors.$black-darkest;
       font-weight: 600;
-      border: 0.01vh solid colors.$primary-color;
+      border: 0.01vh solid colors.$red-primary;
       overflow: hidden;
       z-index: 1;
 
       option {
-        background-color: colors.$background-secondary-color;
+        background-color: colors.$gray-medium;
       }
     }
 

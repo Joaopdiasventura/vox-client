@@ -1,0 +1,45 @@
+<header>
+  <div class="logo-container">
+    <img src="svg/red/full-logo-icon.svg" />
+  </div>
+  <div class="main-container">
+    <div class="info-container">
+      <img [src]="getRouteIcon(currentRoute)" (click)="navigate([''])" />
+      <h3>{{getRouteTitle(currentRoute)}}</h3>
+    </div>
+    <div class="menu-icon" (click)="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</header>
+<nav [class.active]="isMenuOpen">
+  <div class="card" (click)="navigate(['group','add'])">
+    <img [src]="getRouteIcon('/group/add')" alt="Adicionar Grupo" />
+    <p>Adicionar Grupo</p>
+  </div>
+  <div class="card" (click)="navigate(['participant','add'])">
+    <img
+      [src]="getRouteIcon('/participant/add')"
+      alt="Adicionar Participante"
+    />
+    <p>Adicionar Participante</p>
+  </div>
+  <div class="card" (click)="navigate(['vote'])">
+    <img [src]="getRouteIcon('/vote')" alt="Iniciar Votação" />
+    <p>Iniciar Votação</p>
+  </div>
+  <div class="card" (click)="navigate(['votes','follow'])">
+    <img [src]="getRouteIcon('/votes/follow')" alt="Acompanhar Votação" />
+    <p>Acompanhar Votação</p>
+  </div>
+  <div class="card" (click)="navigate(['votes','allow'])">
+    <img [src]="getRouteIcon('/votes/allow')" alt="Autorizar Votação" />
+    <p>Autorizar Votação</p>
+  </div>
+  <div class="card" (click)="logOut()">
+    <img src="svg/red/log-out-icon.svg" alt="Sair" />
+    <p>Sair</p>
+  </div>
+</nav>

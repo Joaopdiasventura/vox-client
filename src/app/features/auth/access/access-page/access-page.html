@@ -1,100 +1,97 @@
-<div class="screen">
-  @if (isLoading) {
-  <loading />
-  } @else if (modalConfig && modalConfig.isVisible) {
-  <modal
-    [isVisible]="modalConfig.isVisible"
-    [title]="modalConfig.title"
-    [children]="modalConfig.children"
-    [onClose]="modalConfig.onClose"
-  />
-  } @else {
-  <div [class]="isInLogin ? 'container' : 'container active'">
-    <div class="form-box form-login">
-      <h2>Login</h2>
+@if (isLoading) {
+<loading />
+} @else { @if (modalConfig && modalConfig.isVisible) {
+<modal
+  [isVisible]="modalConfig.isVisible"
+  [icon]="modalConfig.icon"
+  [title]="modalConfig.title"
+  [onClose]="modalConfig.onClose.bind(this)"
+>
+  {{modalConfig.children}}
+</modal>
+}
+<main>
+  <img src="svg/white/name-icon.svg" alt="" />
+  <div class="form-selection">
+    <div
+      class="switch-bg"
+      [ngStyle]="{ transform: isInLogin ? 'translate(5%, -50%)' : 'translate(115%, -50%)' }"
+    ></div>
+    <button type="button" (click)="isInLogin = true" [class.active]="isInLogin">
+      login
+    </button>
+    <button
+      type="button"
+      (click)="isInLogin = false"
+      [class.active]="!isInLogin"
+    >
+      cadastro
+    </button>
+  </div>
+
+  <div class="forms-container">
+    <div class="forms-wrapper">
       <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
-        <custom-input
+        <access-input
           formControlName="email"
           type="email"
+          name="login-email"
           id="login-email"
           label="Email"
+          placeholder="Digite seu email"
+          icon="svg/white/email-input-icon.svg"
           [required]="true"
         />
-        <custom-input
+        <access-input
           formControlName="password"
           type="password"
+          name="login-password"
           id="login-password"
-          label="Senha"
+          label="password"
+          placeholder="Digite sua senha"
+          icon="svg/white/password-input-icon.svg"
           [required]="true"
         />
-        <custom-button content="Entrar" />
-        <div class="regi-link">
-          Não tem uma conta?
-          <a class="SignUpLink" (click)="changeMethod()"> Crie uma </a>
+        <div class="btn-container">
+          <custom-button>entrar</custom-button>
         </div>
       </form>
-    </div>
-
-    <div class="form-box form-create">
-      <h2>Criar Conta</h2>
       <form [formGroup]="createForm" autocomplete="off" (ngSubmit)="create()">
-        <custom-input
+        <access-input
+          formControlName="name"
+          type="name"
+          name="register-name"
+          id="register-name"
+          label="name"
+          placeholder="Digite seu nome"
+          icon="svg/white/name-input-icon.svg"
+          [required]="true"
+        />
+        <access-input
           formControlName="email"
           type="email"
-          id="create-email"
+          name="register-email"
+          id="register-email"
           label="Email"
+          placeholder="Digite seu email"
+          icon="svg/white/email-input-icon.svg"
           [required]="true"
         />
-        <custom-input
-          formControlName="name"
-          type="text"
-          id="create-name"
-          label="Nome"
-          [required]="true"
-        />
-        <custom-input
+        <access-input
           formControlName="password"
           type="password"
-          id="create-password"
-          label="Senha"
+          name="register-password"
+          id="register-password"
+          label="password"
+          placeholder="Digite sua senha"
+          icon="svg/white/password-input-icon.svg"
           [required]="true"
         />
-        <custom-button content="Criar" />
-        <div class="regi-link">
-          Possui uma conta?
-          <a
-            class="SignUpLink"
-            href="#"
-            tabindex="0"
-            (click)="changeMethod()"
-            (keyup.enter)="changeMethod()"
-          >
-            Entre nela
-          </a>
+        <div class="btn-container">
+          <custom-button>cadastrar</custom-button>
         </div>
       </form>
     </div>
-
-    <div [class]="isInLogin ? 'curved-shape' : 'curved-shape active'"></div>
-
-    <div
-      [class]="
-          isInLogin
-            ? 'info-content info-login'
-            : 'info-content info-login active'
-        "
-    >
-      <h2>BEM VINDO NOVAMENTE</h2>
-    </div>
-    <div
-      [class]="
-          isInLogin
-            ? 'info-content info-create'
-            : 'info-content info-create active'
-        "
-    >
-      <h2>BEM VINDO</h2>
-    </div>
   </div>
-  }
-</div>
+</main>
+}

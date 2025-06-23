@@ -7,8 +7,5 @@ import { Component, Input } from "@angular/core";
   styleUrl: "./custom-button.scss",
 })
 export class CustomButton {
-  @Input() public content = "";
-  @Input() public onClick: () => void = () => {
-    return;
-  };
+  @Input() public type!: string;
 }

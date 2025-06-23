@@ -5,8 +5,7 @@ import { AuthService } from "../../../../core/services/auth/auth.service";
 import { GroupService } from "../../../../core/services/group/group.service";
 import { WebSocketService } from "../../../../core/services/web-socket/web-socket.service";
 import { VoteResult } from "../../../../shared/interfaces/results/vote";
-import { of } from "rxjs";
-import { CustomHeader } from "../../../../shared/components/custom-header/custom-header";
+import { CustomHeader } from "../../../../shared/components/headers/custom-header/custom-header";
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { Router } from "@angular/router";
 
@@ -31,7 +30,7 @@ export class FollowVotePage implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const init$ = this.authService.currentUserData
-      ? of(this.authService.currentUserData)
+      ? this.authService.currentUserData$
       : this.authService.connectUser();
 
     init$.subscribe((user) => this.handleUserConnection(user));
