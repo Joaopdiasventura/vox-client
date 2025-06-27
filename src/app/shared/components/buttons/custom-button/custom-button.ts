@@ -8,4 +8,7 @@ import { Component, Input } from "@angular/core";
 })
 export class CustomButton {
   @Input() public type!: string;
+  @Input() public onClick: () => void = () => {
+    return;
+  };
 }

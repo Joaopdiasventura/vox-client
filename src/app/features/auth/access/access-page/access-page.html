@@ -11,7 +11,7 @@
 </modal>
 }
 <main>
-  <img src="svg/white/name-icon.svg" alt="" />
+  <img src="svg/red/full-logo-icon.svg" alt="" />
   <div class="form-selection">
     <div
       class="switch-bg"
@@ -32,7 +32,7 @@
   <div class="forms-container">
     <div class="forms-wrapper">
       <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
-        <access-input
+        <custom-input
           formControlName="email"
           type="email"
           name="login-email"
@@ -42,7 +42,7 @@
           icon="svg/white/email-input-icon.svg"
           [required]="true"
         />
-        <access-input
+        <custom-input
           formControlName="password"
           type="password"
           name="login-password"
@@ -52,44 +52,40 @@
           icon="svg/white/password-input-icon.svg"
           [required]="true"
         />
-        <div class="btn-container">
-          <custom-button>entrar</custom-button>
-        </div>
+        <custom-button>entrar</custom-button>
       </form>
       <form [formGroup]="createForm" autocomplete="off" (ngSubmit)="create()">
-        <access-input
+        <custom-input
           formControlName="name"
           type="name"
-          name="register-name"
-          id="register-name"
+          name="create-name"
+          id="create-name"
           label="name"
           placeholder="Digite seu nome"
           icon="svg/white/name-input-icon.svg"
           [required]="true"
         />
-        <access-input
+        <custom-input
           formControlName="email"
           type="email"
-          name="register-email"
-          id="register-email"
+          name="create-email"
+          id="create-email"
           label="Email"
           placeholder="Digite seu email"
           icon="svg/white/email-input-icon.svg"
           [required]="true"
         />
-        <access-input
+        <custom-input
           formControlName="password"
           type="password"
-          name="register-password"
-          id="register-password"
+          name="create-password"
+          id="create-password"
           label="password"
           placeholder="Digite sua senha"
           icon="svg/white/password-input-icon.svg"
           [required]="true"
         />
-        <div class="btn-container">
-          <custom-button>cadastrar</custom-button>
-        </div>
+        <custom-button>cadastrar</custom-button>
       </form>
     </div>
   </div>

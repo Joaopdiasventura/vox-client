@@ -12,9 +12,9 @@ import { UserService } from "../../../../core/services/user/user.service";
 import { ModalConfig } from "../../../../shared/interfaces/config/modal";
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../../shared/components/modals/modal/modal";
-import { AccessInput } from "../../../../shared/components/inputs/access-input/access-input";
 import { NgStyle } from "@angular/common";
 import { CustomButton } from "../../../../shared/components/buttons/custom-button/custom-button";
+import { CustomInput } from "../../../../shared/components/inputs/custom-input/custom-input";
 
 @Component({
   selector: "app-access-page",
@@ -23,7 +23,7 @@ import { CustomButton } from "../../../../shared/components/buttons/custom-butto
     NgStyle,
     Loading,
     Modal,
-    AccessInput,
+    CustomInput,
     CustomButton,
   ],
   templateUrl: "./access-page.html",

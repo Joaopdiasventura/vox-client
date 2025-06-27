@@ -2,9 +2,7 @@
 <main>
   @if (isLoading) {
   <loading />
-  } @else if (currentUser){
-  <h1>BEM VINDO {{currentUser.name}}</h1>
-  @if (allGroups.length > 0) {
+  } @else{ @if (allGroups.length > 0) {
   <custom-list
     [allElements]="allGroups"
     [navigate]="viewGroupDetails.bind(this)"

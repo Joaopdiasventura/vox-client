@@ -11,10 +11,9 @@
     [delete]="delete.bind(this)"
     [type]="type"
   />} @else {
-  <h3>GRUPO VAZIO</h3>
+  <h2>GRUPO VAZIO</h2>
   } @if (currentGroup.group) {
-  <button class="button" (click)="navigateToGroup('' + currentGroup.group)">
-    Voltar
-  </button>
+
+  <custom-button [onClick]="goBack.bind(this)">voltar</custom-button>
   } }
 </main>

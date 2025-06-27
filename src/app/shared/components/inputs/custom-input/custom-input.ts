@@ -19,6 +19,8 @@ export class CustomInput implements OnInit, ControlValueAccessor {
   @Input() public type = "text";
   @Input() public name = "";
   @Input() public id = "";
+  @Input() public placeholder = "";
+  
   public value = "";
   public disabled = false;
 

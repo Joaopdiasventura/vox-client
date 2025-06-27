@@ -1,30 +1,13 @@
-<div
-  class="backdrop"
-  [class]="{
-    'opacity-100': isVisible,
-    'opacity-0': !isVisible
-  }"
->
-  <div
-    class="modal-content"
-    [class]="{
-      'scale-100': isVisible,
-      'scale-90': !isVisible
-    }"
-  >
-    @if (title){
-    <div class="modal-title">
-      <h2>{{ title }}</h2>
-    </div>
-    }
-
-    <div class="modal-body">
-      <div class="children-content">{{ children }}</div>
-    </div>
-
-    <div class="modal-footer">
-      <button (click)="onConfirm()" class="close-button confirm">SIM</button>
-      <button (click)="onDeny()" class="close-button deny">NÃO</button>
+<div>
+  <div><img [src]="icon" alt="" /></div>
+  <div>
+    <h2>{{title}}</h2>
+    <div><ng-content></ng-content></div>
+    <div class="btn-container">
+      @if (showButton) {
+      <button class="confirm" (click)="confirm()">SIM</button>
+      <button class="deny" (click)="deny()">NÃO</button>
+      }
     </div>
   </div>
 </div>

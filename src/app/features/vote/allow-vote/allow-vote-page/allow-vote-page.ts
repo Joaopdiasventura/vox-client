@@ -13,6 +13,8 @@ import { CustomInput } from "../../../../shared/components/inputs/custom-input/c
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../../shared/components/modals/modal/modal";
 import { ModalConfig } from "../../../../shared/interfaces/config/modal";
+import { SelectOption } from "../../../../shared/interfaces/config/select";
+import { CustomSelect } from "../../../../shared/components/selects/custom-select/custom-select";
 
 @Component({
   selector: "app-allow-vote-page",
@@ -23,16 +25,18 @@ import { ModalConfig } from "../../../../shared/interfaces/config/modal";
     CustomInput,
     CustomButton,
     ReactiveFormsModule,
+    CustomSelect,
   ],
   templateUrl: "./allow-vote-page.html",
   styleUrl: "./allow-vote-page.scss",
 })
 export class AllowVotePage implements OnInit, OnDestroy {
   public isLoading = false;
-  public currentGroups: Group[] = [];
+  public currentGroups: SelectOption[] = [];
   public selectedGroup!: Group;
   public modalConfig!: ModalConfig;
-  public form!: FormGroup;
+  public urnForm!: FormGroup;
+  public selectForm!: FormGroup;
 
   private _currentUser: User | null = null;
   private authService = inject(AuthService);
@@ -43,9 +47,17 @@ export class AllowVotePage implements OnInit, OnDestroy {
   private sub!: Subscription;
 
   public ngOnInit(): void {
-    this.form = this.fb.group({
+    this.urnForm = this.fb.group({
       urn: [""],
     });
+
+    this.selectForm = this.fb.group({
+      group: [null],
+    });
+
+    this.selectForm
+      .get("group")!
+      .valueChanges.subscribe((v) => this.changeSelect(v));
 
     const init$ = this.authService.currentUserData
       ? this.authService.currentUserData$
@@ -58,16 +70,14 @@ export class AllowVotePage implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  public changeSelect(e: Event): void {
-    const select = e.target as HTMLSelectElement;
-    const group = this.currentGroups.find((g) => g._id == select.value);
+  public changeSelect(groupId: string): void {
+    const group = this.currentGroups.find((g) => g.value == groupId);
     if (!group) return;
-    this.selectedGroup = group;
-    this.webSocketService.on(`vote-${group._id}`, () => this.alertVote());
+    this.webSocketService.on(`vote-${group.value}`, () => this.alertVote());
   }
 
   public allowVote(): void {
-    const urnId = this.form.value.urn;
+    const urnId = this.urnForm.value.urn;
     this.webSocketService.emit("allow-vote", urnId);
   }
 
@@ -86,9 +96,12 @@ export class AllowVotePage implements OnInit, OnDestroy {
     if (!this._currentUser) return;
     this.isLoading = true;
     this.groupService.findAllWithParticipants(this._currentUser._id).subscribe({
-      next: (groups) => {
-        if (groups.length == 0) this.router.navigate(["group", "add"]);
-        this.currentGroups = groups;
+      next: (result) => {
+        if (result.length == 0) this.router.navigate(["group", "add"]);
+        this.currentGroups = result.map((g) => ({
+          value: g._id,
+          label: (g.group ? g.group + "/" : "") + g.name,
+        }));
       },
       complete: () => (this.isLoading = false),
     });
@@ -97,7 +110,7 @@ export class AllowVotePage implements OnInit, OnDestroy {
   private alertVote(): void {
     this.modalConfig = {
       isVisible: true,
-      icon: "",
+      icon: "svg/white/check-icon.svg",
       title: "VOTO REALIZADO",
       children: "Urna bloqueada até receber uma autorização",
       onClose: (): void => {

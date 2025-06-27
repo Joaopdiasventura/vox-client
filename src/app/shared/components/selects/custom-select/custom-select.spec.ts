@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccessInput } from './access-input';
+import { CustomSelect } from './custom-select';
 
-describe('AccessInput', () => {
-  let component: AccessInput;
-  let fixture: ComponentFixture<AccessInput>;
+describe('CustomSelect', () => {
+  let component: CustomSelect;
+  let fixture: ComponentFixture<CustomSelect>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccessInput]
+      imports: [CustomSelect]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AccessInput);
+    fixture = TestBed.createComponent(CustomSelect);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

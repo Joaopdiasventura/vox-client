@@ -10,10 +10,11 @@ import { ParticipantService } from "../../../../core/services/participant/partic
 import { CustomHeader } from "../../../../shared/components/headers/custom-header/custom-header";
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { CustomList } from "../../../../shared/components/lists/custom-list/custom-list";
+import { CustomButton } from "../../../../shared/components/buttons/custom-button/custom-button";
 
 @Component({
   selector: "app-find-group-page",
-  imports: [CustomHeader, CustomList, Loading],
+  imports: [CustomHeader, CustomList, Loading, CustomButton],
   templateUrl: "./find-group-page.html",
   styleUrl: "./find-group-page.scss",
 })
@@ -56,6 +57,13 @@ export class FindGroupPage implements OnInit {
   public navigateToGroup(id: string): void {
     this.router.navigate(["group", id]).then(() => {
       this.id = id;
+      this.loadData();
+    });
+  }
+
+  public goBack(): void {
+    this.router.navigate(["group", this.currentGroup?.group]).then(() => {
+      this.id = (this.currentGroup?.group as unknown as string) || "";
       this.loadData();
     });
   }

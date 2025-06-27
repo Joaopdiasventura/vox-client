@@ -1,69 +1,46 @@
 @use "../../../../../styles/colors.scss" as colors;
 
 main {
-  height: 92.5vh;
   width: 100vw;
+  height: 85vh;
   display: flex;
   flex-direction: column;
-  padding: 2vh 7.5vw;
+  overflow: hidden;
+  padding: 2vw;
+  gap: 10vh;
+  align-items: center;
   justify-content: center;
-  gap: 1vh;
 
-  select {
-    margin-top: 0.75vh;
-    outline: none;
-    width: 100%;
-    height: 4vh;
-    position: relative;
-    background: transparent;
-    border-radius: 0.5vh;
-    cursor: pointer;
-    font-size: 1.5vh;
-    color: colors.$black-darkest;
-    font-weight: 600;
-    border: 0.01vh solid colors.$red-primary;
-    overflow: hidden;
-
-    option {
-      background-color: colors.$gray-medium;
-    }
-  }
-
-  h1 {
-    text-align: center;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid colors.$red-primary;
-    background-color: colors.$red-primary;
-
-    thead {
-      tr {
-        th {
-          width: 50%;
-        }
-      }
-    }
-
-    tbody {
-      td {
-        background-color: colors.$gray-medium;
-        border: 1px solid colors.$red-primary;
-        text-align: center;
-        padding: 1vw;
-      }
-    }
-  }
-
-  .allow-container,
-  .exit-container {
-    padding: 0 10vw;
+  form {
+    height: auto;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 1vh;
+    gap: 2vh;
+
+    custom-button {
+      width: 20%;
+    }
+  }
+
+  custom-button {
+    width: 7.5%;
+  }
+}
+
+@media (max-width: 767px) {
+  main {
+    form {
+      width: 80%;
+
+      custom-button {
+        width: 40%;
+      }
+    }
+
+    custom-button {
+      width: 20%;
+    }
   }
 }

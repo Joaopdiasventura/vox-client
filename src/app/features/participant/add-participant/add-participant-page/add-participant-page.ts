@@ -9,9 +9,10 @@ import { Loading } from "../../../../shared/components/loadings/loading/loading"
 import { Modal } from "../../../../shared/components/modals/modal/modal";
 import { CustomButton } from "../../../../shared/components/buttons/custom-button/custom-button";
 import { ReactiveFormsModule } from "@angular/forms";
-import { Group } from "../../../../core/models/group";
 import { ModalConfig } from "../../../../shared/interfaces/config/modal";
 import { User } from "../../../../core/models/user";
+import { SelectOption } from "../../../../shared/interfaces/config/select";
+import { CustomSelect } from "../../../../shared/components/selects/custom-select/custom-select";
 
 @Component({
   selector: "app-add-participant-page",
@@ -19,6 +20,7 @@ import { User } from "../../../../core/models/user";
     CustomHeader,
     CustomInput,
     CustomButton,
+    CustomSelect,
     Loading,
     Modal,
     ReactiveFormsModule,
@@ -28,7 +30,7 @@ import { User } from "../../../../core/models/user";
 })
 export class AddParticipantPage implements OnInit {
   public isLoading = false;
-  public currentGroups: Group[] = [];
+  public currentGroups: SelectOption[] = [];
   public createForm!: FormGroup;
 
   public modalConfig!: ModalConfig;
@@ -43,7 +45,7 @@ export class AddParticipantPage implements OnInit {
   public ngOnInit(): void {
     this.createForm = this.fb.group({
       name: ["", Validators.required],
-      group: ["", Validators.required],
+      group: [null, Validators.required],
     });
 
     const init$ = this.authService.currentUserData
@@ -60,7 +62,7 @@ export class AddParticipantPage implements OnInit {
     if (this.createForm.get("group")!.value == "") {
       this.modalConfig = {
         isVisible: true,
-        icon: "",
+        icon: "svg/white/warn-icon.svg",
         title: "ERRO",
         children: "Escolha um grupo para esse participante",
         onClose: (): void => {
@@ -74,11 +76,11 @@ export class AddParticipantPage implements OnInit {
       next: (result) => {
         this.modalConfig = {
           isVisible: true,
-          icon: "",
+          icon: "svg/white/check-icon.svg",
           title: "SUCESSO",
           children: result.message,
           onClose: (): void => {
-            this.createForm.reset({ name: "", group: "" });
+            this.createForm.reset({ name: "", group: null });
             this.modalConfig.isVisible = false;
           },
         };
@@ -86,7 +88,7 @@ export class AddParticipantPage implements OnInit {
       error: (error) => {
         this.modalConfig = {
           isVisible: true,
-          icon: "",
+          icon: "svg/white/warn-icon.svg",
           title: "ERRO",
           children: error.message,
           onClose: (): void => {
@@ -108,10 +110,12 @@ export class AddParticipantPage implements OnInit {
     if (!this._currentUser) return;
     this.isLoading = true;
     this.groupService.findAllWithoutSubGroups(this._currentUser._id).subscribe({
-      next: (groups) => {
-        this.currentGroups = groups;
-        this.isLoading = false;
-      },
+      next: (groups) =>
+        (this.currentGroups = groups.map((g) => ({
+          value: g._id,
+          label: (g.group ? g.group + "/" : "") + g.name,
+        }))),
+      complete: () => (this.isLoading = false),
     });
   }
 }

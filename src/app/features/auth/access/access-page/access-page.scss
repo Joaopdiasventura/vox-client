@@ -1,2 +1,107 @@
-@use "./styles/desktop.scss" as desktop;
-@use "./styles/mobile.scss" as mobile;
+@use "../../../../../styles/colors.scss" as colors;
+
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  gap: 5vh;
+
+  img {
+    width: 10%;
+  }
+
+  .form-selection {
+    position: relative;
+    display: flex;
+    height: 5%;
+    align-items: center;
+    width: 20%;
+    border-radius: 0.75vw;
+    background: colors.$red-primary;
+    overflow: hidden;
+    backdrop-filter: blur(0.5vw);
+    -webkit-backdrop-filter: blur(0.5vw);
+
+    button {
+      width: 50%;
+      flex: 1;
+      z-index: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.25vw;
+      cursor: pointer;
+      &.active {
+        color: #000;
+      }
+    }
+
+    .switch-bg {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 45%;
+      height: 70%;
+      background: #fff;
+      border-radius: 0.75vw;
+      transition: transform 500ms ease-in-out;
+      transform: translateY(-50%);
+    }
+  }
+
+  .forms-container {
+    position: relative;
+    overflow: hidden;
+    width: 40%;
+    height: auto;
+  }
+
+  .forms-wrapper {
+    display: flex;
+    width: 200%;
+    transition: transform 500ms ease-in-out;
+
+    form {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 5vh;
+
+      custom-button {
+        width: 30%;
+      }
+    }
+  }
+}
+
+:host(.login-mode) .forms-wrapper {
+  transform: translateX(0);
+}
+
+:host(.register-mode) .forms-wrapper {
+  transform: translateX(-50%);
+}
+
+@media (max-width: 767px) {
+  main {
+    img {
+      width: 30%;
+    }
+    .form-selection {
+      width: 70%;
+      button {
+        font-size: 1.75vh;
+      }
+    }
+    .forms-container {
+      width: 80%;
+    }
+  }
+}

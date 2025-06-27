@@ -4,7 +4,7 @@
     <h2>{{title}}</h2>
     <div><ng-content></ng-content></div>
     @if (showButton) {
-    <custom-button (click)="onClose()"> Entendido </custom-button>
+    <custom-button [onClick]="onClose"> Entendido </custom-button>
     }
   </div>
 </div>

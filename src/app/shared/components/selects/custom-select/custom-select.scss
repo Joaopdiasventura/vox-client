@@ -11,13 +11,31 @@
     font-size: 1.25vw;
   }
 
-  input {
+  select {
     font-family: "Jetbrains Mono";
     font-size: 1.25vw;
     border: none;
     outline: none;
     border-bottom: 0.2vw solid colors.$red-primary;
     border-radius: 0 0 0.15vw 0.15vw;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 2vw;
+    background-image: url("/svg/red/select-arrows-icon.svg");
+    background-repeat: no-repeat;
+    background-position: right 0.5vw center;
+    background-size: 1.5vw 1.5vw;
+
+    &::-ms-expand {
+      display: none;
+    }
+
+    option {
+      cursor: pointer;
+      color: colors.$red-secondary;
+    }
   }
 }
 
@@ -27,8 +45,9 @@
     label {
       font-size: 1.75vh;
     }
-    input {
+    select {
       font-size: 1.75vh;
+      background-size: 2vh 2vh;
       border-bottom: 0.4vh solid colors.$red-primary;
       border-radius: 0 0 0.5vh 0.5vh;
     }

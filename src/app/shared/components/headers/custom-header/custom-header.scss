@@ -123,3 +123,24 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  :host {
+    header {
+      .main-container {
+        .info-container {
+          h3 {
+            font-size: 2vh;
+          }
+        }
+      }
+    }
+    nav {
+      .card {
+        p {
+          font-size: 1.2vh;
+        }
+      }
+    }
+  }
+}

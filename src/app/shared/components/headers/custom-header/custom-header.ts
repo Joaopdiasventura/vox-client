@@ -52,11 +52,11 @@ export class CustomHeader implements OnInit {
 
     if (route == "/participant/add") return "ADICIONE UM PARITICIPANTE";
 
-    if (route == "/vote") return "INICIE UMA VOTAÇÃO";
+    if (route == "/vote") return "INICIAR VOTOS";
 
-    if (route == "/votes/follow") return "ACOMPANHE UMA VOTAÇÃO";
+    if (route == "/votes/follow") return "ACOMPANHE OS VOTOS";
 
-    if (route == "/votes/allow") return "AUTORIZE UMA VOTAÇÃO";
+    if (route == "/votes/allow") return "AUTORIZE OS VOTOS";
 
     return "BEM VINDO";
   }

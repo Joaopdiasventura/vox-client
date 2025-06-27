@@ -3,19 +3,16 @@
   @if (isLoading) {
   <loading />
   } @else {
-  <select
-    name="group"
-    id="group"
-    [value]="selectedGroup ? selectedGroup._id : 'null'"
-    (change)="changeSelect($event)"
-  >
-    <option [value]="null">NENHUM</option>
-    @for (group of currentGroups; track $index) {
-    <option [value]="group._id">
-      {{ group.group ? group.group + "/" : "" }}{{ group.name }}
-    </option>
-    }
-  </select>
+  <form [formGroup]="selectForm">
+    <custom-select
+      formControlName="group"
+      id="group"
+      label="Selecione um grupo para iniciar"
+      default="selecione"
+      [options]="currentGroups"
+    />
+  </form>
+
   @if (voteResult) {
   <h1>{{ voteResult.group.name }}</h1>
   <table>

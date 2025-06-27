@@ -1,2 +1,26 @@
-@use "./styles/desktop.scss" as desktop;
-@use "./styles/mobile.scss" as mobile;
+@use "../../../../../styles/colors.scss" as colors;
+
+:host {
+  width: 100%;
+
+  button {
+    width: 100%;
+    height: 100%;
+    background-color: colors.$red-primary;
+    color: colors.$white-primary;
+    font-family: "Azonix";
+    border: none;
+    border-radius: 0.5vw;
+    padding: 0.5vw 0;
+    cursor: pointer;
+    font-size: 1vw;
+  }
+}
+
+@media (max-width: 767px) {
+  :host {
+    button {
+      font-size: 1.5vh;
+    }
+  }
+}

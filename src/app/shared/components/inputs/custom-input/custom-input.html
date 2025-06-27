@@ -1,13 +1,12 @@
-<div class="input-box">
-  <input
-    [type]="type"
-    [id]="id"
-    [name]="name"
-    [required]="required"
-    [disabled]="disabled"
-    [value]="value"
-    (input)="handleInput($event)"
-    (blur)="handleBlur()"
-  />
-  <label [for]="id">{{ label }}</label>
-</div>
+<label [for]="id">{{ label }}</label>
+<input
+  [type]="type"
+  [id]="id"
+  [name]="name"
+  [required]="required"
+  [disabled]="disabled"
+  [placeholder]="placeholder"
+  [value]="value"
+  (input)="handleInput($event)"
+  (blur)="handleBlur()"
+/>
