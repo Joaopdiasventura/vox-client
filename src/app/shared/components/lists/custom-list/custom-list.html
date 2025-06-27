@@ -1,11 +1,12 @@
-@if ( modalConfig.isVisible ) {
+@if (questionModalConfig && questionModalConfig.isVisible) {
 <modal-question
-  [isVisible]="modalConfig.isVisible"
-  [title]="modalConfig.title"
-  [confirm]="deleteElement.bind(this)"
-  [deny]="modalConfig.onDeny"
+  [isVisible]="questionModalConfig.isVisible"
+  [title]="questionModalConfig.title"
+  [icon]="questionModalConfig.icon"
+  [confirm]="questionModalConfig.onConfirm.bind(this)"
+  [deny]="questionModalConfig.onDeny.bind(this)"
 >
-  <p>{{modalConfig.children}}</p>
+  {{questionModalConfig.children}}
 </modal-question>
 } @else if(allElements && allElements[0] && allElements[0].length > 0){
 <div class="elements-container">

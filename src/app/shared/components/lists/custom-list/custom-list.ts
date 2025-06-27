@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { Group } from "../../../../core/models/group";
 import { Participant } from "../../../../core/models/participant";
 import { ModalQuestion } from "../../modals/modal-question/modal-question";
+import { QuestionModalConfig } from "../../../interfaces/config/modal";
 
 @Component({
   selector: "custom-list",
@@ -27,16 +28,7 @@ export class CustomList {
 
   public currentElement: Group | Participant | null = null;
 
-  public modalConfig = {
-    isVisible: false,
-    title: "AVISO",
-    children: "teste",
-    onConfirm: (): (() => void) => this.deleteElement,
-    onDeny: (): void => {
-      this.modalConfig.isVisible = false;
-      this.currentElement = null;
-    },
-  };
+  public questionModalConfig!: QuestionModalConfig;
 
   public slidingDirection: "left" | "right" | "" = "";
 
@@ -64,7 +56,6 @@ export class CustomList {
   }
 
   public navigateToElement(path: string): void {
-    this.modalConfig.isVisible = false;
     this.currentPage = 0;
     this.navigate(path);
   }
@@ -90,15 +81,25 @@ export class CustomList {
     }
     this.delete(this.currentElement?._id as string);
     this.currentElement = null;
-    this.modalConfig.isVisible = false;
+    this.questionModalConfig.isVisible = false;
   }
 
   public openModal(element: Group | Participant): void {
     this.currentElement = element;
 
-    this.modalConfig.children = `Deseja deletar o ${this.type} de nome '${element.name}'`;
-
-    this.modalConfig.isVisible = true;
+    this.questionModalConfig = {
+      isVisible: true,
+      icon: "svg/white/warn-icon.svg",
+      title: "AVISO",
+      children: `Deseja deletar o ${this.type} de nome '${element.name}'`,
+      onConfirm: (): void => {
+        this.deleteElement();
+      },
+      onDeny: (): void => {
+        this.questionModalConfig.isVisible = false;
+        this.currentElement = null;
+      },
+    };
   }
 
   public animationDone(): void {
