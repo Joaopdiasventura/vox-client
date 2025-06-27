@@ -1,35 +1,39 @@
 @if (status == "selecting") {<custom-header />}
-<main>
+<main [style.height]="status == 'selecting' ? '85vh' : '100vh'">
   @if (isLoading) {
   <loading />
   } @else if (modalConfig && modalConfig.isVisible) {
   <modal
     [isVisible]="modalConfig.isVisible"
     [title]="modalConfig.title"
-    [children]="modalConfig.children"
+    [icon]="modalConfig.icon"
     [onClose]="modalConfig.onClose"
-  />
-  } @else { @if (status == "selecting") {
-  <h1>Identificador da urna: {{ simpleId }}</h1>
-  <div class="container">
-    <div class="select-container">
-      <label for="group">Selecione um grupo para iniciar a votação</label>
-      <select
-        name="group"
-        id="group"
-        [value]="selectedGroup ? selectedGroup._id : 'null'"
-        (change)="changeSelect($event)"
-      >
-        <option value="null">NENHUM</option>
-        @for (group of currentGroups; track $index) {
-        <option [value]="group._id">
-          {{ group.group ? group.group + "/" : "" }}{{ group.name }}
-        </option>
-        }
-      </select>
-    </div>
+  >
+    {{modalConfig.children}}
+  </modal>
+
+  } @else if (questionModalConfig && questionModalConfig.isVisible) {
+  <modal-question
+    [isVisible]="questionModalConfig.isVisible"
+    [title]="questionModalConfig.title"
+    [icon]="questionModalConfig.icon"
+    [confirm]="questionModalConfig.onConfirm"
+    [deny]="questionModalConfig.onDeny"
+  >
+    {{questionModalConfig.children}}
+  </modal-question>
+  }@else { @if (status == "selecting") {
+  <div class="start-container">
+    <h1>Identificador da urna: <strong>{{ simpleId }}</strong></h1>
+    <custom-select
+      id="group"
+      label="Selecione um grupo para iniciar"
+      default="selecione"
+      [options]="currentGroups"
+      (change)="changeSelect($event)"
+    />
     <div class="null-vote">
-      <label for="null-vote">Voto Nulo</label>
+      <label for="null-vote">Deseja adicionar voto nulo?</label>
       <input
         type="checkbox"
         id="null-vote"
@@ -37,15 +41,15 @@
         (change)="changeNullVote()"
       />
     </div>
-    <custom-button [onClick]="startVote.bind(this)" content="Iniciar Votação" />
+    <custom-button [onClick]="startVote.bind(this)">INICIAR</custom-button>
   </div>
   }@else if (status == "occurring") {
   <div class="vote-container">
     @if(selectedGroup){
-    <div class="group-container">
-      <h3>{{ selectedGroup.name }}</h3>
+    <h3>{{ selectedGroup.label }}</h3>
+    <div class="options">
       @for (participant of selectedParticipants; track $index) {
-      <div>
+      <div class="option">
         <label [for]="participant._id">{{ participant.name }}</label>
         <input
           type="radio"
@@ -55,7 +59,7 @@
         />
       </div>
       } @if(nullVote){
-      <div>
+      <div class="option">
         <label for="null-1">Nulo</label>
         <input
           type="radio"
@@ -67,13 +71,11 @@
       }
     </div>
     }
-    <div class="button-container">
-      <custom-button [onClick]="vote.bind(this)" content="Votar" />
-    </div>
+    <custom-button [onClick]="vote.bind(this)">Votar</custom-button>
   </div>
   } @else {
   <div class="center-container">
-    <h1>AGUARDE A LIBERAÇÃO</h1>
+    <h1>URNA BLOQUEADA</h1>
   </div>
   } }
 </main>

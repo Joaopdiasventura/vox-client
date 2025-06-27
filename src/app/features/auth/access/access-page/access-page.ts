@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, HostBinding, inject, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -12,12 +12,20 @@ import { UserService } from "../../../../core/services/user/user.service";
 import { ModalConfig } from "../../../../shared/interfaces/config/modal";
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../../shared/components/modals/modal/modal";
-import { CustomInput } from "../../../../shared/components/custom-input/custom-input";
-import { CustomButton } from "../../../../shared/components/custom-button/custom-button";
+import { NgStyle } from "@angular/common";
+import { CustomButton } from "../../../../shared/components/buttons/custom-button/custom-button";
+import { CustomInput } from "../../../../shared/components/inputs/custom-input/custom-input";
 
 @Component({
   selector: "app-access-page",
-  imports: [ReactiveFormsModule, Loading, Modal, CustomInput, CustomButton],
+  imports: [
+    ReactiveFormsModule,
+    NgStyle,
+    Loading,
+    Modal,
+    CustomInput,
+    CustomButton,
+  ],
   templateUrl: "./access-page.html",
   styleUrl: "./access-page.scss",
 })
@@ -42,10 +50,21 @@ export class AccessPage implements OnInit {
       password: ["", Validators.required],
     });
     this.createForm = this.fb.group({
-      email: ["", [Validators.required, Validators.email]],
       name: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required],
     });
+  }
+
+  @HostBinding("class.login-mode") public get loginMode(): boolean {
+    return this.isInLogin;
+  }
+  @HostBinding("class.register-mode") public get registerMode(): boolean {
+    return !this.isInLogin;
+  }
+
+  public toggle(mode: "login" | "register"): void {
+    this.isInLogin = mode == "login";
   }
 
   public changeMethod(): void {
@@ -64,20 +83,24 @@ export class AccessPage implements OnInit {
       next: (result) => {
         this.modalConfig = {
           isVisible: true,
-          title: "LOGIN REALIZADO COM SUCESSO",
+          icon: "svg/white/check-icon.svg",
+          title: "BEM VINDO",
           children: result.message,
           onClose: (): void => {
-            this.router.navigate([""]);
+            localStorage.setItem("token", result.token);
+            this.authService.updateUserData(result.user);
+            this.router.navigate(
+              result.user.isEmailValid ? [""] : ["verify", "email"],
+            );
           },
         };
-        localStorage.setItem("token", result.token);
-        this.authService.updateUserData(result.user);
         this.isLoading = false;
       },
       error: (error: HttpErrorResponse) => {
         this.modalConfig = {
           isVisible: true,
-          title: "ERRO AO REALIZAR O LOGIN",
+          icon: "svg/white/warn-icon.svg",
+          title: "ERRO",
           children:
             typeof error.error.message == "string"
               ? error.error.message
@@ -106,20 +129,25 @@ export class AccessPage implements OnInit {
       next: (result) => {
         this.modalConfig = {
           isVisible: true,
-          title: "USUÁRIO CRIADO COM SUCESSO",
+          icon: "svg/white/check-icon.svg",
+          title: "BEM VINDO",
           children: result.message,
           onClose: (): void => {
-            this.router.navigate([""]);
+            localStorage.setItem("token", result.token);
+            this.authService.updateUserData(result.user);
+            this.router.navigate(
+              result.user.isEmailValid ? [""] : ["verify", "email"],
+            );
           },
         };
-        localStorage.setItem("token", result.token);
-        this.authService.updateUserData(result.user);
+
         this.isLoading = false;
       },
       error: (error: HttpErrorResponse) => {
         this.modalConfig = {
           isVisible: true,
-          title: "ERRO AO CRIAR O USUÁRIO",
+          icon: "svg/white/warn-icon.svg",
+          title: "ERRO",
           children:
             typeof error.error.message == "string"
               ? error.error.message

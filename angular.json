@@ -44,7 +44,7 @@
           "configurations": {
             "production": {
               "define": {
-                "API_URL": "'https://v-o-x.onrender.com'",
+                "API_URL": "'https://23493btogd.execute-api.sa-east-1.amazonaws.com'",
                 "ENVIRONMENT": "'prod'"
               },
               "budgets": [

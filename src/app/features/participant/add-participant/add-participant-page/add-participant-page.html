@@ -5,28 +5,24 @@
   } @else if (modalConfig && modalConfig.isVisible) {
   <modal
     [isVisible]="modalConfig.isVisible"
+    [icon]="modalConfig.icon"
     [title]="modalConfig.title"
-    [children]="modalConfig.children"
     [onClose]="modalConfig.onClose"
-  />
+  >
+    {{modalConfig.children}}
+  </modal>
   } @else {
-  <div class="form-box">
-    <h2>Adicionar Participante</h2>
-    <form [formGroup]="createForm" autocomplete="off" (ngSubmit)="create()">
-      <custom-input formControlName="name" id="create-name" label="Nome" />
-      @if (currentGroups.length > 0) {
-      <label for="group">SELECIONE UM GRUPO</label>
-      <select formControlName="group" id="group">
-        <option value="">NENHUM</option>
-        @for (group of currentGroups; track group._id) {
-        <option [value]="group._id">
-          {{ group.group ? group.group + '/' : '' }}{{ group.name }}
-        </option>
-        }
-      </select>
-      }
-      <custom-button content="Criar" />
-    </form>
-  </div>
+  <h2>Adicionar Participante</h2>
+  <form [formGroup]="createForm" autocomplete="off" (ngSubmit)="create()">
+    <custom-input formControlName="name" id="create-name" label="Nome" />
+    <custom-select
+      formControlName="group"
+      id="group"
+      label="ESCOLHA UM GRUPO"
+      default="selecione"
+      [options]="currentGroups"
+    />
+    <custom-button>CRIAR</custom-button>
+  </form>
   }
 </main>

@@ -1,85 +1,32 @@
 @use "../../../../../styles/colors.scss" as colors;
 
 main {
+  height: 85vh;
+  width: 100vw;
   display: flex;
+  flex-direction: column;
+  overflow: hidden;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 92.5vh;
+  gap: 5vh;
 
-  .form-box {
-    padding: 5vh;
-    width: 70%;
-    height: 40%;
+  h2 {
+    font-family: "Azonix";
+    font-size: 2.5vw;
+  }
+
+  form {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    border: 0.1vh solid colors.$primary-color;
-    box-shadow: 0 0 1.2vh colors.$primary-color;
-    background-color: colors.$background-secondary-color;
-    border-radius: 1vh;
-    overflow: hidden;
+    height: 30%;
+    justify-content: space-between;
+  }
+}
 
+@media (max-width: 767px) {
+  main {
     h2 {
-      font-size: 1.5rem;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1vh;
-    }
-
-    label {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      font-size: 2vh;
-    }
-
-    select {
-      outline: none;
-      width: 100%;
-      height: 4vh;
-      position: relative;
-      background: transparent;
-      border-radius: 0.5vh;
-      cursor: pointer;
-      font-size: 1.5vh;
-      color: colors.$text-color;
-      font-weight: 600;
-      border: 0.01vh solid colors.$primary-color;
-      overflow: hidden;
-      z-index: 1;
-
-      option {
-        background-color: colors.$background-secondary-color;
-      }
-    }
-
-    padding: 5vw;
-    width: 40%;
-    height: 50%;
-
-    h2 {
-      font-size: 2vw;
-      margin-bottom: 0;
-    }
-
-    label {
-      margin-top: 1.5vw;
-      margin-bottom: 0.75vw;
-      justify-content: start;
-      font-size: 1vw;
-    }
-
-    select {
-      margin-top: 0.75vw;
-      height: 5vh;
-      font-size: 1vw;
-      border-radius: 0.5vw;
+      font-size: 3vh;
     }
   }
 }

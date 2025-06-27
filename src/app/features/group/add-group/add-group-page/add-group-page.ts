@@ -5,14 +5,14 @@ import { GroupService } from "../../../../core/services/group/group.service";
 import { CreateGroupDto } from "../../../../shared/dto/group/create-group.dto";
 import { Loading } from "../../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../../shared/components/modals/modal/modal";
-import { CustomInput } from "../../../../shared/components/custom-input/custom-input";
-import { CustomHeader } from "../../../../shared/components/custom-header/custom-header";
-import { CustomButton } from "../../../../shared/components/custom-button/custom-button";
+import { CustomInput } from "../../../../shared/components/inputs/custom-input/custom-input";
+import { CustomHeader } from "../../../../shared/components/headers/custom-header/custom-header";
+import { CustomButton } from "../../../../shared/components/buttons/custom-button/custom-button";
 import { ReactiveFormsModule } from "@angular/forms";
-import { Group } from "../../../../core/models/group";
-import { of } from "rxjs";
 import { User } from "../../../../core/models/user";
 import { ModalConfig } from "../../../../shared/interfaces/config/modal";
+import { CustomSelect } from "../../../../shared/components/selects/custom-select/custom-select";
+import { SelectOption } from "../../../../shared/interfaces/config/select";
 
 @Component({
   selector: "app-add-group-page",
@@ -22,6 +22,7 @@ import { ModalConfig } from "../../../../shared/interfaces/config/modal";
     CustomInput,
     CustomHeader,
     CustomButton,
+    CustomSelect,
     ReactiveFormsModule,
   ],
   templateUrl: "./add-group-page.html",
@@ -29,7 +30,7 @@ import { ModalConfig } from "../../../../shared/interfaces/config/modal";
 })
 export class AddGroupPage implements OnInit {
   public isLoading = false;
-  public currentGroups: Group[] = [];
+  public currentGroups: SelectOption[] = [];
 
   public createForm!: FormGroup;
 
@@ -44,10 +45,11 @@ export class AddGroupPage implements OnInit {
   public ngOnInit(): void {
     this.createForm = this.fb.group({
       name: ["", Validators.required],
-      group: ["null"],
+      group: [null],
     });
+
     const init$ = this.authService.currentUserData
-      ? of(this.authService.currentUserData)
+      ? this.authService.currentUserData$
       : this.authService.connectUser();
 
     init$.subscribe((user) => this.handleUserConnection(user));
@@ -78,10 +80,11 @@ export class AddGroupPage implements OnInit {
       next: (result) => {
         this.modalConfig = {
           isVisible: true,
+          icon: "svg/white/check-icon.svg",
           title: "SUCESSO",
           children: result.message,
           onClose: (): void => {
-            this.createForm.reset({ name: "", group: "null" });
+            this.createForm.reset({ name: "", group: null });
             this.modalConfig.isVisible = false;
           },
         };
@@ -90,6 +93,7 @@ export class AddGroupPage implements OnInit {
       error: (err) => {
         this.modalConfig = {
           isVisible: true,
+          icon: "svg/white/warn-icon.svg",
           title: "ERRO",
           children: err.message,
           onClose: (): void => {
@@ -113,7 +117,11 @@ export class AddGroupPage implements OnInit {
     this.groupService
       .findAllWithoutParticipants(this._currentUser._id)
       .subscribe({
-        next: (groups) => (this.currentGroups = groups),
+        next: (groups) =>
+          (this.currentGroups = groups.map((g) => ({
+            value: g._id,
+            label: (g.group ? g.group + "/" : "") + g.name,
+          }))),
         complete: () => (this.isLoading = false),
       });
   }

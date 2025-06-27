@@ -7,10 +7,12 @@ import { AddParticipantPage } from "./features/participant/add-participant/add-p
 import { VotePage } from "./features/vote/vote-page/vote-page";
 import { AllowVotePage } from "./features/vote/allow-vote/allow-vote-page/allow-vote-page";
 import { FollowVotePage } from "./features/vote/follow-vote/follow-vote-page/follow-vote-page";
+import { VerifyEmailPage } from "./features/auth/verify-email/verify-email-page/verify-email-page";
 
 export const routes: Routes = [
   { path: "", component: HomePage },
   { path: "access", component: AccessPage },
+  { path: "verify/email", component: VerifyEmailPage },
   {
     path: "group/add",
     component: AddGroupPage,

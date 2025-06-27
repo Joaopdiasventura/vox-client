@@ -1,4 +1,3 @@
-@use "sass:map";
 @use "../../../../../styles/colors.scss" as styles;
 
 main {
@@ -11,36 +10,19 @@ main {
   justify-content: space-around;
   align-items: center;
 
-  .button {
-    z-index: 0;
-    background-color: styles.$background-secondary-color;
-    color: styles.$primary-color;
-    transition: transform 0.2s;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-
-    width: 30%;
-    height: 5%;
-    padding: 1rem;
-    border-radius: 0.5vh;
-    box-shadow: 0 0 0.3vh rgba(255, 255, 255, 0.1);
-    font-size: 1.5vh;
-
-    &:hover {
-      transform: translateY(-3px);
-    }
+  custom-button {
+    width: 50%;
   }
 
   h1 {
     font-size: 3vh;
     text-align: center;
+    font-family: "Azonix";
   }
 
   h2 {
     font-size: 1.75vh;
+    font-family: "Jetbrains Mono";
   }
 
   app-list {

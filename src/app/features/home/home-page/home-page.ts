@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { forkJoin, Observable, of } from "rxjs";
+import { forkJoin, Observable } from "rxjs";
 import { AuthService } from "../../../core/services/auth/auth.service";
 import { User } from "../../../core/models/user";
-import { CustomHeader } from "../../../shared/components/custom-header/custom-header";
+import { CustomHeader } from "../../../shared/components/headers/custom-header/custom-header";
 import { Loading } from "../../../shared/components/loadings/loading/loading";
 import { Group } from "../../../core/models/group";
 import { GroupService } from "../../../core/services/group/group.service";
-import { CustomList } from "../../../shared/components/custom-list/custom-list";
+import { CustomList } from "../../../shared/components/lists/custom-list/custom-list";
 
 @Component({
   selector: "app-home-page",
@@ -28,7 +28,7 @@ export class HomePage implements OnInit {
 
   public ngOnInit(): void {
     const init$ = this.authService.currentUserData
-      ? of(this.authService.currentUserData)
+      ? this.authService.currentUserData$
       : this.authService.connectUser();
 
     init$.subscribe((user) => this.handleUserConnection(user));

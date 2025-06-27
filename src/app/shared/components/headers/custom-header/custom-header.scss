@@ -1,0 +1,146 @@
+@use "../../../../../styles/colors.scss" as colors;
+
+:host {
+  display: flex;
+  width: 100%;
+  height: 15vh;
+  position: relative;
+  z-index: 1000;
+
+  header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 2vh 1vw;
+    gap: 2vh;
+    background-color: colors.$white-primary;
+    z-index: 1001;
+
+    .logo-container {
+      height: 42.5%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .main-container {
+      height: 40%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .info-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        gap: 2vw;
+
+        img {
+          height: 100%;
+          aspect-ratio: 1 / 1;
+        }
+
+        h3 {
+          text-align: start;
+          font-size: 1.5vw;
+          font-family: "Azonix";
+        }
+      }
+
+      .menu-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 50%;
+        aspect-ratio: 1 / 1;
+        cursor: pointer;
+
+        div {
+          width: 100%;
+          height: 20%;
+          background-color: colors.$gray-darker;
+          border-radius: 2vw;
+        }
+      }
+    }
+  }
+
+  nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 10vh;
+    background: colors.$white-primary;
+    justify-content: space-around;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &.active {
+      top: 100%;
+      z-index: 1002;
+    }
+
+    .card {
+      flex: 0 1 auto;
+      width: 10vw;
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1vh;
+      padding: 1vh 0;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border-radius: 1vw;
+
+      &:hover {
+        background: colors.$gray-light;
+      }
+
+      img {
+        width: 3vh;
+        aspect-ratio: 1 / 1;
+      }
+
+      p {
+        text-align: center;
+        font-size: 1.5vh;
+        color: colors.$black-primary;
+        font-family: "Jetbrains Mono";
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  :host {
+    header {
+      .main-container {
+        .info-container {
+          h3 {
+            font-size: 2vh;
+          }
+        }
+      }
+    }
+    nav {
+      .card {
+        p {
+          font-size: 1.2vh;
+        }
+      }
+    }
+  }
+}

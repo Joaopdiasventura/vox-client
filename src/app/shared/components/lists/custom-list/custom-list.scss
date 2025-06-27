@@ -1,0 +1,112 @@
+@use "../../../../../styles/colors.scss" as colors;
+
+:host {
+  height: 70%;
+  width: 70%;
+
+  .elements-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    .page-btn {
+      width: 2.5%;
+      aspect-ratio: 1 / 1;
+      font-family: "Jetbrains Mono";
+      font-size: 0.75vw;
+      border: none;
+      background-color: colors.$red-primary;
+      border-radius: 0.5vw;
+      cursor: pointer;
+      transition: color 0.2s;
+      cursor: pointer;
+      color: colors.$white-primary;
+
+      &.disable {
+        cursor: not-allowed;
+        background-color: colors.$gray-darker;
+      }
+    }
+
+    .elements-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      gap: 2vw;
+      width: 90%;
+      height: 70%;
+      padding: 2vw;
+      cursor: default;
+
+      .elements-card {
+        min-width: 20%;
+        max-width: 40%;
+        height: 25%;
+        background-color: colors.$white-primary;
+        color: colors.$red-primary;
+        padding: 1vw;
+        border: 0.1vw solid colors.$gray-light;
+        border-radius: 1vw;
+        box-shadow: 0 0 0.3vw rgba(255, 255, 255, 0.1);
+        transition: transform 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        h3 {
+          font-family: "Azonix";
+          cursor: pointer;
+          font-size: 1.3vw;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          max-width: 90%;
+        }
+
+        button {
+          font-family: "Azonix";
+          position: absolute;
+          font-size: 1.25vw;
+          right: 5%;
+          top: 10%;
+          color: colors.$red-primary;
+          border: none;
+          background-color: transparent;
+        }
+
+        &:hover {
+          transform: translateY(-5px);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  :host {
+    width: 90%;
+    .elements-container {
+      .page-btn {
+        font-size: 1.25vh;
+        width: 7.5%;
+        border-radius: 1.5vw;
+      }
+      .elements-list {
+        .elements-card {
+          height: 15%;
+          min-width: 45%;
+          border-radius: 2vw;
+
+          h3,
+          button {
+            font-size: 1.5vh;
+          }
+        }
+      }
+    }
+  }
+}

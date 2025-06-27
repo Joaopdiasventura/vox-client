@@ -1,3 +1,4 @@
+import { ModalQuestion } from "./../../../shared/components/modals/modal-question/modal-question";
 import {
   Component,
   HostListener,
@@ -5,7 +6,6 @@ import {
   OnDestroy,
   OnInit,
 } from "@angular/core";
-import { Group } from "../../../core/models/group";
 import { Participant } from "../../../core/models/participant";
 import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/auth/auth.service";
@@ -15,25 +15,38 @@ import { VoteService } from "../../../core/services/vote/vote.service";
 import { WebSocketService } from "../../../core/services/web-socket/web-socket.service";
 import { CreateVoteDto } from "../../../shared/dto/vote/create-vote.dto";
 import { VoteStatus } from "../../../shared/types/vote-status";
-import { ModalConfig } from "../../../shared/interfaces/config/modal";
-import { CustomHeader } from "../../../shared/components/custom-header/custom-header";
-import { CustomButton } from "../../../shared/components/custom-button/custom-button";
+import {
+  ModalConfig,
+  QuestionModalConfig,
+} from "../../../shared/interfaces/config/modal";
+import { CustomHeader } from "../../../shared/components/headers/custom-header/custom-header";
+import { CustomButton } from "../../../shared/components/buttons/custom-button/custom-button";
 import { Loading } from "../../../shared/components/loadings/loading/loading";
 import { Modal } from "../../../shared/components/modals/modal/modal";
 import { Router } from "@angular/router";
-import { of } from "rxjs";
+import { SelectOption } from "../../../shared/interfaces/config/select";
+import { CustomSelect } from "../../../shared/components/selects/custom-select/custom-select";
 
 @Component({
   selector: "app-vote-page",
-  imports: [CustomHeader, CustomButton, Loading, Modal],
+  imports: [
+    CustomHeader,
+    CustomButton,
+    Loading,
+    Modal,
+    ModalQuestion,
+    CustomSelect,
+  ],
   templateUrl: "./vote-page.html",
   styleUrl: "./vote-page.scss",
 })
 export class VotePage implements OnInit, OnDestroy {
   public isLoading = false;
-  public currentGroups: Group[] = [];
+  public currentGroups: SelectOption[] = [];
 
-  public selectedGroup: Group | null = null;
+  public selectedGroup: SelectOption | null = null;
+  public selectedParticipant: string | null = null;
+
   public selectedParticipants: Participant[] = [];
 
   public simpleId = "";
@@ -43,6 +56,7 @@ export class VotePage implements OnInit, OnDestroy {
   public currentVote!: CreateVoteDto;
 
   public modalConfig!: ModalConfig;
+  public questionModalConfig!: QuestionModalConfig;
 
   private _currentUser: User | null = null;
 
@@ -61,7 +75,7 @@ export class VotePage implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const init$ = this.authService.currentUserData
-      ? of(this.authService.currentUserData)
+      ? this.authService.currentUserData$
       : this.authService.connectUser();
 
     init$.subscribe((user) => this.handleUserConnection(user));
@@ -72,12 +86,11 @@ export class VotePage implements OnInit, OnDestroy {
   }
 
   public changeSelect(e: Event): void {
-    const selectElement = e.target as HTMLSelectElement;
-    const group = this.currentGroups.find((g) => g._id == selectElement.value);
-    if (!group) return;
-    this.selectedGroup = group;
-    this.findParticipants(this.selectedGroup._id);
-    this.webSocketService.on("exit-" + this.selectedGroup._id, () =>
+    const { value } = e.target as HTMLSelectElement;
+    this.selectedGroup =
+      this.currentGroups.find((g) => g.value == value) || null;
+    this.findParticipants(value);
+    this.webSocketService.on("exit-" + value, () =>
       this.router.navigate(["access"]),
     );
   }
@@ -88,9 +101,14 @@ export class VotePage implements OnInit, OnDestroy {
 
   public startVote(): void {
     if (!this.selectedGroup && !this.selectedGroup) {
-      this.modalConfig.children = "SELECIONE PELO MENOS UM GRUPO";
-      this.modalConfig.onClose = (): void => {
-        this.modalConfig.isVisible = false;
+      this.modalConfig = {
+        isVisible: true,
+        icon: "svg/white/warn-icon.svg",
+        title: "ERRO",
+        children: "SELECIONE PELO MENOS UM GRUPO",
+        onClose: (): void => {
+          this.modalConfig.isVisible = false;
+        },
       };
       this.modalConfig.isVisible = true;
       return;
@@ -100,19 +118,34 @@ export class VotePage implements OnInit, OnDestroy {
 
   public addVote(participant: string): void {
     this.currentVote = { participant };
+    this.selectedParticipant =
+      this.selectedParticipants.find((p) => p._id == participant)?.name ||
+      "nulo";
   }
 
   public vote(): void {
     if (!this.selectedGroup) return;
-    this.webSocketService.emit(`send-vote`, {
-      ...this.currentVote,
-      group: this.selectedGroup._id,
-    });
+    this.questionModalConfig = {
+      isVisible: true,
+      icon: "svg/white/check-icon.svg",
+      title: "CONFIRMAR VOTO",
+      children: `Você confirma seu voto para ${this.selectedParticipant}`,
+      onConfirm: (): void => {
+        this.webSocketService.emit(`send-vote`, {
+          ...this.currentVote,
+          group: this.selectedGroup?.value,
+        });
 
-    if (this.currentVote.participant != "null")
-      this.voteService.create(this.currentVote).subscribe();
+        if (this.currentVote.participant != "null")
+          this.voteService.create(this.currentVote).subscribe();
 
-    this.status = "blocked";
+        this.status = "blocked";
+        this.questionModalConfig.isVisible = false;
+      },
+      onDeny: (): void => {
+        this.questionModalConfig.isVisible = false;
+      },
+    };
   }
 
   private handleUserConnection(user: User | null): void {
@@ -135,7 +168,10 @@ export class VotePage implements OnInit, OnDestroy {
     this.groupService.findAllWithParticipants(this._currentUser._id).subscribe({
       next: (result) => {
         if (result.length == 0) this.router.navigate(["group", "add"]);
-        this.currentGroups = result;
+        this.currentGroups = result.map((g) => ({
+          value: g._id,
+          label: (g.group ? g.group + "/" : "") + g.name,
+        }));
       },
       complete: () => (this.isLoading = false),
     });

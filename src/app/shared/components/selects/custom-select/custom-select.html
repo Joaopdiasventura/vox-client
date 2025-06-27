@@ -1,0 +1,13 @@
+<label [for]="id">{{label}}</label>
+<select
+  [id]="id"
+  [value]="value"
+  (change)="onSelectChange($event)"
+  [disabled]="disabled"
+  (blur)="onTouched()"
+>
+  <option [value]="null">{{default}}</option>
+  @for (opt of options; track $index) {
+  <option [value]="opt.value">{{ opt.label }}</option>
+  }
+</select>

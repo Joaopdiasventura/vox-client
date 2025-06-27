@@ -1,5 +1,1 @@
-@if (isLoading) {<loading-page />} @else if (currentUser &&
-!currentUser.isEmailValid){
-<h1>VERIFIQUE SEU EMAIL</h1>
-<p>(e a caixa de spam)</p>
-} @else {<router-outlet /> }
+@if (isLoading) {<loading-page />} @else {<router-outlet /> }

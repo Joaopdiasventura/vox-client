@@ -1,61 +1,101 @@
-@use "../../../../../styles/colors.scss" as styles;
+@use "../../../../../styles/colors.scss" as colors;
 
-.backdrop {
-  position: fixed;
-  inset: 0;
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: styles.$background-color;
-  z-index: 50;
-  transition: opacity 1s;
-  &.opacity-0 {
-    opacity: 0;
-    display: none;
-  }
-  &.opacity-100 {
-    opacity: 1;
-  }
+  justify-content: center;
+  backdrop-filter: blur(0.5vh);
+  -webkit-backdrop-filter: blur(0.5vh);
+  z-index: 1000;
 
-  .modal-content {
-    background-color: styles.$background-color;
-    border-radius: 0.375rem;
-    box-shadow: 0 1px 3px styles.$text-color;
-    padding: 1.5rem;
-    z-index: 60;
-    width: 80vw;
-    max-width: 48rem;
-    transition: transform 1s ease-in-out;
+  > div {
+    width: 30%;
+    height: 40%;
+    background: transparent;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 3vh;
-    &.scale-90 {
-      transform: scale(0.9);
-    }
-    &.scale-100 {
-      transform: scale(1);
-    }
+    border-radius: 2vh;
+    box-shadow: 0 1vh 2vh rgba(colors.$black-darkest, 0.4);
 
-    .modal-title {
+    > div:first-child {
+      background: #222222;
+      border-top-left-radius: 2vh;
+      border-top-right-radius: 2vh;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      height: auto;
+      padding: 1vw;
       display: flex;
+      align-items: center;
       justify-content: center;
-      text-align: center;
+      height: 20%;
 
-      h2 {
-        font-size: 1.875rem;
-        font-weight: 700;
-        color: styles.$primary-color;
+      img {
+        height: 100%;
+        aspect-ratio: 1 / 1;
       }
     }
 
-    .modal-body {
-      text-align: center;
-      font-size: 1.25rem;
-    }
-
-    .modal-footer {
+    > div:last-child {
+      height: 80%;
+      padding: 3vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      color: #333333;
+      background-color: colors.$white-primary;
+      border-radius: 0 0 2vh   2vh;
+
+      h2 {
+        color: #c00a0a;
+        font-size: 2vw;
+        font-family: "Azonix";
+      }
+
+      * {
+        font-size: 1.5vw;
+        font-family: "JetBrains Mono";
+      }
+
+      custom-button {
+        align-self: center;
+        width: 40%;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  :host {
+    > div {
+      width: 90%;
+      height: 40%;
+
+      > div:first-child {
+        padding: 1.5vh;
+      }
+
+      > div:last-child {
+        h2 {
+          font-size: 3vh;
+        }
+
+        * {
+          font-size: 2vh;
+        }
+
+        custom-button {
+          width: 50%;
+        }
+      }
     }
   }
 }

@@ -1,250 +1,107 @@
 @use "../../../../../styles/colors.scss" as colors;
 
-@media (min-width: 1024px) {
-  .screen {
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  gap: 5vh;
+
+  img {
+    width: 10%;
+  }
+
+  .form-selection {
+    position: relative;
     display: flex;
-    justify-content: center;
+    height: 5%;
     align-items: center;
-    min-height: 100vh;
-    background-color: colors.$background-color;
-    color: colors.$text-color;
+    width: 20%;
+    border-radius: 0.75vw;
+    background: colors.$red-primary;
+    overflow: hidden;
+    backdrop-filter: blur(0.5vw);
+    -webkit-backdrop-filter: blur(0.5vw);
 
-    .container {
-      position: relative;
-      width: 60vw;
-      height: 60vh;
-      border: 0.1vw solid colors.$primary-color;
-      box-shadow: 0 0 1.2vw colors.$primary-color;
-      border-radius: 1vw;
-      overflow: hidden;
-      background-color: colors.$background-secondary-color;
-
-      .curved-shape {
-        position: absolute;
-        right: 0vw;
-        top: -20vh;
-        width: 100vw;
-        height: 80vh;
-        transform: rotate(45deg);
-        transform-origin: bottom right;
-        background: linear-gradient(
-          45deg,
-          colors.$second-color,
-          colors.$primary-color
-        );
-        transition: 1.5s ease;
-      }
-
-      .form-box {
-        position: absolute;
-        top: 0;
-        width: 50%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        h2 {
-          font-size: 2vw;
-          text-align: center;
-        }
-
-        .regi-link {
-          font-size: 1vw;
-          text-align: center;
-          margin: 2vw 0 1vw;
-
-          a {
-            text-decoration: none;
-            color: colors.$second-color;
-            font-weight: 600;
-            cursor: pointer;
-          }
-
-          a:hover {
-            text-decoration: underline;
-          }
-        }
-
-        &.form-login {
-          transition: 2s ease;
-          transform: translateX(0%);
-          left: 0;
-          padding: 4vw;
-        }
-
-        &.form-create {
-          transition: 2s ease;
-          transform: translateX(120%);
-          right: 0;
-          padding: 0 6vw;
-        }
-      }
-
-      .info-content {
-        position: absolute;
-        top: 0;
-        height: 100%;
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        transition: 2s ease;
-        text-align: right;
-
-        h2 {
-          font-size: 2vw;
-          line-height: 1.3;
-        }
-
-        &.info-login {
-          right: 0;
-          padding: 0 4vw 14vw 15vw;
-          transform: translateX(0%);
-        }
-
-        &.info-create {
-          left: 0;
-          padding: 4vw 14vw 15vw 0vw;
-          transform: translateX(-120%);
-        }
-      }
-
+    button {
+      width: 50%;
+      flex: 1;
+      z-index: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.25vw;
+      cursor: pointer;
       &.active {
-        .form-login {
-          transform: translateX(-120%);
-        }
-        .form-create {
-          transform: translateX(0%);
-        }
-        .curved-shape {
-          right: -40vw;
-          transform: rotate(-45deg);
-          transform-origin: bottom left;
-        }
-        .info-login {
-          transform: translateX(120%);
-        }
-        .info-create {
-          transform: translateX(0%);
-        }
+        color: #000;
+      }
+    }
+
+    .switch-bg {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 45%;
+      height: 70%;
+      background: #fff;
+      border-radius: 0.75vw;
+      transition: transform 500ms ease-in-out;
+      transform: translateY(-50%);
+    }
+  }
+
+  .forms-container {
+    position: relative;
+    overflow: hidden;
+    width: 40%;
+    height: auto;
+  }
+
+  .forms-wrapper {
+    display: flex;
+    width: 200%;
+    transition: transform 500ms ease-in-out;
+
+    form {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 5vh;
+
+      custom-button {
+        width: 30%;
       }
     }
   }
 }
 
-@media (max-width: 1025px) {
-  .screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: colors.$background-color;
-    color: colors.$text-color;
-    flex-direction: column;
-    overflow: hidden;
+:host(.login-mode) .forms-wrapper {
+  transform: translateX(0);
+}
 
-    .container {
-      position: relative;
-      width: 90vw;
-      height: 90vh;
-      border: 0.1vh solid colors.$primary-color;
-      box-shadow: 0 0 1.2vh colors.$primary-color;
-      border-radius: 1vh;
-      overflow: hidden;
-      background-color: colors.$background-secondary-color;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1vh 1vh;
+:host(.register-mode) .forms-wrapper {
+  transform: translateX(-50%);
+}
+
+@media (max-width: 767px) {
+  main {
+    img {
+      width: 30%;
     }
-
-    .curved-shape {
-      position: absolute;
-      right: 0;
-      bottom: -150%;
-      width: 300%;
-      height: 200%;
-      background: linear-gradient(
-        45deg,
-        colors.$second-color,
-        colors.$primary-color
-      );
-      transition: all 1.5s ease;
-      transform: rotate(0deg);
-
-      &.active {
-        transform: rotate(180deg);
-        bottom: 50%;
+    .form-selection {
+      width: 70%;
+      button {
+        font-size: 1.75vh;
       }
     }
-
-    .form-box {
-      width: 100%;
-      height: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-
-      h2 {
-        font-size: 1.5rem;
-        text-align: center;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 2vh;
-      }
-
-      .regi-link {
-        font-size: 1rem;
-        text-align: center;
-        margin-top: 1rem;
-
-        a {
-          text-decoration: none;
-          color: colors.$second-color;
-          font-weight: bold;
-          cursor: pointer;
-        }
-
-        a:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    .info-content {
-      position: absolute;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 1.5s ease;
-      text-align: center;
-
-      &.info-create {
-        bottom: -50%;
-        z-index: 1;
-        height: 50%;
-      }
-
-      &.info-login {
-        bottom: 0%;
-        z-index: 1;
-        height: 50%;
-      }
-
-      &.active {
-        &.info-create {
-          bottom: 50%;
-        }
-        &.info-login {
-          bottom: 100%;
-        }
-      }
+    .forms-container {
+      width: 80%;
     }
   }
 }
