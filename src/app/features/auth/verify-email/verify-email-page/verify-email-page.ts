@@ -32,14 +32,13 @@ export class VerifyEmailPage implements OnInit {
 
   private handleUserConnection(user: User | null): void {
     if (!user) return;
-    if (!user.isEmailValid) this.listenToAccountValidation();
+    if (!user.isEmailValid) this.listenToAccountValidation(user.email);
     this._currentUser = user;
   }
 
-  private listenToAccountValidation(): void {
-    if (!this._currentUser) return;
-    this.webSocketService.open(this._currentUser.email);
-    this.webSocketService.emit("wait-validation", this._currentUser.email);
+  private listenToAccountValidation(email: string): void {
+    this.webSocketService.open(email);
+    this.webSocketService.emit("wait-validation", email);
     this.webSocketService.on("account-validated", () =>
       this.onAccountValidated(),
     );
