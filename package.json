@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:ssr": "ng build && npm run serve:ssr:vox",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:vox": "node dist/vox/server/server.mjs",
