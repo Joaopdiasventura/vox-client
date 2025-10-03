@@ -1,0 +1,68 @@
+@use '../../../../../styles/variables.scss' as *;
+
+:host {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(0.25vw);
+  -webkit-backdrop-filter: blur(0.25vw);
+
+  .modal {
+    background-color: #fff;
+    box-shadow: 0 0 1vw $deep-black;
+    border-radius: 0.25vw;
+    width: 20%;
+    min-height: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+
+    .header {
+      padding: 0.5vh;
+      height: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $dark-gray;
+
+      &.full {
+        width: 100%;
+        gap: 1vw;
+      }
+
+      &.empty {
+        width: 30%;
+      }
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3vh;
+
+      h2 {
+        font-family: 'Azonix';
+      }
+
+      .button-container {
+        button {
+          border-radius: 0.3vw;
+          padding: 0.7vw;
+          font-family: 'Azonix';
+          color: #fff;
+          border: none;
+          background-color: $primary-red;
+          box-shadow: 0 0 1vw $primary-red;
+          cursor: pointer;
+          min-width: 3.5vw;
+        }
+      }
+    }
+  }
+}

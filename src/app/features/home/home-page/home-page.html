@@ -1,0 +1,72 @@
+<div class="start-container">
+  <div class="welcome-container">
+    <img src="assets/images/home-logo.png" alt="home-image" />
+    <h1>{{ user()?.name }}, o que deseja fazer?</h1>
+  </div>
+  <div class="links-container">
+    <a>
+      <img src="assets/svg/start-vote.svg" alt="" />
+      <p>iniciar votação</p>
+    </a>
+    <a>
+      <img src="assets/svg/add-session.svg" alt="" />
+      <p>adicionar sessão</p>
+    </a>
+    <a>
+      <img src="assets/svg/add-candidate.svg" alt="" />
+      <p>adicionar candidato</p>
+    </a>
+    <a>
+      <img src="assets/svg/track-vote.svg" alt="" />
+      <p>acompanhar votação</p>
+    </a>
+    <a>
+      <img src="assets/svg/allow-vote.svg" alt="" />
+      <p>autorizar votação</p>
+    </a>
+  </div>
+</div>
+<div class="container">
+  <h3>sessões criadas</h3>
+  <div class="groups-container">
+    @for (group of groups(); track $index) {
+    <group-card [group]="group" [extended]="false" />
+    }
+  </div>
+  <div class="link-container">
+    <a>
+      <img src="assets/svg/see-sessions.svg" alt="" />
+      ver sessões
+    </a>
+  </div>
+</div>
+<div class="container">
+  <h3>histórico de resultados</h3>
+  <div class="pools-conatiner">
+    @for (pool of pools(); track $index) {
+    <pool-card [pool]="pool" [extended]="false" />
+    }
+  </div>
+  <div class="link-container">
+    <a>
+      <img src="assets/svg/troph.svg" alt="" />
+      ver resultados
+    </a>
+  </div>
+</div>
+<footer>
+  <div class="content">
+    <p>{{ user()?.email }}</p>
+    <div class="icons">
+      <a>
+        <img src="assets/svg/terms.svg" alt="" />
+      </a>
+      <a>
+        <img src="assets/svg/config.svg" alt="" />
+      </a>
+      <a>
+        <img src="assets/svg/exit.svg" alt="" />
+      </a>
+    </div>
+  </div>
+</footer>

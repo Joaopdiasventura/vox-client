@@ -1,0 +1,156 @@
+@use '../../../../styles/variables.scss' as *;
+
+:host {
+  width: 100%;
+  height: 100%;
+  padding: 5vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: $light-gray;
+  overflow-x: hidden;
+  overflow-y: auto;
+  gap: 5vh;
+
+  .start-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vh;
+
+    .welcome-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1vh;
+
+      img {
+        width: 20vw;
+      }
+
+      h1 {
+        text-align: center;
+      }
+    }
+
+    .links-container {
+      width: 50%;
+      display: flex;
+      justify-content: space-evenly;
+
+      a {
+        width: 3vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1vh;
+        cursor: pointer;
+
+        img {
+          text-align: center;
+          padding: 0.5vw;
+          border-radius: 0.3vw;
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          background-color: #fff;
+        }
+
+        p {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3vh;
+    width: 80%;
+
+    .groups-container {
+      width: 100%;
+      display: flex;
+      gap: 2.5vw;
+    }
+
+    .pools-conatiner {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5vw;
+    }
+
+    h3 {
+      width: 100%;
+      text-align: center;
+    }
+
+    .link-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      a {
+        cursor: pointer;
+        padding: 0.3vw;
+        border-radius: 0.5vw;
+        border: 0.21vw solid $primary-red;
+        display: flex;
+        height: auto;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5vw;
+        text-decoration: none;
+        color: $primary-red;
+      }
+    }
+  }
+
+  footer {
+    height: 7.5vh;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    gap: 1vw;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+    .profile-picture {
+      flex: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 0.25vw;
+      background-color: $primary-red;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+    }
+
+    .content {
+      flex: 1;
+      padding: 1vw;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #fff;
+
+      p {
+        text-transform: uppercase;
+        font-family: 'Azonix';
+      }
+
+      .icons {
+        display: flex;
+        gap: 1.5vw;
+      }
+    }
+  }
+}

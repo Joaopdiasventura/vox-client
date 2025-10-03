@@ -8,6 +8,9 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:service": {
+          "type": "service"
         }
       },
       "root": "",
@@ -27,7 +30,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/main.scss"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -37,6 +40,9 @@
           },
           "configurations": {
             "production": {
+              "define": {
+                "API_URL": "'https://vox-api.joaopdias.dedyn.io'"
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -52,6 +58,9 @@
               "outputHashing": "all"
             },
             "development": {
+              "define": {
+                "API_URL": "'http://localhost:3000'"
+              },
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -86,11 +95,25 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/main.scss"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

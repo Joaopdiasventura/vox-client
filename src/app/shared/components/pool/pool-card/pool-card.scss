@@ -1,0 +1,35 @@
+@use '../../../../../styles/variables.scss' as *;
+
+:host {
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  gap: 1vw;
+  cursor: pointer;
+
+  .side-picture {
+    flex: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0.25vw;
+    background-color: $primary-red;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.2vw 0 0 0.2vw;
+  }
+
+  div {
+    flex: 1;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .clock {
+      height: 75%;
+      margin-right: 1vw;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}

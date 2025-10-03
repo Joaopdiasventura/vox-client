@@ -1,0 +1,9 @@
+@if (extended) {} @else {
+<img src="assets/svg/group.svg" alt="" class="side-picture" />
+<div>
+  <h2>{{ pool.group.name }}</h2>
+  <p>{{ pool.start | date : 'dd/MM/yyyy' }} ás {{ pool.start | date : 'HH:mm' }}h</p>
+  <img src="assets/svg/clock.svg" alt="" class="clock" />
+</div>
+
+}

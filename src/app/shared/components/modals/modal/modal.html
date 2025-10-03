@@ -1,0 +1,26 @@
+<div class="modal">
+  @if (modalConfig.header) {
+  <div class="header full">
+    <img [src]="imgSrc" alt="" />
+    <h1>{{ modalConfig.header }}</h1>
+  </div>
+  } @else {
+  <div class="header empty">
+    <img [src]="imgSrc" alt="" />
+  </div>
+  }
+  <div class="content">
+    <h2>{{ modalConfig.title }}</h2>
+    <p>{{ message }}</p>
+    @if (modalConfig.onConfirm) {
+    <div class="buttons-container">
+      <button>{{ modalConfig.confirmText }}</button>
+      <button (click)="modalConfig.onClose()">Cancelar</button>
+    </div>
+    } @else {
+    <div class="button-container">
+      <button (click)="modalConfig.onClose()">OK</button>
+    </div>
+    }
+  </div>
+</div>

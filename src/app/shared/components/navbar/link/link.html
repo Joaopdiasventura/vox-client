@@ -1,0 +1,13 @@
+<a class="link" [routerLink]="path">
+  <div class="identifier">
+    <img
+      [ngStyle]="{
+        '-webkit-mask-image': 'url(' + image + ')',
+        'mask-image': 'url(' + image + ')'
+      }"
+      alt=""
+    />
+    <p>{{ text }}</p>
+  </div>
+  <img class="arrow" src="assets/svg/right-arrow.svg" alt="" />
+</a>

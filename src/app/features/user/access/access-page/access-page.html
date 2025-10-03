@@ -1,0 +1,69 @@
+<div class="container" [class.register-active]="isRegisterActive()">
+  @if (isLoading()) {<loading />} @else {
+  <img src="assets/images/welcome-logo.png" alt="welcome-image" class="welcome-image" />
+
+  <div class="change-buttons">
+    <div></div>
+    <button (click)="changeForm()">Login</button>
+    <button (click)="changeForm()">Cadastro</button>
+  </div>
+
+  <div class="forms-wrapper">
+    <div class="forms-container">
+      <form class="login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input type="email" formControlName="email" placeholder="Digite seu email" />
+        @if (loginForm.get("email")?.touched && loginForm.get("email")?.invalid) {
+        <small class="error">Digite um email válido</small>
+        }
+
+        <input type="password" formControlName="password" placeholder="Digite sua senha" />
+        @if (loginForm.get("password")?.touched && loginForm.get("password")?.invalid) {
+        <small class="error">
+          Digite uma senha com ao menos 8 caracteres, incluindo letras maiúsculas, minúsculas,
+          números e símbolos
+        </small>
+        }
+
+        <a href="#">esqueceu sua senha?</a>
+        <div>
+          <button [disabled]="!loginForm.valid">ENTRAR</button>
+        </div>
+      </form>
+
+      <form class="register" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+        <input type="text" formControlName="name" placeholder="Digite um nome" />
+        @if (createForm.get("name")?.touched && createForm.get("name")?.invalid) {
+        <small class="error">Digite um nome válido</small>
+        }
+
+        <input type="email" formControlName="email" placeholder="Digite um email" />
+        @if (createForm.get("email")?.touched && createForm.get("email")?.invalid) {
+        <small class="error">Digite um email válido</small>
+        }
+
+        <input type="password" formControlName="password" placeholder="Digite uma senha" />
+        @if (createForm.get("password")?.touched && createForm.get("password")?.invalid) {
+        <small class="error">
+          Digite uma senha com ao menos 8 caracteres, incluindo letras maiúsculas, minúsculas,
+          números e símbolos
+        </small>
+        }
+
+        <div>
+          <button [disabled]="!createForm.valid">CADASTRAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  }
+</div>
+
+<img
+  src="assets/images/access-page-background.png"
+  alt="access-page-background"
+  class="access-page-background"
+/>
+
+@if (showModalConfig() && modalConfig()) {
+<modal [modalConfig]="modalConfig()!" />
+}

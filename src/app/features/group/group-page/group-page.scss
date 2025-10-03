@@ -1,0 +1,35 @@
+@use '../../../../styles/variables.scss' as *;
+
+:host {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: $light-gray;
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+    padding: 5vh 3vw;
+
+    .title {
+      display: flex;
+      height: 7.5vh;
+      justify-content: space-between;
+      align-items: center;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .group-section {
+      max-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5vh;
+      overflow-y: auto;
+    }
+  }
+}

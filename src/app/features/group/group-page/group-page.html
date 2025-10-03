@@ -1,0 +1,20 @@
+<app-navbar />
+<main>
+  <div class="title">
+    <img src="assets/images/pc-logo.png" alt="" />
+    <h1>sessões</h1>
+  </div>
+  <h3>Aqui está disponível todas as sessões adicionadas</h3>
+  <div class="group-section">
+    @for (group of currentGroups(); track $index) {
+    <group-card [group]="group" [extended]="true" />
+    }
+  </div>
+  <div class="pagination">
+    <pagination-control
+      [currentPage]="currentPage()"
+      [showNextPage]="currentGroups().length === limit"
+      (pageChange)="onPageChange($event)"
+    ></pagination-control>
+  </div>
+</main>
