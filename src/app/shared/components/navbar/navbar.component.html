@@ -1,0 +1,59 @@
+<nav class="desktop">
+  <div class="landing-page">
+    <a target="_blank" href="https://v-o-x.vercel.app?notOpen=true"
+      >melhore suas votações!</a
+    >
+  </div>
+
+  @for (section of desktopSections; track $index) {
+    <div class="section">
+      @for (link of section; track link.label) {
+        <a class="link" [routerLink]="link.path">
+          <div class="identifier">
+            <img [src]="link.icon" alt="" />
+            <p>{{ link.label }}</p>
+          </div>
+          <img class="arrow" src="assets/svg/gray/right-arrow.svg" alt="" />
+        </a>
+      }
+    </div>
+  }
+</nav>
+
+<div class="mobile">
+  <div class="fab-menu" [class.open]="isFabOpen()">
+    @for (link of fabLinks; track $index) {
+      <a
+        class="fab-item fab-{{ $index }}"
+        [routerLink]="link.path"
+        (click)="closeFab()"
+      >
+        <img [src]="link.icon" alt="" />
+      </a>
+    }
+  </div>
+  <ul>
+    @for (item of items; track $index) {
+      <li
+        class="list"
+        [class.active]="currentIndex() == $index"
+        (click)="onItemClick($index)"
+      >
+        <a [routerLink]="item.path">
+          <span class="icon">
+            <img
+              [src]="
+                isOnHome && $index == 2 && !isFabOpen()
+                  ? 'assets/svg/white/plus.svg'
+                  : item.icon
+              "
+              alt=""
+            />
+          </span>
+          <span class="text">{{ item.label }}</span>
+        </a>
+      </li>
+    }
+    <div class="indicator"></div>
+  </ul>
+</div>

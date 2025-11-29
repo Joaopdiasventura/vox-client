@@ -1,0 +1,71 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>autorizar urnas</h1>
+      </div>
+      <div class="row">
+        <p>Selecione a sessão e libere as urnas que estao aguardando</p>
+        <div class="links">
+          <app-custom-link [path]="['/vote', 'track']">
+            acompanhar
+          </app-custom-link>
+          <app-custom-link [path]="['/vote', 'start']">
+            iniciar
+          </app-custom-link>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="select-wrapper">
+        <ion-select
+          interface="popover"
+          aria-label="sessão"
+          label="Selecione a sessão"
+          label-placement="floating"
+          fill="solid"
+          mode="md"
+          [formControl]="sessionControl"
+        >
+          @for (session of sessions(); track $index) {
+            <ion-select-option [value]="session">
+              {{ electionNames(session) }}
+            </ion-select-option>
+          }
+        </ion-select>
+      </div>
+      @if (sessionControl.value) {
+        <section class="panel">
+          @if (ballotBoxes().length == 0) {
+            <p class="empty">Nenhuma urna criada para esta sessão</p>
+          }
+
+          <div class="cards">
+            @for (ballot of ballotBoxes(); track ballot.id) {
+              <article class="card">
+                <header>
+                  <div>
+                    <p>{{ ballot.name }}</p>
+                    <small>ID: {{ ballot.id }}</small>
+                  </div>
+                  <span class="badge" [class.badge--ok]="!ballot.isBlocked">
+                    {{ ballot.isBlocked ? 'aguardando' : 'liberada' }}
+                  </span>
+                </header>
+                <app-custom-button
+                  type="button"
+                  (clicked)="allow(ballot)"
+                  [disabled]="!ballot.isBlocked"
+                >
+                  liberar urna
+                </app-custom-button>
+              </article>
+            }
+          </div>
+        </section>
+      }
+    </main>
+  </div>
+</ion-content>

@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <ion-input
+      formControlName="name"
+      label="Nome"
+      label-placement="floating"
+      fill="solid"
+      placeholder="Digite um nome"
+    ></ion-input>
+    @if (form.get('name')?.touched && form.get('name')?.invalid) {
+      <p>Digite um nome válido</p>
+    }
+  </div>
+  <div class="row">
+    <ion-select
+      interface="popover"
+      aria-label="Eleições"
+      formControlName="election"
+      label="Selecione a eleição"
+      label-placement="floating"
+      fill="solid"
+      mode="md"
+      [multiple]="false"
+    >
+      @for (election of elections; track $index) {
+        <ion-select-option [value]="election._id">
+          {{ election.name }}
+        </ion-select-option>
+      }
+    </ion-select>
+  </div>
+
+  <app-custom-button [disabled]="!form.valid" type="submit">
+    {{ candidate ? 'Atualizar' : 'Criar' }}
+  </app-custom-button>
+</form>

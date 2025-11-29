@@ -1,0 +1,8 @@
+<button
+  class="custom-button"
+  [disabled]="disabled"
+  [attr.type]="type"
+  (click)="onClick($event)"
+>
+  <ng-content></ng-content>
+</button>

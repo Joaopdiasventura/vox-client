@@ -1,0 +1,34 @@
+<div class="overlay" (click)="close()">
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="bar">
+      <img [src]="`assets/svg/${modalConfig.icon}.svg`" alt="" />
+    </div>
+    <div class="content">
+      <h2 class="title">
+        {{ modalConfig.title }}
+      </h2>
+      <p class="subtitle">{{ modalConfig.message }}</p>
+      @if (modalConfig.onClose) {
+        <div class="controls">
+          @if (modalConfig.onDeny) {
+            <app-custom-button (clicked)="modalConfig.onClose()">
+              SIM
+            </app-custom-button>
+            <app-custom-button (clicked)="modalConfig.onDeny()">
+              NÃO
+            </app-custom-button>
+          } @else {
+            <app-custom-button (clicked)="modalConfig.onClose()">
+              FECHAR
+            </app-custom-button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

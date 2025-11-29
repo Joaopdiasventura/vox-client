@@ -1,0 +1,31 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>
+          {{ elections().length ? 'Eleições' : 'Nenhuma sessão encontrada' }}
+        </h1>
+      </div>
+      <div class="row">
+        <p>
+          Aqui você pode gerenciar as eleições que serão utilizadas para a
+          realização das votações
+        </p>
+        <app-custom-link [path]="['add']"> Adicionar </app-custom-link>
+      </div>
+    </div>
+    <div class="cards">
+      @for (election of elections(); track $index) {
+        <election-card
+          #cardRef
+          [expand]="true"
+          [election]="election"
+          [index]="$index"
+          (deleteEvent)="delete($event)"
+          (changeLoading)="changeLoading($event)"
+        />
+      }
+    </div>
+  </div>
+</ion-content>

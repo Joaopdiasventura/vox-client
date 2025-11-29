@@ -1,0 +1,153 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+@use 'sass:color';
+
+// Palette
+$primary-red: #b20000;
+$dark-red: #860909;
+$deep-black: #010108;
+
+$pure-white: #fbfbff;
+$light-gray: #e8e8e8;
+$medium-gray: #cecece;
+$dark-gray: #111111;
+
+$light-gray-2: #cccccc;
+$medium-gray-2: #919191;
+
+// Ionic theme color mapping to project palette
+// Primary palette (mapped to project red)
+$primary-red-shade: color.adjust($primary-red, $lightness: -10%);
+$primary-red-tint: color.adjust($primary-red, $lightness: 10%);
+
+// Secondary palette (mapped to darker red)
+$secondary-red: $dark-red;
+$secondary-red-shade: color.adjust($secondary-red, $lightness: -10%);
+$secondary-red-tint: color.adjust($secondary-red, $lightness: 10%);
+
+// Grays
+$medium-gray-2-shade: color.adjust($medium-gray-2, $lightness: -10%);
+$medium-gray-2-tint: color.adjust($medium-gray-2, $lightness: 10%);
+
+:root {
+  color-scheme: light;
+
+  // App background and text
+  --ion-background-color: #{$pure-white};
+  --app-background-rgb:
+    #{color.channel($pure-white, 'red', $space: rgb)},
+    #{color.channel($pure-white, 'green', $space: rgb)},
+    #{color.channel($pure-white, 'blue', $space: rgb)};
+  --p-color: #{$dark-gray};
+
+  --filter: 0;
+
+  // Spacing
+  --spacing-xs: 0.25rem;
+  --spacing-s: 0.5rem;
+  --spacing-m: 1rem;
+  --spacing-l: 1.5rem;
+  --spacing-xl: 2rem;
+
+  // Primary
+  --ion-color-primary: #{$primary-red};
+  --ion-color-primary-rgb:
+    #{color.channel($primary-red, 'red', $space: rgb)},
+    #{color.channel($primary-red, 'green', $space: rgb)},
+    #{color.channel($primary-red, 'blue', $space: rgb)};
+  --ion-color-primary-contrast: #{$pure-white};
+  --ion-color-primary-contrast-rgb:
+    #{color.channel($pure-white, 'red', $space: rgb)},
+    #{color.channel($pure-white, 'green', $space: rgb)},
+    #{color.channel($pure-white, 'blue', $space: rgb)};
+  --ion-color-primary-shade: #{$primary-red-shade};
+  --ion-color-primary-tint: #{$primary-red-tint};
+
+  // Secondary
+  --ion-color-secondary: #{$secondary-red};
+  --ion-color-secondary-rgb:
+    #{color.channel($secondary-red, 'red', $space: rgb)},
+    #{color.channel($secondary-red, 'green', $space: rgb)},
+    #{color.channel($secondary-red, 'blue', $space: rgb)};
+  --ion-color-secondary-contrast: #{$pure-white};
+  --ion-color-secondary-contrast-rgb:
+    #{color.channel($pure-white, 'red', $space: rgb)},
+    #{color.channel($pure-white, 'green', $space: rgb)},
+    #{color.channel($pure-white, 'blue', $space: rgb)};
+  --ion-color-secondary-shade: #{$secondary-red-shade};
+  --ion-color-secondary-tint: #{$secondary-red-tint};
+
+  // Medium (used for borders/labels)
+  --ion-color-medium: #{$medium-gray-2};
+  --ion-color-medium-rgb:
+    #{color.channel($medium-gray-2, 'red', $space: rgb)},
+    #{color.channel($medium-gray-2, 'green', $space: rgb)},
+    #{color.channel($medium-gray-2, 'blue', $space: rgb)};
+  --ion-color-medium-contrast: #{$deep-black};
+  --ion-color-medium-contrast-rgb:
+    #{color.channel($deep-black, 'red', $space: rgb)},
+    #{color.channel($deep-black, 'green', $space: rgb)},
+    #{color.channel($deep-black, 'blue', $space: rgb)};
+  --ion-color-medium-shade: #{$medium-gray-2-shade};
+  --ion-color-medium-tint: #{$medium-gray-2-tint};
+
+  // Light/Dark helpers
+  --ion-color-light: #{$light-gray};
+  --ion-color-dark: #{$dark-gray};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    // App background and text
+    --ion-background-color: #121212;
+    --app-background-rgb: 18, 18, 18;
+    --p-color: #ffffff;
+
+    --filter: 1;
+
+    // Primary
+    --ion-color-primary: #{$primary-red};
+    --ion-color-primary-rgb:
+      #{color.channel($primary-red, 'red', $space: rgb)},
+      #{color.channel($primary-red, 'green', $space: rgb)},
+      #{color.channel($primary-red, 'blue', $space: rgb)};
+    --ion-color-primary-contrast: #{$pure-white};
+    --ion-color-primary-contrast-rgb:
+      #{color.channel($pure-white, 'red', $space: rgb)},
+      #{color.channel($pure-white, 'green', $space: rgb)},
+      #{color.channel($pure-white, 'blue', $space: rgb)};
+    --ion-color-primary-shade: #{$primary-red-shade};
+    --ion-color-primary-tint: #{$primary-red-tint};
+
+    // Secondary
+    --ion-color-secondary: #{$secondary-red};
+    --ion-color-secondary-rgb:
+      #{color.channel($secondary-red, 'red', $space: rgb)},
+      #{color.channel($secondary-red, 'green', $space: rgb)},
+      #{color.channel($secondary-red, 'blue', $space: rgb)};
+    --ion-color-secondary-contrast: #{$pure-white};
+    --ion-color-secondary-contrast-rgb:
+      #{color.channel($pure-white, 'red', $space: rgb)},
+      #{color.channel($pure-white, 'green', $space: rgb)},
+      #{color.channel($pure-white, 'blue', $space: rgb)};
+    --ion-color-secondary-shade: #{$secondary-red-shade};
+    --ion-color-secondary-tint: #{$secondary-red-tint};
+
+    // Medium (used for borders/labels)
+    --ion-color-medium: #666666;
+    --ion-color-medium-rgb: 102, 102, 102;
+    --ion-color-medium-contrast: #{$pure-white};
+    --ion-color-medium-contrast-rgb:
+      #{color.channel($pure-white, 'red', $space: rgb)},
+      #{color.channel($pure-white, 'green', $space: rgb)},
+      #{color.channel($pure-white, 'blue', $space: rgb)};
+    --ion-color-medium-shade: #5a5a5a;
+    --ion-color-medium-tint: #757575;
+
+    // Light/Dark helpers
+    --ion-color-light: #222222;
+    --ion-color-dark: #{$dark-gray};
+  }
+}

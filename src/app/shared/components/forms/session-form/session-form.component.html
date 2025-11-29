@@ -1,0 +1,60 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  @if (!session) {
+    <div class="row">
+      <ion-select
+        interface="popover"
+        aria-label="Eleições"
+        formControlName="elections"
+        label="Selecione as eleições"
+        label-placement="floating"
+        fill="solid"
+        mode="md"
+        [multiple]="true"
+      >
+        @for (election of elections; track $index) {
+          <ion-select-option [value]="election._id">
+            {{ election.name }}
+          </ion-select-option>
+        }
+      </ion-select>
+      @if (form.get('elections')?.touched && form.get('elections')?.invalid) {
+        <p>Selecione pelo menos uma eleição</p>
+      }
+    </div>
+  }
+
+  <div class="date-container">
+    <div class="row">
+      <label for="startedAt">Selecione a data de inicio</label>
+      <ion-datetime-button datetime="startedAt"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="startedAt"
+            formControlName="startedAt"
+            presentation="date-time"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </div>
+
+    <div class="row">
+      <label for="startedAt">Selecione a data de encerramento</label>
+      <ion-datetime-button datetime="endedAt"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="endedAt"
+            formControlName="endedAt"
+            presentation="date-time"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </div>
+  </div>
+  <app-custom-button [disabled]="!form.valid" type="submit">
+    {{ session ? 'Atualizar' : 'Criar' }}
+  </app-custom-button>
+</form>

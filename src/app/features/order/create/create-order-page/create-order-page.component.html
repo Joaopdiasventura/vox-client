@@ -1,0 +1,53 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>conta</h1>
+      </div>
+      <div class="row">
+        <p>Aqui você pode criar um pedido para melhorar sua conta</p>
+        <app-custom-link [path]="['/order']">
+          todos os pedidos
+        </app-custom-link>
+      </div>
+    </div>
+    <form [formGroup]="form">
+      @if (user()?.plan != 'pro') {
+        <div class="row">
+          <ion-select
+            type="text"
+            formControlName="plan"
+            label="Plano: "
+            labelPlacement="floating"
+            fill="outline"
+            placeholder="Selecione um plano"
+          >
+            <ion-select-option value="basic">
+              Plano básico (gratuito)
+            </ion-select-option>
+            <ion-select-option value="pro">
+              Plano pro ( R$ {{ planValue('pro') }} )
+            </ion-select-option>
+          </ion-select>
+        </div>
+      }
+      <div class="row">
+        <ion-input
+          type="number"
+          formControlName="votes"
+          label="Votos: "
+          labelPlacement="floating"
+          fill="outline"
+          placeholder="Digite uma quantidade de votos"
+        >
+        </ion-input>
+      </div>
+      <div class="row">
+        <app-custom-button (click)="submit()" [disabled]="form.invalid">
+          criar
+        </app-custom-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

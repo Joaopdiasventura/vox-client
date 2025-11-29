@@ -1,0 +1,26 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>
+          {{
+            session() ? 'Atualizar Sessão de: ' + electionNames : 'Criar Sessão'
+          }}
+        </h1>
+      </div>
+      <div class="row">
+        <p>
+          Aqui você pode {{ session() ? 'atualizar' : 'criar' }} uma sessão para
+          a realização das votações
+        </p>
+        <app-custom-link [path]="['/session']"> voltar </app-custom-link>
+      </div>
+    </div>
+    <session-form
+      [session]="session()"
+      [elections]="elections()"
+      (changeLoading)="changeLoading($event)"
+    />
+  </div>
+</ion-content>

@@ -1,0 +1,217 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--ion-color-light);
+}
+
+ion-content {
+  height: 100%;
+  --background: var(--ion-color-light);
+}
+
+ion-content .content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--spacing-l), 4vh, var(--spacing-xl));
+  min-height: 100%;
+  padding: clamp(var(--spacing-m), 4vh, var(--spacing-xl))
+    clamp(var(--spacing-m), 4vw, var(--spacing-xl));
+  box-sizing: border-box;
+  align-items: center;
+}
+
+ion-content .info {
+  width: min(1200px, 96vw);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--spacing-m), 2vh, var(--spacing-l));
+}
+
+ion-content .info .row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(var(--spacing-s), 2vw, var(--spacing-l));
+}
+
+ion-content .info .row h1 {
+  font-family: 'Azonix';
+  text-transform: uppercase;
+  margin: 0;
+}
+
+ion-content .info .row img {
+  width: clamp(160px, 18vw, 240px);
+  height: auto;
+}
+
+ion-content .info .row p {
+  margin: 0;
+}
+
+ion-content .info .row .links {
+  display: flex;
+  gap: clamp(var(--spacing-s), 1.5vw, var(--spacing-m));
+  flex-wrap: wrap;
+}
+
+ion-content main {
+  width: min(1200px, 96vw);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--spacing-l), 3vh, var(--spacing-xl));
+  align-items: center;
+}
+
+ion-content .step-card {
+  width: 100%;
+  background: var(--ion-background-color);
+  border-radius: 16px;
+  padding: clamp(var(--spacing-m), 3vh, var(--spacing-xl));
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--spacing-m), 2vh, var(--spacing-l));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
+}
+
+ion-content .step-card header p {
+  margin: 0;
+  font-weight: 600;
+}
+
+ion-content .step-card form .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(var(--spacing-s), 2vw, var(--spacing-l));
+  align-items: flex-end;
+}
+
+ion-content .step-card form .row app-custom-button {
+  justify-self: flex-start;
+  min-width: 180px;
+}
+
+ion-content .vote-panel {
+  background: var(--ion-color-light);
+  border: 2px solid var(--ion-background-color);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  gap: clamp(var(--spacing-m), 2vh, var(--spacing-l));
+}
+
+ion-content .vote-panel .elections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(var(--spacing-m), 2vw, var(--spacing-l));
+}
+
+ion-content .vote-panel .election-card {
+  background: var(--ion-background-color);
+  border-radius: 14px;
+  padding: clamp(var(--spacing-m), 1.5vh, var(--spacing-l));
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+}
+
+ion-content .vote-panel .election-card .label {
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+ion-content .vote-panel .election-card .radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+}
+
+ion-content .vote-panel .election-card .radio-list.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+ion-content .vote-panel .election-card .radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+ion-content .vote-panel .election-card .radio-option input {
+  accent-color: var(--ion-color-primary);
+}
+
+ion-content .vote-panel .election-card .radio-option span {
+  flex: 1;
+  font-weight: 500;
+}
+
+ion-content .vote-panel app-custom-button {
+  align-self: center;
+  min-width: 220px;
+}
+
+ion-content .all-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-l);
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+ion-content .all-screen .overlay-info {
+  background: var(--ion-background-color);
+  padding: clamp(var(--spacing-l), 3vh, var(--spacing-xl));
+  border-radius: 14px;
+  text-align: center;
+  max-width: 480px;
+}
+
+ion-content .all-screen .overlay-info h2 {
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+  ion-content .vote-panel .elections {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  ion-content .content {
+    padding: var(--spacing-l);
+  }
+
+  ion-content .info .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  ion-content .info .row .links {
+    width: 100%;
+  }
+
+  ion-content .step-card form .row {
+    grid-template-columns: 1fr;
+  }
+
+  ion-content .step-card form .row app-custom-button {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  ion-content .vote-panel .elections {
+    grid-template-columns: 1fr;
+  }
+}

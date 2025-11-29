@@ -1,0 +1,89 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>conta</h1>
+      </div>
+      <div class="row">
+        <p>
+          Você está no plano {{ user()?.plan == 'pro' ? 'Pro' : 'básico' }} e
+          possui {{ user()?.votes }} votos por sessão
+        </p>
+        <div class="links">
+          <app-custom-link [path]="['/order']"> ver pedidos </app-custom-link>
+          <app-custom-link [path]="['/order', 'create']">
+            melhorar conta
+          </app-custom-link>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="form">
+      <div class="row">
+        <ion-input
+          type="text"
+          formControlName="taxId"
+          label="CPF/CNPJ: "
+          labelPlacement="floating"
+          fill="outline"
+          placeholder="Digite um CPF/CNPJ"
+          (ionInput)="onTaxIdInput($event)"
+        >
+        </ion-input>
+        <app-custom-button (click)="update()" [disabled]="cannotUpdate('taxId')"
+          >editar</app-custom-button
+        >
+      </div>
+      <div class="row">
+        <ion-input
+          type="text"
+          formControlName="name"
+          label="Nome: "
+          labelPlacement="floating"
+          fill="outline"
+          placeholder="Digite um nome"
+        >
+        </ion-input>
+        <app-custom-button (click)="update()" [disabled]="cannotUpdate('name')"
+          >editar</app-custom-button
+        >
+      </div>
+      <div class="row">
+        <ion-input
+          type="text"
+          formControlName="cellphone"
+          label="Celular: "
+          labelPlacement="floating"
+          fill="outline"
+          placeholder="Digite um celular"
+          (ionInput)="onCellphoneInput($event)"
+        >
+        </ion-input>
+        <app-custom-button
+          (click)="update()"
+          [disabled]="cannotUpdate('cellphone')"
+          >editar</app-custom-button
+        >
+      </div>
+      <div class="row">
+        <ion-input
+          type="password"
+          formControlName="password"
+          label="Senha"
+          labelPlacement="floating"
+          fill="outline"
+          placeholder="Digite uma senha"
+        >
+          @if (form.get('password')?.value) {
+            <ion-input-password-toggle slot="end" />
+          }
+        </ion-input>
+        <app-custom-button
+          (click)="update()"
+          [disabled]="cannotUpdate('password')"
+          >editar</app-custom-button
+        >
+      </div>
+    </form>
+  </div>
+</ion-content>

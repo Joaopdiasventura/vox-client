@@ -1,0 +1,17 @@
+<ng-template #linkContent>
+  <ng-content></ng-content>
+</ng-template>
+
+@if (isExternal) {
+  <a class="custom-link" [href]="href" target="_blank">
+    <ng-container *ngTemplateOutlet="linkContent"></ng-container>
+  </a>
+} @else {
+  <a
+    class="custom-link"
+    [routerLink]="path ? path : []"
+    [queryParams]="queryParams"
+  >
+    <ng-container *ngTemplateOutlet="linkContent"></ng-container>
+  </a>
+}

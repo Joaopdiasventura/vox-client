@@ -1,0 +1,33 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>
+          {{
+            candidates().length
+              ? 'Candidatos de: ' + election().name
+              : 'Nenhum candidato encontrado'
+          }}
+        </h1>
+      </div>
+      <div class="row">
+        <p>Aqui você pode gerenciar os candidatos</p>
+        <app-custom-link [path]="['/candidate', 'add']">
+          Adicionar
+        </app-custom-link>
+      </div>
+    </div>
+    <div class="cards">
+      @for (candidate of candidates(); track $index) {
+        <candidate-card
+          #cardRef
+          [candidate]="candidate"
+          [index]="$index"
+          (deleteEvent)="delete($event)"
+          (changeLoading)="changeLoading($event)"
+        />
+      }
+    </div>
+  </div>
+</ion-content>

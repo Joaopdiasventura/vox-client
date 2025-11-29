@@ -1,0 +1,21 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>
+          {{ orders().length ? 'Pedidos' : 'Nenhum pedido encontrado' }}
+        </h1>
+      </div>
+      <div class="row">
+        <p>Aqui você pode ver seus pedidos</p>
+        <app-custom-link [path]="['create']"> Adicionar </app-custom-link>
+      </div>
+    </div>
+    <div class="cards">
+      @for (order of orders(); track $index) {
+        <order-card #cardRef [order]="order" />
+      }
+    </div>
+  </div>
+</ion-content>

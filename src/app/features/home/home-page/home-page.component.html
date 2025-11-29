@@ -1,0 +1,85 @@
+﻿<div class="start-container">
+  <div class="welcome-container">
+    <img src="assets/svg/home-logo.svg" alt="home-image" />
+    <h1>{{ user()?.name }}, o que deseja fazer?</h1>
+  </div>
+  <div class="links-container">
+    <a [routerLink]="['/candidate', 'add']">
+      <img src="assets/svg/red/add-candidate.svg" alt="" />
+      <p>adicionar candidato</p>
+    </a>
+    <a [routerLink]="['/vote', 'start']">
+      <img src="assets/svg/red/start-vote.svg" alt="" />
+      <p>iniciar votacao</p>
+    </a>
+    <a [routerLink]="['/vote', 'track']">
+      <img src="assets/svg/red/track-vote.svg" alt="" />
+      <p>acompanhar votacao</p>
+    </a>
+    <a [routerLink]="['/vote', 'allow']">
+      <img src="assets/svg/red/allow-vote.svg" alt="" />
+      <p>autorizar votacao</p>
+    </a>
+  </div>
+</div>
+<div class="container">
+  <h3>
+    {{ sessions().length ? 'Sessoes recentes' : 'Nenhuma sessão Encontrada' }}
+  </h3>
+  <div class="sessions-container">
+    @for (session of sessions(); track $index) {
+      <session-card
+        [session]="session"
+        [index]="$index"
+        (deleteEvent)="deleteSession($event)"
+        (changeLoading)="changeLoading($event)"
+      />
+    }
+  </div>
+  <div class="link-container">
+    <app-custom-link
+      [path]="sessions().length ? ['/session'] : ['/session', 'add']"
+    >
+      <img src="assets/svg/red/see-sessions.svg" alt="" />
+      {{ sessions().length ? 'Ver Sessoes' : 'Criar sessão' }}
+    </app-custom-link>
+  </div>
+</div>
+<div class="container">
+  <h3>
+    {{
+      elections().length ? 'Eleicoes Recentes' : 'Nenhuma Eleicao Encontrada'
+    }}
+  </h3>
+  <div class="elections-container">
+    @for (election of elections(); track $index) {
+      <election-card
+        [election]="election"
+        [index]="$index"
+        (deleteEvent)="deleteElection($event)"
+        (changeLoading)="changeLoading($event)"
+      />
+    }
+  </div>
+  <div class="link-container">
+    <app-custom-link
+      [path]="elections().length ? ['/election'] : ['/election', 'add']"
+    >
+      <img src="assets/svg/red/troph.svg" alt="" />
+      {{ elections().length ? 'Ver Eleicoes' : 'Criar Eleicao' }}
+    </app-custom-link>
+  </div>
+</div>
+<footer>
+  <div class="content">
+    <p>{{ user()?.email }}</p>
+    <div class="icons">
+      <a [routerLink]="['/user']">
+        <img src="assets/svg/gray/config.svg" alt="" />
+      </a>
+      <a [routerLink]="['/user', 'access']">
+        <img src="assets/svg/gray/exit.svg" alt="" />
+      </a>
+    </div>
+  </div>
+</footer>

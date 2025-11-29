@@ -1,0 +1,12 @@
+<ion-app class="app" [class.with-navbar]="showNavBar()">
+  @if (showNavBar()) {
+    <navbar />
+  }
+  <ion-router-outlet class="router" [animated]="false"></ion-router-outlet>
+  @if (modalConfig()) {
+    <modal [modalConfig]="modalConfig()!" />
+  }
+  @if (isLoading()) {
+    <loading />
+  }
+</ion-app>

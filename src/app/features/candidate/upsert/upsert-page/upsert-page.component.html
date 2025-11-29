@@ -1,0 +1,21 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>{{ candidate() ? 'Atualizar Candidato' : 'Criar Candidato' }}</h1>
+      </div>
+      <div class="row">
+        <p>
+          Aqui você pode {{ candidate() ? 'atualizar' : 'criar' }} um candidato
+        </p>
+        <app-custom-link [path]="backLink"> voltar </app-custom-link>
+      </div>
+    </div>
+    <candidate-form
+      [candidate]="candidate()"
+      [elections]="elections()"
+      (changeLoading)="changeLoading($event)"
+    />
+  </div>
+</ion-content>

@@ -1,0 +1,39 @@
+a,
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 0;
+  padding: 12px 24px;
+  height: 40px;
+  line-height: normal;
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+  font-weight: 600;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+  gap: 1vw;
+  text-align: center;
+  font-family: 'Azonix';
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled,
+  &.button-disabled {
+    background: var(--ion-color-medium);
+    color: var(--ion-color-primary-contrast);
+    cursor: not-allowed;
+    opacity: 0.9;
+  }
+
+  ::ng-deep img {
+    filter: brightness(0) invert(1);
+  }
+}

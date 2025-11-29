@@ -1,0 +1,8 @@
+{
+  "name": "Vox",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone",
+  "id": "66db535d"
+}

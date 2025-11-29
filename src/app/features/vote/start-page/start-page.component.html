@@ -1,0 +1,124 @@
+<ion-content>
+  <div class="content">
+    @if (status() === 'selecting') {
+      <div class="info">
+        <div class="row">
+          <img src="assets/svg/full-logo.svg" alt="" />
+          <h1>iniciar votacao</h1>
+        </div>
+        <div class="row">
+          <p>Configure uma urna e envie os votos autorizados</p>
+          <div class="links">
+            <app-custom-link [path]="['/vote', 'track']">
+              acompanhar
+            </app-custom-link>
+            <app-custom-link [path]="['/vote', 'allow']">
+              autorizar
+            </app-custom-link>
+          </div>
+        </div>
+      </div>
+    }
+
+    <main>
+      @if (status() === 'selecting') {
+        <section class="step-card">
+          <header>
+            <p>Selecione a sessão, nomeie e crie a urna</p>
+          </header>
+          <form>
+            <div class="row">
+              <ion-input
+                aria-label="Nome"
+                label="De um nome para a urna"
+                label-placement="floating"
+                fill="solid"
+                mode="md"
+                [formControl]="nameControl"
+                [disabled]="status() !== 'selecting' || !!ballotBox()"
+              >
+              </ion-input>
+              <ion-select
+                interface="popover"
+                aria-label="sessão"
+                label="Selecione a sessão"
+                label-placement="floating"
+                fill="solid"
+                mode="md"
+                [formControl]="sessionControl"
+                [disabled]="status() !== 'selecting' || !!ballotBox()"
+              >
+                @for (session of sessions(); track $index) {
+                  <ion-select-option [value]="session">
+                    {{ electionNames(session) }}
+                  </ion-select-option>
+                }
+              </ion-select>
+              <app-custom-button
+                type="button"
+                (clicked)="onCreateAndStart()"
+                [disabled]="!canCreateBallotBox()"
+              >
+                {{ ballotBox() ? 'iniciar votacao' : 'criar e iniciar' }}
+              </app-custom-button>
+            </div>
+          </form>
+        </section>
+      }
+
+      @if (status() === 'occurring' && currentSession()) {
+        <section class="step-card vote-panel">
+          <div class="elections">
+            @for (election of currentSession()?.elections; track election._id) {
+              <div class="election-card">
+                <p class="label">{{ election.name }}</p>
+                <div class="radio-list" [class.disabled]="submitting()">
+                  @for (
+                    candidate of candidates()[election._id] || [];
+                    track candidate._id
+                  ) {
+                    <label class="radio-option">
+                      <input
+                        type="radio"
+                        [name]="election._id"
+                        [value]="candidate._id"
+                        [disabled]="submitting()"
+                        (change)="selectCandidate(election._id, candidate._id)"
+                      />
+                      <span>{{ candidate.name }}</span>
+                    </label>
+                  }
+                  <label class="radio-option">
+                    <input
+                      type="radio"
+                      [name]="election._id"
+                      [disabled]="submitting()"
+                      (change)="selectCandidate(election._id, null)"
+                    />
+                    <span>voto em branco</span>
+                  </label>
+                </div>
+              </div>
+            }
+          </div>
+          <app-custom-button
+            type="button"
+            (clicked)="sendVotes()"
+            [disabled]="!canSendVotes()"
+          >
+            enviar votos
+          </app-custom-button>
+        </section>
+      }
+    </main>
+
+    @if (isWaitingAllow()) {
+      <div class="all-screen running" [class.blocking]="overlayActive()">
+        <div class="overlay-info">
+          <h2>aguardando liberacao</h2>
+          <p>A urna precisa ser liberada pela pagina de autorizacao</p>
+        </div>
+      </div>
+    }
+  </div>
+</ion-content>

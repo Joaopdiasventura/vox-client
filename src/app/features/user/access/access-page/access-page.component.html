@@ -1,0 +1,168 @@
+<ion-content [fullscreen]="true" class="access-content">
+  <div class="container" [class.register-active]="isRegisterActive()">
+    <ion-img
+      src="assets/images/welcome-logo.png"
+      alt="welcome-image"
+      class="welcome-image"
+    ></ion-img>
+
+    <ion-segment
+      mode="ios"
+      class="change-segment"
+      [value]="isRegisterActive() ? 'register' : 'login'"
+      (ionChange)="onSegmentChange($event)"
+    >
+      <ion-segment-button value="login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        <ion-label>Cadastro</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div class="forms-wrapper">
+      <div class="forms-container">
+        <form class="login" [formGroup]="loginForm" (ngSubmit)="login()">
+          <ion-list lines="none">
+            <ion-item
+              [class.invalid]="
+                loginForm.get('email')?.touched &&
+                loginForm.get('email')?.invalid
+              "
+            >
+              <ion-input
+                type="email"
+                formControlName="email"
+                label="Email"
+                labelPlacement="floating"
+                fill="outline"
+                placeholder="Digite seu email"
+              ></ion-input>
+            </ion-item>
+            @if (
+              loginForm.get('email')?.touched && loginForm.get('email')?.invalid
+            ) {
+              <p>Digite um email válido</p>
+            }
+
+            <ion-item
+              [class.invalid]="
+                loginForm.get('password')?.touched &&
+                loginForm.get('password')?.invalid
+              "
+            >
+              <ion-input
+                type="password"
+                formControlName="password"
+                label="Senha"
+                labelPlacement="floating"
+                fill="outline"
+                placeholder="Digite sua senha"
+              >
+                @if (loginForm.get('password')?.value) {
+                  <ion-input-password-toggle slot="end" />
+                }
+              </ion-input>
+            </ion-item>
+            @if (
+              loginForm.get('password')?.touched &&
+              loginForm.get('password')?.invalid
+            ) {
+              <p>
+                Digite uma senha com ao menos 8 caracteres, incluindo letras
+                maiúsculas, minúsculas, números e símbolos
+              </p>
+            }
+          </ion-list>
+
+          <a (click)="resetPassword()" class="forgot"> esqueceu sua senha? </a>
+          <div>
+            <app-custom-button [disabled]="!loginForm.valid" type="submit"
+              >Entrar</app-custom-button
+            >
+          </div>
+        </form>
+
+        <form class="register" [formGroup]="createForm" (ngSubmit)="create()">
+          <ion-list lines="none">
+            <ion-item
+              [class.invalid]="
+                createForm.get('name')?.touched &&
+                createForm.get('name')?.invalid
+              "
+            >
+              <ion-input
+                type="text"
+                formControlName="name"
+                label="Nome"
+                labelPlacement="floating"
+                fill="outline"
+                placeholder="Digite um nome"
+              ></ion-input>
+            </ion-item>
+            @if (
+              createForm.get('name')?.touched && createForm.get('name')?.invalid
+            ) {
+              <p>Digite um nome válido</p>
+            }
+            <ion-item
+              [class.invalid]="
+                createForm.get('email')?.touched &&
+                createForm.get('email')?.invalid
+              "
+            >
+              <ion-input
+                type="email"
+                formControlName="email"
+                label="Email"
+                labelPlacement="floating"
+                fill="outline"
+                placeholder="Digite um email"
+              ></ion-input>
+            </ion-item>
+            @if (
+              createForm.get('email')?.touched &&
+              createForm.get('email')?.invalid
+            ) {
+              <p>Digite um email válido</p>
+            }
+
+            <ion-item
+              [class.invalid]="
+                createForm.get('password')?.touched &&
+                createForm.get('password')?.invalid
+              "
+            >
+              <ion-input
+                type="password"
+                formControlName="password"
+                label="Senha"
+                labelPlacement="floating"
+                fill="outline"
+                placeholder="Digite uma senha"
+              >
+                @if (createForm.get('password')?.value) {
+                  <ion-input-password-toggle slot="end" />
+                }
+              </ion-input>
+            </ion-item>
+            @if (
+              createForm.get('password')?.touched &&
+              createForm.get('password')?.invalid
+            ) {
+              <p>
+                Digite uma senha com ao menos 8 caracteres, incluindo letras
+                maiúsculas, minúsculas, números e símbolos
+              </p>
+            }
+          </ion-list>
+          <div>
+            <app-custom-button [disabled]="!createForm.valid" type="submit"
+              >Cadastrar</app-custom-button
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

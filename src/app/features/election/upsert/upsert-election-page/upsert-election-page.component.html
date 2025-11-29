@@ -1,0 +1,21 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>{{ election() ? 'Atualizar Eleição' : 'Criar Eleição' }}</h1>
+      </div>
+      <div class="row">
+        <p>
+          Aqui você pode {{ election() ? 'atualizar' : 'criar' }} uma eleição
+          para adicionar candidatos e sessões para as votações
+        </p>
+        <app-custom-link [path]="['/election']"> voltar </app-custom-link>
+      </div>
+    </div>
+    <election-form
+      [election]="election()"
+      (changeLoading)="changeLoading($event)"
+    />
+  </div>
+</ion-content>

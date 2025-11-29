@@ -1,0 +1,25 @@
+<img src="assets/svg/gray/group.svg" alt="" class="side-picture" />
+<div class="content">
+  <h2>{{ election.name }}</h2>
+  <div class="left-content">
+    @if (expand) {
+      <div class="controls">
+        <app-custom-link
+          [path]="['/session']"
+          [queryParams]="{ election: election._id }"
+        >
+          SESSÕES
+        </app-custom-link>
+        <app-custom-link [path]="['/candidate', election._id]">
+          CANDIDATOS
+        </app-custom-link>
+      </div>
+      <div class="controls">
+        <app-custom-button (clicked)="openModal()">REMOVER</app-custom-button>
+        <app-custom-link [path]="['/election', 'update', election._id]">
+          ATUALIZAR
+        </app-custom-link>
+      </div>
+    }
+  </div>
+</div>

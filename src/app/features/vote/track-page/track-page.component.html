@@ -1,0 +1,69 @@
+<ion-content>
+  <div class="content">
+    <div class="info">
+      <div class="row">
+        <img src="assets/svg/full-logo.svg" alt="" />
+        <h1>acompanhar votacao</h1>
+      </div>
+      <div class="row">
+        <p>Selecione a sessão para ver os votos em tempo real</p>
+        <div class="links">
+          <app-custom-link [path]="['/vote', 'start']">
+            iniciar
+          </app-custom-link>
+          <app-custom-link [path]="['/vote', 'allow']">
+            autorizar
+          </app-custom-link>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="select-wrapper">
+        <ion-select
+          interface="popover"
+          aria-label="sessão"
+          label="Selecione a sessão"
+          label-placement="floating"
+          fill="solid"
+          mode="md"
+          [formControl]="sessionControl"
+        >
+          @for (session of sessions(); track $index) {
+            <ion-select-option [value]="session">
+              {{ electionNames(session) }}
+            </ion-select-option>
+          }
+        </ion-select>
+      </div>
+
+      @if (sessionControl.value) {
+        <section class="panel">
+          @if (buckets().length === 0) {
+            <p class="empty">Nenhum voto registrado ainda</p>
+          }
+          @if (buckets().length > 0) {
+            <div class="buckets">
+              @for (bucket of buckets(); track bucket.electionId) {
+                <article class="bucket">
+                  <header>
+                    <p>{{ bucket.electionName }}</p>
+                    <span class="tag">{{ bucket.total }} votos</span>
+                  </header>
+                  <ul>
+                    @for (result of bucket.results; track result.name) {
+                      <li>
+                        <span>{{ result.name }}</span>
+                        <strong>{{ result.quantity }}</strong>
+                      </li>
+                    }
+                  </ul>
+                </article>
+              }
+            </div>
+          }
+        </section>
+      }
+    </main>
+  </div>
+</ion-content>

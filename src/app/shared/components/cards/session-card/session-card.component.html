@@ -1,0 +1,24 @@
+<img src="assets/svg/gray/group.svg" alt="" class="side-picture" />
+<div class="content">
+  <h2>{{ electionNames }}</h2>
+  <div class="left-content">
+    <div class="dates">
+      <p>
+        das
+        {{ session.startedAt | date: 'dd/MM/yyyy - HH:mm' }}
+      </p>
+      <p>
+        ate
+        {{ session.endedAt | date: 'dd/MM/yyyy - HH:mm' }}
+      </p>
+    </div>
+    @if (expand) {
+      <div class="controls">
+        <app-custom-link [path]="['/session', 'update', session._id]">
+          ATUALIZAR
+        </app-custom-link>
+        <app-custom-button (clicked)="openModal()">REMOVER</app-custom-button>
+      </div>
+    }
+  </div>
+</div>

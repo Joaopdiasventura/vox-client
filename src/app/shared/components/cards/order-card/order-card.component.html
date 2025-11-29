@@ -1,0 +1,23 @@
+<img src="assets/svg/gray/group.svg" alt="" class="side-picture" />
+<div class="content">
+  <h2>{{ name }}</h2>
+  <div class="left-content">
+    <div class="dates">
+      <p>
+        criado em:
+        {{ order.createdAt | date: 'dd/MM/yyyy - HH:mm' }}
+      </p>
+      @if (order.payment) {
+        <p>
+          paga em:
+          {{ order.updatedAt | date: 'dd/MM/yyyy - HH:mm' }}
+        </p>
+      }
+    </div>
+    @if (order.paymentUrl) {
+      <div class="controls">
+        <app-custom-link [href]="order.paymentUrl"> PAGAR </app-custom-link>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,170 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--ion-color-light);
+}
+
+ion-content {
+  height: 100%;
+  --background: var(--ion-color-light);
+}
+
+ion-content .content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--spacing-l), 4vh, var(--spacing-xl));
+  min-height: 100%;
+  padding: clamp(var(--spacing-m), 4vh, var(--spacing-xl))
+    clamp(var(--spacing-m), 4vw, var(--spacing-xl));
+  box-sizing: border-box;
+  align-items: center;
+}
+
+ion-content .info {
+  width: min(1200px, 96vw);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--spacing-m), 2vh, var(--spacing-l));
+}
+
+ion-content .info .row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(var(--spacing-s), 2vw, var(--spacing-l));
+}
+
+ion-content .info .row h1 {
+  font-family: 'Azonix';
+  text-transform: uppercase;
+  margin: 0;
+}
+
+ion-content .info .row img {
+  width: clamp(160px, 18vw, 240px);
+  height: auto;
+}
+
+ion-content .info .row p {
+  margin: 0;
+}
+
+ion-content .info .row .links {
+  display: flex;
+  gap: clamp(var(--spacing-s), 1.5vw, var(--spacing-m));
+  flex-wrap: wrap;
+}
+
+ion-content main {
+  width: min(1100px, 96vw);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--spacing-l), 3vh, var(--spacing-xl));
+  align-items: center;
+}
+
+ion-content .select-wrapper {
+  width: 100%;
+  background: var(--ion-background-color);
+  padding: clamp(var(--spacing-m), 2vh, var(--spacing-l));
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
+}
+
+ion-content .panel {
+  width: 100%;
+  background: var(--ion-background-color);
+  border-radius: 16px;
+  padding: clamp(var(--spacing-m), 3vh, var(--spacing-xl));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--spacing-m), 2vh, var(--spacing-l));
+}
+
+ion-content .panel .empty {
+  text-align: center;
+  margin: 0;
+  opacity: 0.8;
+}
+
+ion-content .panel .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: clamp(var(--spacing-m), 2vw, var(--spacing-l));
+}
+
+ion-content .panel .card {
+  background: var(--ion-color-light);
+  border-radius: 14px;
+  padding: clamp(var(--spacing-m), 1.5vh, var(--spacing-l));
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+ion-content .panel .card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-s);
+}
+
+ion-content .panel .card header p {
+  margin: 0;
+  font-weight: 700;
+}
+
+ion-content .panel .card header small {
+  opacity: 0.8;
+}
+
+ion-content .panel .card header .badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--ion-color-medium);
+  color: var(--ion-color-light);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+ion-content .panel .card header .badge.badge--ok {
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+}
+
+ion-content .panel .card app-custom-button {
+  align-self: flex-start;
+  min-width: 180px;
+}
+
+@media (max-width: 960px) {
+  ion-content main {
+    width: 96vw;
+  }
+
+  ion-content .panel .cards {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  ion-content .content {
+    padding: var(--spacing-l);
+  }
+
+  ion-content .info .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  ion-content .info .row .links {
+    width: 100%;
+  }
+}

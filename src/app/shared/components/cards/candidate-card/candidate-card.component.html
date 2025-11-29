@@ -1,0 +1,12 @@
+<img src="assets/svg/gray/group.svg" alt="" class="side-picture" />
+<div class="content">
+  <h2>{{ candidate.name }}</h2>
+  <div class="left-content">
+    <div class="controls">
+      <app-custom-button (clicked)="openModal()">REMOVER</app-custom-button>
+      <app-custom-link [path]="['/candidate', 'update', candidate._id]">
+        ATUALIZAR
+      </app-custom-link>
+    </div>
+  </div>
+</div>

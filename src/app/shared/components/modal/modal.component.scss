@@ -1,0 +1,132 @@
+@use 'sass:color';
+@use '../../../../theme/variables.scss' as *;
+
+:host {
+  position: absolute;
+  inset: 0;
+  z-index: 9999;
+  height: 100vh;
+  width: 100vw;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modal {
+  width: min(92vw, 560px);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--ion-color-light);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.25),
+    0 2px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(0) scale(0.98);
+  opacity: 0;
+  animation: modal-in 180ms ease-out forwards;
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(20px, 4vw, 40px) clamp(16px, 5vw, 48px);
+
+    padding: clamp(20px, 4vw, 40px) clamp(16px, 5vw, 48px);
+    background: var(--ion-color-light);
+
+    ::ng-deep h2 {
+      color: var(--modal-title);
+      margin: 0;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    ::ng-deep p {
+      color: var(--modal-subtitle);
+      font-size: clamp(14px, 2.6vw, 16px);
+      text-align: center;
+      margin: 0;
+    }
+  }
+}
+
+.bar {
+  display: grid;
+  place-items: center;
+  height: clamp(44px, 9vw, 56px);
+  background: var(--ion-color-dark);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  img {
+    display: block;
+    width: clamp(22px, 5vw, 28px);
+    height: clamp(22px, 5vw, 28px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal.closing {
+  animation: modal-out 140ms ease-in forwards;
+}
+
+@keyframes modal-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@media (min-width: 768px) {
+  .modal {
+    width: min(88vw, 600px);
+  }
+}
+
+.overlay,
+.modal {
+  pointer-events: auto;
+}
+
+:root {
+  --modal-bg: var(--ion-color-light);
+  --modal-title: var(--ion-color-primary);
+  --modal-subtitle: var(--ion-color-medium);
+}
+
+.controls {
+  display: flex;
+  gap: 2.5vw;
+}
