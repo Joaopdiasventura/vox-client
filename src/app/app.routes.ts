@@ -47,9 +47,5 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/vote/routes/vote.routes').then((m) => m.routes),
   },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];

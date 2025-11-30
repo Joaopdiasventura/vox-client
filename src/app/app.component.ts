@@ -9,6 +9,14 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
 import { UiStateService } from './shared/services/ui-state/ui-state.service';
 import { ModalConfig } from './shared/interfaces/config/ui/modal';
 
+declare global {
+  interface Window {
+    electron?: {
+      onDeepLink: (cb: (url: string) => void) => void;
+    };
+  }
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -43,6 +51,20 @@ export class AppComponent implements OnInit {
       const path = new URL(url).pathname;
       this.router.navigateByUrl(path);
     });
+    if (typeof window !== 'undefined' && window.electron?.onDeepLink) {
+      window.electron.onDeepLink((url) => {
+        try {
+          const parsed = new URL(url, 'vox://');
+          const pathParam = parsed.searchParams.get('path');
+          const path = pathParam
+            ? `/${decodeURIComponent(pathParam).replace(/^\/+/, '')}`
+            : parsed.pathname;
+          this.router.navigateByUrl(path || '/');
+        } catch (err) {
+          console.error('[VOX][deeplink][renderer]', err);
+        }
+      });
+    }
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe((event) => this.onCurrentRouteChange(event.urlAfterRedirects));
